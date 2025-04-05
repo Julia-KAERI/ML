@@ -7,7 +7,7 @@ crossref:
   chapters: false
 ---
 
-{{< include ../../../latexmacros.qmd >}}
+{{< include ../latexmacros.qmd >}}
 
 </br>
 
