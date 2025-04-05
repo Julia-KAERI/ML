@@ -1,0 +1,271 @@
+---
+title: "퍼셉트론과 분류"
+
+number-sections: true
+number-depth: 3
+crossref:
+  chapters: false
+---
+
+{{< include ../../../latexmacros.qmd >}}
+
+</br>
+
+<div class="border" style="background-color:#F2F4F4  ;padding:5px;">
+
+### 기하학 {.unnumbered}
+
+분류 문제를 다루는데 SVM 등은 $n$ 차원 공간 $\mathcal{M}_n(\R)$ 에서의 기하학을 이용한다. 
+
+</br>
+
+**초평면 (hyperplane)**
+
+정해진 벡터 $\bf{w} \in \mathcal{M}_n(\R) = V$ 와 $n$ 차원 변수 $\bf{x}$ 에 대해 $\bf{w}^T\bf{x}+c=0$ 를 만족하는 $\bf{x}$ 의 집합은 $n-1$ 차원 부분공간이며 이를 $V$ 에 대한 초평면이라고 한다.
+
+
+$$
+0 = \bf{\omega}^T \bf{x} + c = \bf{\omega}^T \left( \bf{x} + \dfrac{c\bf{\omega}}{\|\omega\|^2}\right)
+$$
+
+이므로 원점과 평면사이의 거리 $d=\dfrac{c}{\|\bf{\omega}\|}$ 이다. 
+
+</div>
+
+</br>
+
+## 분류 문제
+
+### 개요 {#sec-ML_classification_introduction}
+
+분류(classification) 문제는 표적값(target) 이 유한개인 문제이다. 표적값에 따라 입력 벡터를 구별할 수 있으며, 이렇게 구별되는 입력 벡터의 집합을 클래스(class) 라고 하고 각 클래스를 분리하는 경계를 **결정 경계(decision boundary)** 혹은 **결정 표면(decision surface)** 이라고 하며 결정 경계를 바탕으로 분리된 부분집합을 **결정 구역(decision region)** 이라고 한다.
+
+입력 벡터가 $D$ 차원 공간이라고 하자. 결정 표면을 $D$ 차원 공간에 대한 $D-1$ 차원 초평면 으로 분리하는 모델을 **선형 모델(linear model)** 이라고 하며, 데이터들이 다수의 초평면으로 정확하게 각각의 클래스로 분류될 수 있을 때, 이 데이터의 집합을 **선형 분리 가능 집합(linearly seperable set)** 이라고 한다.
+
+가능한 output 이 $K$ 개의 클래스라고 하자. 이 $K$ 개의 클래스를 $\R^K$ 의 표준 기저 벡터로 표현하는 것을 **원-핫 인코딩(one hot encoding)** 이라고 하고 이렇게 표현된 벡터를 **원-핫 벡터** 라고 한다. 예를 들어 다수의 과일 이미지를 사과, 배, 딸기로 분류한다다면 이 이미지들은 3개의 클래스로 분류된다는 의미이다. 사과 클래스는 원-핫 인코딩을 통해 $\bf{e}_1=\begin{bmatrix} 1 & 0 & 0\end{bmatrix}^T$ 로, 배, 딸기는 각각 $\bf{e}_2,\,\bf{e}_3$ 로 표현될 수 있다. 
+
+</br>
+
+### 일반화된 선형 모델 {#sec-ML_classification_generalized_linear_model}
+
+입력값 $\bf{x}$ 에 대한 모델을 구성할 때 모댈 내부의 매개변수 $\bf{w}$ 에 대한 가장 간단한 함수로서
+
+$$
+y(\bf{x}; \bf{w},\,w_0) = f(\bf{w}^T \bf{x}+w_0) 
+$$ {#eq-ML_classification_generalized_linear_model}
+
+를 생각 할 수 있다. 이 때 보통 $f(s)$ 는 비선형 함수이며 **활성화 함수(activation fucntion)** 이라고 불린다. 또한 @eq-ML_classification_generalized_linear_model 로 기술되는 모델을 **일반화된 선형 모델(generalized linear model)** 이라고 한다.
+
+일반화된 선형 모델의 경우 결정 표면은 어떤 상수 $c$ 에 대해 $\bf{w}^T\bf{x} + w_0 = c$ 인 초평면이 된다. 즉 선형 분리 가능 집합의 경우 일반화된 선형 모델로 잘 설명이 된다. 
+
+</br>
+
+### 선형 판별 {#sec-ML_classification_linear_determination}
+
+입력벡터를 어느 클래스로 분류할지 판단하는 함수를 판별함수라고 하고 판별함수에 의한 결정표면이 초평면 일 경우 **선형 판별(linear determination)** 이라고 한다,. 
+
+</br>
+
+#### **이진 분류**
+
+두개의 클래스 $C_1,\,C_2$ 로 분류하는 것을 이진 분류라고 한다. @eq-ML_classification_generalized_linear_model 에서의 활성화 함수 $f$ 를 $\text{sign}(a)$ 함수 즉, 
+
+$$
+\text{sign}(a) = \left\{\begin{array}{ll} 1, \qquad & a\ge 0 \\ 0 & a<0 \end{array} \right.
+$$
+
+로 정한다. 즉 $y(\bf{x};\bf{w},\,w_0)$ 값이 $1$ 이면 $C_1$, $-1$ 이면 $C_2$ 클래스에 포함되도 하는 매개변수를 찾는 문제가 된다. 이진분류의 함수값을 $\{1,\,0\}$ 이 아니라 $\{-1,\,1\}$ 로 놓는 경우도 있지만 뒤에 다룰 확률론적 분류를 위해 $\{1,\,0\}$ 의 값을 사용하도록 한다.
+
+</br>
+
+#### **다중 클래스 의 경우**
+
+2 개 이상 $K$ 개의 클래스 $C_1,\ldots,\,C_K$ 로 분류하는 문제의 경우는 매우 복잡해진다. 예를 들어 이진 분류법을 각 클래스 $C_1,\ldots,\,C_N$ 에 대해 사용한다고 하자. 각 클래스에 대한 대한 활성화 함수 $f_1,\,\ldots,\,f_N$ 을 정하더라도 겹치거나, 어디에도 포함되지 않는 모호한 영역이 생길 수 있다. 이런 경우를 처리할 수 있는 한가지 방법으로 $K$ 개의 선형 판별 함수 $y_1,\ldots,\,y_K$ 를 아래와 같이 우선 정의한다.
+
+$$
+y_k(\bf{x}; \bf{w}_k,\, w_{k0}) = \bf{w}_k^T \bf{x} + b_k,\qquad k=1,\ldots,\, K.
+$$ {#eq-ML_classification_linear_modelling_function}
+
+이 때 $y_{k}(\bf{x}; \bf{w}_k,\, b_k) \ge y_{j}(\bf{x}; \bf{w}_j,\, b_j)$ 이면 $C_k$ 클래스에 포함되도록 하면 된다. 즉 결정
+
+
+</br>
+
+
+## 로지스틱 회귀
+
+### 비용함수 {#sec-ML_classification_cost_function}
+
+수학적으로 $f:\R^n \to \{0,\,1\}$ 인 함수
+
+$$
+f(t) = \left\{\begin{array}{ll} 1,\qquad & t\ge 0,\\ 0, &t<0 \end{array}\right. .
+$$
+
+를 생각하자. 입력 벡터 $\bf{x}$ 를 비선형 변환 $\bf{\phi}$ 를 통해 특징벡터(feature vector) 로 변환시킬 때
+
+$$
+y = f(\bf{w}^T \bf{x} + b)
+$$
+
+인 함수이다. 
+
+우선 여기에 대한 비용함수를 생각해보자. 우선적으로 생각 할 수 있는 오차제곱합을 사용할 경우 발생할 수 있는 문제를 예를 들어 보자. 
+
+</br>
+
+<div class="border" style="background-color:#F2F4F4  ;padding:5px;">
+
+::: {#exm-ML_binary_classification_and_cost_function}
+
+간단한 이진 분류 문제를 생각해 보자. $[0,\,1]\times [0,\,1]$ 공간에 $N$ 개의 임의의 점을 찍고 $x\ge y$ 이면 $1$, 아니면 $2$ 의 클래스를 부여한다고 하자. 그리고 원점을 지나는 직선 $y=wx$ 로 클래스를 분리한다고 할 때 비용함수로 오차제곱합을 사용한다고 하자. 총 50 개의 무작위 점에 대해 분류하고 $w$ 에 대한 오차제곱합 $L(w)$ 를 구하면 아래 그림의 가운데 그림과 같다. 가장 오른쪽 그림의 $L_{\text{Logistics}}(w)$ 는 이후 설명한다.
+
+```julia
+using CairoMakie, LinearAlgebra, LaTeXStrings
+
+N=50
+t2, t3 = nothing, nothing
+σ(t) = 1/(1.0+exp(-t))
+X, Y = rand(N), rand(N)
+C1X, C1Y, C2X, C2Y = [], [],[],[]
+t1=[]
+for i in 1:N
+    if X[i] ≥ Y[i] 
+        append!(C1X, X[i])
+        append!(C1Y, Y[i])
+        append!(t1,1)
+    else 
+        append!(C2X, X[i])
+        append!(C2Y, Y[i])
+        append!(t1, 0)
+    end
+end
+wr = 0.0:0.01:1.0
+err1 = []
+err2 = []
+for w0 ∈ wr
+    t2=Int.(w0.*X .- 0.5.* Y .>0)
+    t3=σ.(30 .* w0 .* X .- 15 .* Y)
+    append!(err1, sum((t1 .- t2).^2))
+    append!(err2, -sum((t1 .* log.(t3 .+ 1.0e-15) .+ (1.0 .- t1) .* log.(1.0 .- t3 .+ 1.0e-15))))
+end
+
+
+fig = Figure(size=(1500, 600))
+ax = Axis(fig[1, 1], aspect = 1, limits = (-0.05, 1.05, -0.05, 1.05), xlabel=L"X", ylabel = L"Y")
+scatter!(ax, C1X, C1Y, color=:red, markersize=15, label=L"C1")
+scatter!(ax, C2X, C2Y, color=:green, markersize=15, label=L"C2")
+axislegend(ax)
+ax2 = Axis(fig[1, 2], xlabel = L"w", ylabel = L"L(w)")
+scatter!(ax2, wr, err1)
+ax3 = Axis(fig[1, 3], xlabel = L"w", ylabel = L"L_{\text{Logistic}}(w)")
+scatter!(ax3, wr, err2)
+fig
+```
+
+![이진 분류와 비용함수](figure/binaryclassification.png){#fig-ML_classicifation_binary_classification_1 width=700}
+
+가운데 그림에서 보다시피 오차제곱합 함수를 사용한 비용함수 $L(w)$ 는 불연속이며 따라서 미분 불가 함수이다. $w$ 를 변경시킬 때 각 클래스에 속하는 점의 갯수가 변할 때마다 불연속이 된다. 
+
+:::
+
+물론 오차제곱합 함수 말고도 단지 함수에서 오분류된 점의 갯수, 혹은 전체 점에 대한 비율로 오류함수를 정의 할 수 도 있지만 어쨌든 $w$ 에 대해 불연속이 된다는 것은 자명하다.
+
+</div> </br>
+
+### 시그모이드 함수와 로지스틱 회귀 {#sec-ML_classification_sigmoid_and_logistic_regression}
+
+앞서 비용함수의 불연속성은 target 집합 이 $\{0,\,1\}$ 이기 때문에 발생한다. 이 문제를 해결하기 위해 확률론을 도입한다. 즉 모델 함수의 치역을 $[0,\,1]$ 하는 연속함수중에 선택 할 수 있다. 가장 대표적으로 널리 사용되는 것이 로지스틱 시그모이드 함수(logistic sigmoid function) $\sigma(t)$ 이다.
+
+$$
+\sigma(t) = \dfrac{1}{1+e^{-t}}
+$$ {#eq-ML_classification_sigmoid}
+
+
+![시그모이드 함수](figure/sigmoid.png){#fig-ML_classification_sigmoid width=300}
+
+
+그렇다면 모델 함수 
+$$
+y=\sigma\left(\bf{w}^T \bf{x} + b\right)
+$$
+
+는 $\bf{x}$ 가 정해진 클래스에 속할 확률이 된다. 이 로지스틱 시그모이드를 판별함수로 하는 분류를 **로지스틱 회귀(logistic regression)** 라고 한다. 회귀(regression) 이라는 말이 들어가지만 회귀가 아닌 분류 문제에 사용된다.
+
+
+그리고 이에 대한 비용 함수는 이진 교차 엔트로피(Binary cross entropy, BCE) 함수를 사용한다. $\hat{y}^{(i)} = \sigma \left(\bf{w}^T\bf{x}^{(i)}\right)$ 에 대해
+
+$$
+L(\bf{w}) = \text{BCE}(\bf{w}) =\sum_{i=1}^n y^{(i)} \left[\ln \left(\hat{y}^{(i)}\right) + \left(1-y^{(i)}\right) \ln \left(1-\left(\hat{y}^{(i)}\right)\right)\right]
+$$ {#eq-ML_classification_binary_cross_entropy}
+
+를 사용한다. 앞서 @exm-ML_binary_classification_and_cost_function 에서 오차함수로 위의 $\text{BCE}$ 함수를 사용했을 때가 @fig-ML_classicifation_binary_classification_1 의 가장 오른쪽 그림이다. 
+
+
+</br>
+
+### 다중 클래스 로지스틱 회귀 {#sec-ML_classification_multiclass_logistic_regresssion}
+
+$C_1,\ldots,\,C_K$ 클래스로 분류하는 데 사용되는 판별함수 $a_1 = a_1(\bf{x};\bf{w}_1,\,b_1),\ldots,\,a_K=a_K(\bf{x};\bf{w}_K,\,b_K)$ 에 대해 소프트 맥스 변환 $G:\R^K \to \R^K$ 은 $\bf{a}=\begin{bmatrix} a_1 & \cdots & a_K\end{bmatrix}^T$ 에 대해 다음과 같이 정의된다.
+$$
+G(\bf{a}) := \dfrac{1}{\sum_{j=1}^K e^{a_j}} \begin{bmatrix} e^{a_1} \\ \vdots \\ e^{a_K}\end{bmatrix}
+$$ {#eq-ML_classification_softmax}
+
+우리는 각각의 $a_i$ 가 $[0,\,1]$ 사이의 값을 갖는다는 것을 알고 있다. $G(\bf{a})$ 의 각 성분 역시 $[0,\,1]$ 사이의 값을 가지며 그 성분의 합이 $1$ 이다. 따라서 $G(\bf{a})$ 의 각 성분은 확률 그 클래스에 속할 확률로 해석 할 수 있다. 이렇게 다중 클래스 분류 문제를 확률로 해석하는 것을 다중 클래스 로지스틱 회귀라고 한다. 
+
+
+다중 클래스 회귀에 대한 비용함수로는 **교차 엔트로피 오차 함수(Cross entropy error function, CEE)** 가 사용된다.
+
+$$
+\text{CEE}(\bf{w}) = -\sum_{i=1}^n\sum_{j=1}^K   y^{(i)}_j \ln \left(\hat{y}^{(i)}_j\right) 
+$$ {#eq-ML_classification_cost_function_of_many_class_classification}
+
+소프트 맥스 회귀를 사용하는 다중 클래스 로지스틱 회귀에서는 @eq-ML_classification_cost_function_of_many_class_classification 는
+$$
+\text{CEE}(\bf{w})  =  -\sum_{i=1}^n\sum_{j=1}^K  y^{(i)}_j \left[ a_j - \ln \left(\sum_{m=1}^K e^{a_m}\right) \right]
+$$ {#eq-ML_classification_cost_function_of_many_class_logistic_regression}
+
+이다. 
+
+
+
+</br>
+
+### 비용 함수의 미분 {#sec-ML_classification_derivative_of_cost_function}
+
+로지스틱 회귀의 모델 함수 $\sigma(\bf{w}^T\bf{x}+b)$ 에서 우리가 최적값을 찾아야 할 것은 $\bf{w}$ 와 $b$ 이다. 수식 표기량을 줄이기 위해 
+
+$$
+\tilde{\bf{x}}=\begin{bmatrix}1 \\ \bf{x}\end{bmatrix} = \begin{bmatrix} 1 \\ x_1 \\ \vdots \\ x_n\end{bmatrix}, \qquad \tilde{\bf{w}}= \begin{bmatrix} b \\ \bf{w}\end{bmatrix} = \begin{bmatrix} b \\ w_1 \\ \vdots \\ w_n\end{bmatrix}
+$$
+
+를 사용하여 $\sigma (\bf{w}^T\bf{x}+b)=\sigma (\tilde{\bf{w}}^T\tilde{\bf{x}})$ 의 표기법을 도입하거나 $\bf{w},\, \bf{x}$ 가 실제로는 $\tilde{\bf{w}},\, \tilde{\bf{x}}$ 를 의미한다고 간주하고 계산하기도 한다. 여기서는 후자를 사용하며 이후로는 필요하다면 명확하게 언급 한 후 그 방식으로 사용하기로 하자. 
+
+교차 엔트로피 함수 $L_C(\bf{w}_1,\ldots,\bf{w}_K)= \text{CEE}(\bf{w})$ 에 대한 미분을 생각해보자. $w_{kl}= (\bf{w}_k)_l$ 이라 하면
+
+$$
+\begin{aligned}
+\dfrac{\partial L_C}{\partial w_{kl}} &= -\sum_{i=1}^n \sum_{j=1}^K y_j^{(i)} \left[\dfrac{\partial a_j}{\partial w_{kl}} - \dfrac{\dfrac{\partial a_k}{\partial w_{kl}} e^{a_k}}{\sum a_m}\right] = -\sum_{i=1}^n \sum_{j=1}^K y_j^{(i)} \left[\delta_{jk}\dfrac{\partial a_j}{\partial w_{kl}} - \dfrac{\partial a_k}{\partial w_{kl}} \hat{y}_k^{(i)}\right] \\
+&= - \dfrac{\partial a_k}{\partial w_{kl}}\left[\sum_{i=1}^n \left[y_k^{(i)}  - \sum_{j=1}^K y_j^{(i)} \hat{y}_k^{(i)} \right]\right]
+\end{aligned}
+$$
+
+여기서 $\sum_{j=1}^K y_j^{(i)}=1$ 이므로
+
+$$
+\dfrac{\partial L_C}{\partial w_{kl}} =- \dfrac{\partial a_k}{\partial w_{kl}} \sum_{i=1}^n \left(y_k^{(i)} -\hat{y}^{(i)}_k\right)
+$$ {#eq-ML_classification_partial_differential_of_cost_function_for_multi_class_logistic_regression}
+
+인 매우 단순한 식이 된다. 즉
+
+$$
+\nabla_{\bf{w}_k} L_C(\bf{w}_1,\ldots,\, \bf{w}_K) =  \left[\sum_{i=1}^n \left(\hat{y}_k^{(i)} -y^{(i)}_k\right)\right] \nabla_{\bf{w}_k} a_k
+$$ {#eq-ML_classification_gradient_of_cost_function_for_multi_class_logistic_regression}
+
+이다. 이진 분류의 경우 $\bf{w}$ 만 생각하면 되므로
+
+$$
+\nabla_\bf{w} L_B(\bf{w})= \left[\sum_{i=1}^n \left(\hat{y}_k^{(i)} -y^{(i)}_k\right)\right] \nabla_{\bf{w}} a
+$${#eq-ML_classification_gradient_of_cost_function_for_binary_logistic_regression}
+
+이다. 

@@ -1,13 +1,26 @@
 project:
-  type: website
+  type: book
   output-dir: docs
   render: 
     - "*.qmd"
     # - "*.ipynb"
     - "!aux/"
     
-website:
+book:
   title: "MachineLearning"
+  author: "Yebinpapa"
+  date: "3/8/2023"
+  page-navigation: true
+  chapters:
+    - index.qmd
+    
+    - part: src/theory/ML.qmd
+      chapters:
+        - src/theory/optimization.qmd
+        # - src/theory/regression.qmd
+        # - src/theory/statistics.qmd
+        # - src/theory/classification.qmd
+        # - src/theory/perceptron_and_ann.qmd
   navbar:
     left:
       - href: index.qmd
@@ -18,6 +31,7 @@ format:
   html:
     theme: cosmo
     css: styles.css
+    fontsize: 0.9em
     toc: true
 
 
