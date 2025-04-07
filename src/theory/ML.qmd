@@ -1,15 +1,15 @@
 ---
-title: "기계 학습"
-
-number-sections: true
+number-sections: false
 number-depth: 3
 crossref:
-  chapters: false
+  chapters: true
 
 
 nocite: |
   @Bishop2006, @iAI_Kaist, @Deisenroth2020
 ---
+
+# 기계학습 {.unnumbered}
 
 {{< include ../latexmacros.qmd >}}
 

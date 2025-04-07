@@ -4,7 +4,7 @@ title: "퍼셉트론과 분류"
 number-sections: true
 number-depth: 3
 crossref:
-  chapters: false
+  chapters: true
 ---
 
 {{< include ../latexmacros.qmd >}}
@@ -15,13 +15,13 @@ crossref:
 
 ### 기하학 {.unnumbered}
 
-분류 문제를 다루는데 SVM 등은 $n$ 차원 공간 $\mathcal{M}_n(\R)$ 에서의 기하학을 이용한다. 
+분류 문제를 다루는데 SVM 등은 $n$ 차원 공간 $\R^n$ 에서의 기하학을 이용한다. 
 
 </br>
 
 **초평면 (hyperplane)**
 
-정해진 벡터 $\bf{w} \in \mathcal{M}_n(\R) = V$ 와 $n$ 차원 변수 $\bf{x}$ 에 대해 $\bf{w}^T\bf{x}+c=0$ 를 만족하는 $\bf{x}$ 의 집합은 $n-1$ 차원 부분공간이며 이를 $V$ 에 대한 초평면이라고 한다.
+정해진 벡터 $\bf{w} \in\R^n = V$ 와 $n$ 차원 변수 $\bf{x}$ 에 대해 $\bf{w}^T\bf{x}+c=0$ 를 만족하는 $\bf{x}$ 의 집합은 $n-1$ 차원 부분공간이며 이를 $V$ 에 대한 초평면이라고 한다.
 
 
 $$
@@ -38,7 +38,7 @@ $$
 
 ### 개요 {#sec-ML_classification_introduction}
 
-분류(classification) 문제는 표적값(target) 이 유한개인 문제이다. 표적값에 따라 입력 벡터를 구별할 수 있으며, 이렇게 구별되는 입력 벡터의 집합을 클래스(class) 라고 하고 각 클래스를 분리하는 경계를 **결정 경계(decision boundary)** 혹은 **결정 표면(decision surface)** 이라고 하며 결정 경계를 바탕으로 분리된 부분집합을 **결정 구역(decision region)** 이라고 한다.
+분류(classification) 문제는 표적값(target) 이 유한개인 문제이다. 표적값에 따라 입력 벡터를 구별할 수 있으며, 이렇게 구별되는 입력 벡터의 집합을 **클래스(class)** 라고 하고 각 클래스를 분리하는 경계를 **결정 경계(decision boundary)** 혹은 **결정 표면(decision surface)** 이라고 하며 결정 경계를 바탕으로 분리된 부분집합을 **결정 구역(decision region)** 이라고 한다.
 
 입력 벡터가 $D$ 차원 공간이라고 하자. 결정 표면을 $D$ 차원 공간에 대한 $D-1$ 차원 초평면 으로 분리하는 모델을 **선형 모델(linear model)** 이라고 하며, 데이터들이 다수의 초평면으로 정확하게 각각의 클래스로 분류될 수 있을 때, 이 데이터의 집합을 **선형 분리 가능 집합(linearly seperable set)** 이라고 한다.
 
@@ -48,13 +48,13 @@ $$
 
 ### 일반화된 선형 모델 {#sec-ML_classification_generalized_linear_model}
 
-입력값 $\bf{x}$ 에 대한 모델을 구성할 때 모댈 내부의 매개변수 $\bf{w}$ 에 대한 가장 간단한 함수로서
+입력값 $\bf{x}$ 에 대한 모델을 구성할 때 모델 내부의 매개변수 $\bf{w}$ 에 대한 가장 간단한 함수로서
 
 $$
 y(\bf{x}; \bf{w},\,w_0) = f(\bf{w}^T \bf{x}+w_0) 
 $$ {#eq-ML_classification_generalized_linear_model}
 
-를 생각 할 수 있다. 이 때 보통 $f(s)$ 는 비선형 함수이며 **활성화 함수(activation fucntion)** 이라고 불린다. 또한 @eq-ML_classification_generalized_linear_model 로 기술되는 모델을 **일반화된 선형 모델(generalized linear model)** 이라고 한다.
+를 생각 할 수 있다. 이 때 보통 $f(s)$ 는 비선형 함수이며 **활성화 함수(activation function)** 라고 부른다. 또한 @eq-ML_classification_generalized_linear_model 로 기술되는 모델을 **일반화된 선형 모델(generalized linear model)** 이라고 한다.
 
 일반화된 선형 모델의 경우 결정 표면은 어떤 상수 $c$ 에 대해 $\bf{w}^T\bf{x} + w_0 = c$ 인 초평면이 된다. 즉 선형 분리 가능 집합의 경우 일반화된 선형 모델로 잘 설명이 된다. 
 
@@ -74,7 +74,7 @@ $$
 \text{sign}(a) = \left\{\begin{array}{ll} 1, \qquad & a\ge 0 \\ 0 & a<0 \end{array} \right.
 $$
 
-로 정한다. 즉 $y(\bf{x};\bf{w},\,w_0)$ 값이 $1$ 이면 $C_1$, $-1$ 이면 $C_2$ 클래스에 포함되도 하는 매개변수를 찾는 문제가 된다. 이진분류의 함수값을 $\{1,\,0\}$ 이 아니라 $\{-1,\,1\}$ 로 놓는 경우도 있지만 뒤에 다룰 확률론적 분류를 위해 $\{1,\,0\}$ 의 값을 사용하도록 한다.
+로 정한다. 즉 $y(\bf{x};\bf{w},\,w_0)$ 값이 $1$ 이면 $C_1$, $0$ 이면 $C_2$ 클래스에 포함되도 하는 매개변수를 찾는 문제가 된다. 이진분류의 함수값을 $\{1,\,0\}$ 이 아니라 $\{-1,\,1\}$ 로 놓는 경우도 있지만 뒤에 다룰 확률론적 분류를 위해 $\{1,\,0\}$ 의 값을 사용하도록 한다.
 
 </br>
 
@@ -86,7 +86,7 @@ $$
 y_k(\bf{x}; \bf{w}_k,\, w_{k0}) = \bf{w}_k^T \bf{x} + b_k,\qquad k=1,\ldots,\, K.
 $$ {#eq-ML_classification_linear_modelling_function}
 
-이 때 $y_{k}(\bf{x}; \bf{w}_k,\, b_k) \ge y_{j}(\bf{x}; \bf{w}_j,\, b_j)$ 이면 $C_k$ 클래스에 포함되도록 하면 된다. 즉 결정
+이 때 $y_{k}(\bf{x}; \bf{w}_k,\, b_k) \ge y_{j}(\bf{x}; \bf{w}_j,\, b_j)$ 이면 $C_k$ 클래스에 포함되도록 한다. 
 
 
 </br>

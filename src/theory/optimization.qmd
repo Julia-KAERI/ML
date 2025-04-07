@@ -26,7 +26,7 @@ crossref:
 
 ### 최적화문제 
 
-일반적으로 최적화 문제는 어떤 함수 $f:U \subset \R^n \to \R$ 에 대해 아래의 $\bf{\theta}^\ast$ 문제를 구하는 것으로 주어진다.
+일반적으로 최적화 문제는 어떤 함수 $f:U \subset \R^n \to \R$ 에 대해 아래의 $\bf{\theta}^\ast$ 를 구하는 것으로 주어진다.
 
 $$
 \boxed{
@@ -62,7 +62,7 @@ $$ {#eq-ML_optimization_optimization_problem}
 
 #### **수학적 표준 모델**
 
-- 제약조건을 만족하는 $\mathcal{C}\subset \R^n$ 를 **가능해 영역(feasible region)** 이라고 한다. @eq-ML_optimization_optimization_problem 과 같은 최적화 문제에 대해 $\mathcal{C}$ 는 아래와 같다.
+- 제약조건을 만족하는 $\mathcal{C}\subset U$ 를 **가능해 영역(feasible region)** 이라고 한다. @eq-ML_optimization_optimization_problem 과 같은 최적화 문제에 대해 $\mathcal{C}$ 는 아래와 같다.
 $$
 \mathcal{C} = \{\bf{\theta}\in U : g_i(\bf{\theta})\le 0,\,i=1,\ldots,\,m,\, h_j(\bf{\theta})=0,\, j=1,\ldots,\,k\}.
 $$ {#eq-optimization_feasible_model}
@@ -241,7 +241,7 @@ $${#eq-optimization_differentiation_to_vector}
 
 ### Gradient
 
-$\bf{\theta} = \begin{bmatrix}\theta_1 & \cdots & \theta_n \end{bmatrix}^T \in \R^n$, $\bf{a} \in \R^n$, $\bf{A}=\mathcal{M}_{m \times n}(\R)$ 일 때 $\bf{\theta}$ 에 대한 스칼라 함수의 gradient 는 다음과 같다.
+$\bf{\theta} = \begin{bmatrix}\theta_1 & \cdots & \theta_n \end{bmatrix}^T \in \R^n$, $\bf{a} \in \R^n$, $\bf{A}=\R^{m \times n}$ 일 때 $\bf{\theta}$ 에 대한 스칼라 함수의 gradient 는 다음과 같다.
 
 $$
 \begin{aligned}

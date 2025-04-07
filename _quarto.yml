@@ -12,8 +12,7 @@ book:
   date: "3/8/2023"
   page-navigation: true
   chapters:
-    - index.qmd
-    
+    - index.qmd 
     - part: src/theory/ML.qmd
       chapters:
         - src/theory/optimization.qmd
@@ -33,6 +32,7 @@ format:
     css: styles.css
     fontsize: 0.9em
     toc: true
+    number-sections: true
 
 
 
