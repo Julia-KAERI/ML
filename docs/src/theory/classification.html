@@ -421,7 +421,7 @@ y = f(\boldsymbol{w}^T \boldsymbol{x} + b)
 </section>
 <section id="sec-ML_classification_sigmoid_and_logistic_regression" class="level3" data-number="4.2.2">
 <h3 data-number="4.2.2" class="anchored" data-anchor-id="sec-ML_classification_sigmoid_and_logistic_regression"><span class="header-section-number">4.2.2</span> 시그모이드 함수와 로지스틱 회귀</h3>
-<p>앞서 비용함수의 불연속성은 target 집합 이 <span class="math inline">\(\{0,\,1\}\)</span> 이기 때문에 발생한다. 이 문제를 해결하기 위해 확률론을 도입한다. 즉 모델 함수의 치역을 <span class="math inline">\([0,\,1]\)</span> 하는 연속함수중에 선택 할 수 있다. 가장 대표적으로 널리 사용되는 것이 로지스틱 시그모이드 함수(logistic sigmoid function) <span class="math inline">\(\sigma(t)\)</span> 이다.</p>
+<p>앞서 비용함수의 불연속성은 target 집합 이 <span class="math inline">\(\{0,\,1\}\)</span> 이기 때문에 발생한다. 이 문제를 해결하기 위해 확률론을 도입한다. 즉 모델 함수의 치역의 범위가 <span class="math inline">\([0,\,1]\)</span> 인 연속함수중에 선택 할 수 있다. 가장 대표적으로 널리 사용되는 것이 로지스틱 시그모이드 함수(logistic sigmoid function) <span class="math inline">\(\sigma(t)\)</span> 이다.</p>
 <p><span id="eq-ML_classification_sigmoid"><span class="math display">\[
 \sigma(t) = \dfrac{1}{1+e^{-t}}
 \tag{4.3}\]</span></span></p>
@@ -438,7 +438,7 @@ y = f(\boldsymbol{w}^T \boldsymbol{x} + b)
 <p>그렇다면 모델 함수 <span class="math display">\[
 y=\sigma\left(\boldsymbol{w}^T \boldsymbol{x} + b\right)
 \]</span></p>
-<p>는 <span class="math inline">\(\boldsymbol{x}\)</span> 가 정해진 클래스에 속할 확률이 된다. 이 로지스틱 시그모이드를 판별함수로 하는 분류를 <strong>로지스틱 회귀(logistic regression)</strong> 라고 한다. 회귀(regression) 이라는 말이 들어가지만 회귀가 아닌 분류 문제에 사용된다.</p>
+<p>는 <span class="math inline">\(\boldsymbol{x}\)</span> 가 정해진 클래스에 속할 확률이 될 수 있다. 이 로지스틱 시그모이드를 판별함수로 하는 분류를 <strong>로지스틱 회귀(logistic regression)</strong> 라고 한다. 회귀(regression) 이라는 말이 들어가지만 회귀가 아닌 분류 문제에 사용된다.</p>
 <p>그리고 이에 대한 비용 함수는 이진 교차 엔트로피(Binary cross entropy, BCE) 함수를 사용한다. <span class="math inline">\(\hat{y}^{(i)} = \sigma \left(\boldsymbol{w}^T\boldsymbol{x}^{(i)}\right)\)</span> 에 대해</p>
 <p><span id="eq-ML_classification_binary_cross_entropy"><span class="math display">\[
 L(\boldsymbol{w}) = \text{BCE}(\boldsymbol{w}) =\sum_{i=1}^n y^{(i)} \left[\ln \left(\hat{y}^{(i)}\right) + \left(1-y^{(i)}\right) \ln \left(1-\left(\hat{y}^{(i)}\right)\right)\right]

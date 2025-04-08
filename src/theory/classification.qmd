@@ -175,7 +175,7 @@ fig
 
 ### 시그모이드 함수와 로지스틱 회귀 {#sec-ML_classification_sigmoid_and_logistic_regression}
 
-앞서 비용함수의 불연속성은 target 집합 이 $\{0,\,1\}$ 이기 때문에 발생한다. 이 문제를 해결하기 위해 확률론을 도입한다. 즉 모델 함수의 치역을 $[0,\,1]$ 하는 연속함수중에 선택 할 수 있다. 가장 대표적으로 널리 사용되는 것이 로지스틱 시그모이드 함수(logistic sigmoid function) $\sigma(t)$ 이다.
+앞서 비용함수의 불연속성은 target 집합 이 $\{0,\,1\}$ 이기 때문에 발생한다. 이 문제를 해결하기 위해 확률론을 도입한다. 즉 모델 함수의 치역의 범위가 $[0,\,1]$ 인 연속함수중에 선택 할 수 있다. 가장 대표적으로 널리 사용되는 것이 로지스틱 시그모이드 함수(logistic sigmoid function) $\sigma(t)$ 이다.
 
 $$
 \sigma(t) = \dfrac{1}{1+e^{-t}}
@@ -190,7 +190,7 @@ $$
 y=\sigma\left(\bf{w}^T \bf{x} + b\right)
 $$
 
-는 $\bf{x}$ 가 정해진 클래스에 속할 확률이 된다. 이 로지스틱 시그모이드를 판별함수로 하는 분류를 **로지스틱 회귀(logistic regression)** 라고 한다. 회귀(regression) 이라는 말이 들어가지만 회귀가 아닌 분류 문제에 사용된다.
+는 $\bf{x}$ 가 정해진 클래스에 속할 확률이 될 수 있다. 이 로지스틱 시그모이드를 판별함수로 하는 분류를 **로지스틱 회귀(logistic regression)** 라고 한다. 회귀(regression) 이라는 말이 들어가지만 회귀가 아닌 분류 문제에 사용된다.
 
 
 그리고 이에 대한 비용 함수는 이진 교차 엔트로피(Binary cross entropy, BCE) 함수를 사용한다. $\hat{y}^{(i)} = \sigma \left(\bf{w}^T\bf{x}^{(i)}\right)$ 에 대해

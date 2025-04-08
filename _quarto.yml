@@ -20,6 +20,7 @@ book:
         - src/theory/statistics.qmd
         - src/theory/classification.qmd
         - src/theory/perceptron_and_ann.qmd
+        - src/theory/cnn.qmd
   navbar:
     left:
       - href: index.qmd

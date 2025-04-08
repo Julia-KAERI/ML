@@ -30,6 +30,7 @@ ul.task-list li input[type="checkbox"] {
 <script src="../../site_libs/quarto-search/fuse.min.js"></script>
 <script src="../../site_libs/quarto-search/quarto-search.js"></script>
 <meta name="quarto:offset" content="../../">
+<link href="../../src/theory/cnn.html" rel="next">
 <link href="../../src/theory/classification.html" rel="prev">
 <script src="../../site_libs/quarto-html/quarto.js"></script>
 <script src="../../site_libs/quarto-html/popper.min.js"></script>
@@ -194,6 +195,12 @@ window.Quarto = {
  <span class="menu-text"><span class="chapter-number">5</span>&nbsp; <span class="chapter-title">퍼셉트론과 인공신경망</span></span></a>
   </div>
 </li>
+          <li class="sidebar-item">
+  <div class="sidebar-item-container"> 
+  <a href="../../src/theory/cnn.html" class="sidebar-item-text sidebar-link">
+ <span class="menu-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">합성곱 신경망ㅋ</span></span></a>
+  </div>
+</li>
       </ul>
   </li>
     </ul>
@@ -206,21 +213,21 @@ window.Quarto = {
     <h2 id="toc-title">목차</h2>
    
   <ul>
-  <li><a href="#퍼셉트론" id="toc-퍼셉트론" class="nav-link active" data-scroll-target="#퍼셉트론"><span class="header-section-number">1</span> 퍼셉트론</a>
+  <li><a href="#퍼셉트론" id="toc-퍼셉트론" class="nav-link active" data-scroll-target="#퍼셉트론"><span class="header-section-number">5.1</span> 퍼셉트론</a>
   <ul class="collapse">
-  <li><a href="#sec-ML_ann_perceptron" id="toc-sec-ML_ann_perceptron" class="nav-link" data-scroll-target="#sec-ML_ann_perceptron"><span class="header-section-number">1.1</span> 퍼셉트론</a></li>
+  <li><a href="#sec-ML_ann_perceptron" id="toc-sec-ML_ann_perceptron" class="nav-link" data-scroll-target="#sec-ML_ann_perceptron"><span class="header-section-number">5.1.1</span> 퍼셉트론</a></li>
   </ul></li>
-  <li><a href="#다층-신경망" id="toc-다층-신경망" class="nav-link" data-scroll-target="#다층-신경망"><span class="header-section-number">2</span> 다층 신경망</a>
+  <li><a href="#다층-신경망" id="toc-다층-신경망" class="nav-link" data-scroll-target="#다층-신경망"><span class="header-section-number">5.2</span> 다층 신경망</a>
   <ul class="collapse">
-  <li><a href="#sec-ML_ANN_neural_network" id="toc-sec-ML_ANN_neural_network" class="nav-link" data-scroll-target="#sec-ML_ANN_neural_network"><span class="header-section-number">2.1</span> 다층 신경망</a></li>
-  <li><a href="#활성화-함수" id="toc-활성화-함수" class="nav-link" data-scroll-target="#활성화-함수"><span class="header-section-number">2.2</span> 활성화 함수</a></li>
-  <li><a href="#sec-ML_cost_function_of_nn" id="toc-sec-ML_cost_function_of_nn" class="nav-link" data-scroll-target="#sec-ML_cost_function_of_nn"><span class="header-section-number">2.3</span> 비용함수</a></li>
-  <li><a href="#sec-ML_ANN_gradient_discent" id="toc-sec-ML_ANN_gradient_discent" class="nav-link" data-scroll-target="#sec-ML_ANN_gradient_discent"><span class="header-section-number">2.4</span> 경사 하강법</a></li>
+  <li><a href="#sec-ML_ANN_neural_network" id="toc-sec-ML_ANN_neural_network" class="nav-link" data-scroll-target="#sec-ML_ANN_neural_network"><span class="header-section-number">5.2.1</span> 다층 신경망</a></li>
+  <li><a href="#활성화-함수" id="toc-활성화-함수" class="nav-link" data-scroll-target="#활성화-함수"><span class="header-section-number">5.2.2</span> 활성화 함수</a></li>
+  <li><a href="#sec-ML_ANN_cost_function" id="toc-sec-ML_ANN_cost_function" class="nav-link" data-scroll-target="#sec-ML_ANN_cost_function"><span class="header-section-number">5.2.3</span> 비용함수</a></li>
+  <li><a href="#sec-ML_ANN_gradient_discent" id="toc-sec-ML_ANN_gradient_discent" class="nav-link" data-scroll-target="#sec-ML_ANN_gradient_discent"><span class="header-section-number">5.2.4</span> 경사 하강법과 미니 배치</a></li>
   </ul></li>
-  <li><a href="#sec-ML_ANN_backpropagation" id="toc-sec-ML_ANN_backpropagation" class="nav-link" data-scroll-target="#sec-ML_ANN_backpropagation"><span class="header-section-number">3</span> 역전파 (Backpropagation)</a>
+  <li><a href="#sec-ML_ANN_backpropagation" id="toc-sec-ML_ANN_backpropagation" class="nav-link" data-scroll-target="#sec-ML_ANN_backpropagation"><span class="header-section-number">5.3</span> 역전파 (Backpropagation)</a>
   <ul class="collapse">
-  <li><a href="#sec-ML_ANN_backpropagation_at_output_layer" id="toc-sec-ML_ANN_backpropagation_at_output_layer" class="nav-link" data-scroll-target="#sec-ML_ANN_backpropagation_at_output_layer"><span class="header-section-number">3.1</span> 출력층에서의 역전파</a></li>
-  <li><a href="#sec-ML_ANN_vanishing_gradient" id="toc-sec-ML_ANN_vanishing_gradient" class="nav-link" data-scroll-target="#sec-ML_ANN_vanishing_gradient"><span class="header-section-number">3.2</span> 기울기 소멸</a></li>
+  <li><a href="#sec-ML_ANN_backpropagation_at_output_layer" id="toc-sec-ML_ANN_backpropagation_at_output_layer" class="nav-link" data-scroll-target="#sec-ML_ANN_backpropagation_at_output_layer"><span class="header-section-number">5.3.1</span> 출력층에서의 역전파</a></li>
+  <li><a href="#sec-ML_ANN_vanishing_gradient" id="toc-sec-ML_ANN_vanishing_gradient" class="nav-link" data-scroll-target="#sec-ML_ANN_vanishing_gradient"><span class="header-section-number">5.3.2</span> 기울기 소멸</a></li>
   </ul></li>
   </ul>
 </nav>
@@ -257,10 +264,10 @@ window.Quarto = {
 \]</span></p>
 </div>
 <p><br></p>
-<section id="퍼셉트론" class="level2" data-number="1">
-<h2 data-number="1" class="anchored" data-anchor-id="퍼셉트론"><span class="header-section-number">1</span> 퍼셉트론</h2>
-<section id="sec-ML_ann_perceptron" class="level3" data-number="1.1">
-<h3 data-number="1.1" class="anchored" data-anchor-id="sec-ML_ann_perceptron"><span class="header-section-number">1.1</span> 퍼셉트론</h3>
+<section id="퍼셉트론" class="level2" data-number="5.1">
+<h2 data-number="5.1" class="anchored" data-anchor-id="퍼셉트론"><span class="header-section-number">5.1</span> 퍼셉트론</h2>
+<section id="sec-ML_ann_perceptron" class="level3" data-number="5.1.1">
+<h3 data-number="5.1.1" class="anchored" data-anchor-id="sec-ML_ann_perceptron"><span class="header-section-number">5.1.1</span> 퍼셉트론</h3>
 <p>앞서의 <a href="../../src/theory/classification.html#sec-ML_classification_generalized_linear_model">일반화된 선형 모델</a> 은 원래 생물의 신경 세포(neuron) 을 수학적으로 모사한 것이다. 로지스틱 회귀에서는 입력변수와 매개변수의 내적에 대한 시그모이드 함수로 처리하여 출력했으며, 다중 클래스 로지스틱 회귀에서는 소프트 맥스 함수를 사용하였다. 이 퍼셉트론을 여러 층으로 쌓은 것을 신경망(neural network) 이라고 하며 현재 인공지능 시스템의 핵심이 되었다. 여기서 입력변수와 매개변수의 내적을 처리하는 함수를 <strong>활성화 함수(activation function)</strong> 라고 하며 신경망 에서는 시그모이드나 소프트 맥스 이외에 각각의 장점과 목적에 맞게 다양한 함수를 사용 할 수 있다.</p>
 <div id="fig-perceptron_perceptron" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -268,34 +275,34 @@ window.Quarto = {
 <img src="figure/perceptron01.png" class="img-fluid figure-img" width="400">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-perceptron_perceptron-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-그림&nbsp;1: 퍼셉트론
+그림&nbsp;5.1: 퍼셉트론
 </figcaption>
 </figure>
 </div>
-<p>요약하자면</p>
-<p> (<span class="math inline">\(1\)</span>) <span class="math inline">\(n\)</span> 개의 입력 변수 <span class="math inline">\(\boldsymbol{x}\in \mathbb{R}^n\)</span>,</p>
-<p> (<span class="math inline">\(2\)</span>) <span class="math inline">\(n+1\)</span> 개의 내부 파라미터 : 1개의 bias <span class="math inline">\(b\)</span> 와 <span class="math inline">\(n\)</span> 개의 값을 갖는 <span class="math inline">\(\boldsymbol{w}=\begin{bmatrix} w_1 &amp; \ldots &amp;w_n\end{bmatrix}^T\)</span>,</p>
-<p> (<span class="math inline">\(3\)</span>) 활성화 함수(activation function) <span class="math inline">\(\sigma(z)\)</span> : 비선형 함수.</p>
-<p>로 정의된다.</p>
+<p>요약하자면 퍼셉트론은 다음과 같은 세가지로 정의 할 수 있다.</p>
+<p> (<span class="math inline">\(1\)</span>) <span class="math inline">\(n\)</span> 개의 성분을 가지는 입력 벡터 <span class="math inline">\(\boldsymbol{x} = (x_1,\ldots,\,x_n)\)</span></p>
+<p> (<span class="math inline">\(2\)</span>) <span class="math inline">\(n+1\)</span> 개의 내부 파라미터 : 1개의 bias <span class="math inline">\(b\)</span> 와 <span class="math inline">\(n\)</span> 개의 <span class="math inline">\(w_1,\ldots,\,w_n\)</span></p>
+<p> (<span class="math inline">\(3\)</span>) 활성화 함수(activation function) <span class="math inline">\(\sigma: \mathbb{R}\to \mathbb{R}\)</span>.</p>
 <p><br></p>
 </section>
 </section>
-<section id="다층-신경망" class="level2" data-number="2">
-<h2 data-number="2" class="anchored" data-anchor-id="다층-신경망"><span class="header-section-number">2</span> 다층 신경망</h2>
-<section id="sec-ML_ANN_neural_network" class="level3" data-number="2.1">
-<h3 data-number="2.1" class="anchored" data-anchor-id="sec-ML_ANN_neural_network"><span class="header-section-number">2.1</span> 다층 신경망</h3>
+<section id="다층-신경망" class="level2" data-number="5.2">
+<h2 data-number="5.2" class="anchored" data-anchor-id="다층-신경망"><span class="header-section-number">5.2</span> 다층 신경망</h2>
+<section id="sec-ML_ANN_neural_network" class="level3" data-number="5.2.1">
+<h3 data-number="5.2.1" class="anchored" data-anchor-id="sec-ML_ANN_neural_network"><span class="header-section-number">5.2.1</span> 다층 신경망</h3>
 <div id="fig-perceptron_multi_layer_perceptron" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-perceptron_multi_layer_perceptron-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
 <img src="figure/perceptron02.png" class="img-fluid figure-img" width="600">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-perceptron_multi_layer_perceptron-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-그림&nbsp;2: 다층 신경망
+그림&nbsp;5.2: 다층 신경망
 </figcaption>
 </figure>
 </div>
+<p><span class="math inline">\(D\)</span> 기의 입력값을 받아 (즉 입력 벡터 <span class="math inline">\(\boldsymbol{x}\in \mathbb{R}^D\)</span>) <span class="math inline">\(K\)</span> 개의 출력 값을 내는(즉 출력 벡터 <span class="math inline">\(\boldsymbol{y}\in \mathbb{R}^K\)</span>) 신경망을 생각하자.</p>
 <ul>
-<li><strong>입력층(input layer)</strong> 는 퍼셉트론이 아닌 입력 데이터 벡터이다.</li>
+<li><strong>입력층(input layer)</strong> 은 입력 데이터 벡터이다.</li>
 <li>입력층과 출력층을 제외한 신경망의 각 층을 <strong>은닉층(hidden layer)</strong> 라고 한다.</li>
 <li>첫번째 은닉층(hidden layer)의 퍼셉트론을 <span class="math inline">\(h_1^{(1)},\,h_2^{(1)},\ldots\)</span> 와 같이 표기한다.</li>
 <li><span class="math inline">\(k\)</span> 번째 은닉층의 퍼셉트론을 <span class="math inline">\(h_1^{(k)},\,h_2^{(k)},\ldots\)</span> 와 같이 표기한다.</li>
@@ -303,19 +310,22 @@ window.Quarto = {
 <li>출력층은 출력값 벡터를 출력하는 마지막 층의 퍼셉트론이다.</li>
 <li>신경망의 층수는 입력층을 제외하고 은닉층의 수에 출력층 1 을 더하여 표기한다. 즉 위의 그림은 4층 신경망이다.</li>
 </ul>
-<p>다층 퍼셉트론은 입력값 벡터 <span class="math inline">\(\boldsymbol{x}\in \mathbb{R}^D\)</span> 에 대해 출력값 <span class="math inline">\(\hat{\boldsymbol{y}}\in \mathbb{R}^K\)</span> 를 내는 함수로 내부에 각각의 퍼셉트론의 매개변수 전체 신경망의 매개변수로 가지는 함수이다.</p>
-<p>입력층 <span class="math inline">\(\boldsymbol{x} = \begin{bmatrix}x_1 &amp; \cdots &amp; x_D\end{bmatrix}^T\)</span> 에 대해 첫번째 은닉층의 <span class="math inline">\(j\)</span> 번째 퍼셉트론의 내부 파라미터 벡터를 <span class="math inline">\(\boldsymbol{w}^{(1j)}\)</span> 와 <span class="math inline">\(b^{(1)}_j\)</span> 로 표기한다면 활성화 함수 <span class="math inline">\(\sigma\)</span> 에 대해 출력값 <span class="math inline">\(y^{(1)}_j\)</span> 는 <span class="math display">\[
-z^{(1)}_j = \sigma \left(\boldsymbol{w}^{(1j)} \boldsymbol{\cdot x}+b^{(1)}_j\right)
+<p>다층 퍼셉트론은 입력값 벡터 <span class="math inline">\(\boldsymbol{x}\in \mathbb{R}^D\)</span> 에 대해 출력값 <span class="math inline">\(\hat{\boldsymbol{y}}\in \mathbb{R}^K\)</span> 를 내는 함수로 내부에 각각의 퍼셉트론의 매개변수 전체 신경망의 매개변수로 가지는 함수이다. 즉 <span class="math inline">\(\mathbb{R}^D \mapsto \mathbb{R}^K\)</span> 함수로 <span class="math inline">\(D\)</span> 는 입력 벡터의 차원, <span class="math inline">\(K\)</span> 는 출력 벡터의 차원이다.</p>
+<p><br></p>
+<section id="입력층에서-첫번째-은닉층으로" class="level4">
+<h4 class="anchored" data-anchor-id="입력층에서-첫번째-은닉층으로"><strong>입력층에서 첫번째 은닉층으로</strong></h4>
+<p>입력층 <span class="math inline">\(\boldsymbol{x} = \begin{bmatrix}x_1 &amp; \cdots &amp; x_D\end{bmatrix}^T\)</span> 에 대해 첫번째 은닉층의 <span class="math inline">\(j\)</span> 번째 퍼셉트론의 내부 파라미터를 <span class="math inline">\(w^{(1)}_{j1},\ldots,\, w^{(1)}_{jD}\)</span> 와 <span class="math inline">\(b^{(1)}_j\)</span> 로 표기한다면 활성화 함수 <span class="math inline">\(\sigma\)</span> 에 대해 출력값 <span class="math inline">\(z^{(1)}_j\)</span> 는 다음과 같다. <span class="math display">\[
+z^{(1)}_j = \sigma \left(\sum_{i=1}^D w^{(1)}_{ji} x_i+b^{(1)}_j\right)
 \]</span></p>
-<p>이다. 첫번째 은닉층에 <span class="math inline">\(N_1\)</span> 개의 퍼셉트론이 있다고 하고 행렬 <span class="math inline">\(\boldsymbol{W}^{(1)}\)</span> 와 <span class="math inline">\(\tilde{\boldsymbol{x}}\)</span> 를 다음과 같이 정의하자.</p>
+<p>첫번째 은닉층에 <span class="math inline">\(N_1\)</span> 개의 퍼셉트론이 있다고 하고 행렬 <span class="math inline">\(\boldsymbol{W}^{(1)}\)</span> 와 <span class="math inline">\(\tilde{\boldsymbol{x}}\)</span> 를 다음과 같이 정의하자.</p>
 <p><span id="eq-ML_parameters_representations"><span class="math display">\[
-\boldsymbol{W}^{(1)} := \begin{bmatrix} w^{(11)}_1 &amp; w^{(11)}_2 &amp; \cdots &amp; w^{(11)}_n &amp; b^{(1)}_1 \\ w^{(12)}_1 &amp; w^{(12)}_2 &amp; \cdots &amp; w^{(12)}_n &amp; b^{(1)}_2 \\ \vdots &amp; &amp; &amp; &amp; \vdots \\ w^{(1,N_1)}_1 &amp; w^{(1,N_1)}_2 &amp; \cdots &amp; w^{(1,N_1)}_n &amp; b^{(1)}_{N_1} \end{bmatrix},\qquad \tilde{\boldsymbol{x}} := \begin{bmatrix} x_1 \\ \vdots \\ x_n \\ 1\end{bmatrix}.
-\tag{1}\]</span></span></p>
-<p>즉 <span class="math inline">\(\boldsymbol{W}^{(1)}\boldsymbol{\tilde{x}}\)</span> 의 <span class="math inline">\(j\)</span> 번째 행은 첫번째 은닉층의 <span class="math inline">\(j\)</span> 번째 퍼셉트론의 활성화 함수에 적용되는 값이다. 첫번째 은닉층의 <span class="math inline">\(j\)</span> 번째 퍼셉트론의 출력값을 <span class="math inline">\(z^{(j)}\)</span> 라고 하고</p>
+\boldsymbol{W}^{(1)} := \begin{bmatrix} w^{(1)}_{11} &amp; w^{(1)}_{12} &amp; \cdots &amp; w^{(1)}_{1D} &amp; b^{(1)}_1 \\ w^{(1)}_{21} &amp; w^{(1)}_{22} &amp; \cdots &amp; w^{(1)}_{2D} &amp; b^{(1)}_2 \\ \vdots &amp; &amp; &amp; &amp; \vdots \\ w^{(1)}_{N_1,1} &amp; w^{(1)}_{N_1,2} &amp; \cdots &amp; w^{(1)}_{N_1,D} &amp; b^{(1)}_{N_1} \end{bmatrix},\qquad \tilde{\boldsymbol{x}} := \begin{bmatrix} x_1 \\ \vdots \\ x_n \\ 1\end{bmatrix}.
+\tag{5.1}\]</span></span></p>
+<p>즉 <span class="math inline">\(\boldsymbol{W}^{(1)}\)</span> 은 첫번째 입력층 전체의 내부 매개변수를 행렬화 한 것이고, <span class="math inline">\(\tilde{\boldsymbol{x}}\)</span> 는 입력 벡터에 1차원을 더해 bias 까지 선형방정식에 포함시킬 수 있도록 한 것이다. <span class="math inline">\(\boldsymbol{W}^{(1)}\boldsymbol{\tilde{x}}\)</span> 의 <span class="math inline">\(j\)</span> 번째 행은 첫번째 은닉층의 <span class="math inline">\(j\)</span> 번째 퍼셉트론의 활성화 함수에 입력되는 값이라는 것을 확인 할 수 있다. 일반적으로 같은 층의 퍼셉트론은 같은 활성화 함수를 사용하므로 첫번째 은닉층의 활성화 함수를 <span class="math inline">\(\sigma_1\)</span> 이라고 하자. 첫번째 은닉층의 <span class="math inline">\(j\)</span> 번째 퍼셉트론의 출력값을 <span class="math inline">\(z^{(1)}_j\)</span> 라고 하고 <span class="math inline">\(\left[\boldsymbol{W}^{(1)}\boldsymbol{\tilde{x}}\right]_k\)</span> 는 <span class="math inline">\(\boldsymbol{W}^{(1)}\boldsymbol{\tilde{x}}\)</span> 의 <span class="math inline">\(k\)</span> 행 값이라고 하자. 그렇다면</p>
 <p><span class="math display">\[
 \boldsymbol{z}^{(1)} = \begin{bmatrix} z^{(1)}_1 \\ \vdots \\ z^{(1)}_{N_1}\end{bmatrix} = \begin{bmatrix} \sigma_1\left(\left[\boldsymbol{W}^{(1)}\boldsymbol{\tilde{x}}\right]_{1}\right) \\ \vdots \\  \sigma_1\left(\left[\boldsymbol{W}^{(1)}\boldsymbol{\tilde{x}}\right]_{N_1}\right)  \end{bmatrix}
 \]</span></p>
-<p>라고 하면 <span class="math inline">\(\boldsymbol{z}^{(1)}\)</span> 은 첫번째 은닉층에서의 전체 출력값을 나타내는 벡터이다. 여기서 <span class="math inline">\(\left[\boldsymbol{W}^{(1)}\boldsymbol{\tilde{x}}\right]_k\)</span> 는 <span class="math inline">\(\boldsymbol{W}^{(1)}\boldsymbol{\tilde{x}}\)</span> 의 <span class="math inline">\(k\)</span> 행 값을 의미한다. 이 값이 두번째 은닉층의 입력값이 되는데, 첫번째 은닉층에 대한 입력값과 마찬가지로 bias 를 고려해야 하므로 두번째 은닉층의 입력값 <span class="math inline">\(\tilde{\boldsymbol{z}}^{(1)}\)</span> 을 다음과 같이 놓자.</p>
+<p>이며 여기서 <span class="math inline">\(\boldsymbol{z}^{(1)}\)</span> 은 첫번째 은닉층에서의 전체 출력값을 나타내는 벡터이다. 이 값이 두번째 은닉층의 입력값이 되는데, 첫번째 은닉층에 대한 입력값과 마찬가지로 bias 를 고려해야 하므로 두번째 은닉층의 입력값 <span class="math inline">\(\tilde{\boldsymbol{z}}^{(1)}\)</span> 을 다음과 같이 놓자.</p>
 <p><span class="math display">\[
 \tilde{\boldsymbol{z}}^{(1)} := \begin{bmatrix} \boldsymbol{z}^{(1)} \\ 1\end{bmatrix} = F^{(1)}\left(\boldsymbol{W}^{(1)}\boldsymbol{\tilde{x}}\right) = \begin{bmatrix} \sigma_1\left(\left[\boldsymbol{W}^{(1)}\boldsymbol{\tilde{x}}\right]_{1}\right) \\ \vdots \\  \sigma_1\left(\left[\boldsymbol{W}^{(1)}\boldsymbol{\tilde{x}}\right]_{N_1}\right) \\ 1 \end{bmatrix}
 \]</span></p>
@@ -323,33 +333,38 @@ z^{(1)}_j = \sigma \left(\boldsymbol{w}^{(1j)} \boldsymbol{\cdot x}+b^{(1)}_j\ri
 <p><span class="math display">\[
 \tilde{\boldsymbol{z}}^{(2)} = F^{(2)}\left(\boldsymbol{W}^{(2)}\tilde{\boldsymbol{z}}^{(1)}\right) = \begin{bmatrix}  \sigma_2\left(\left[\boldsymbol{W}^{(1)}\boldsymbol{\tilde{x}}\right]_{1}\right) \\ \vdots \\  \sigma_2\left(\left[\boldsymbol{W}^{(1)}\boldsymbol{\tilde{x}}\right]_{N_2}\right) \\ 1\end{bmatrix}
 \]</span></p>
-<p>라 할 수 있다. 이것을 이후 이어지는 은닉층에 계속 진행 할 수 있다. 임의의 <span class="math inline">\(m\)</span> 번째 은닉층이 <span class="math inline">\(N_m\)</span> 개의 퍼셉트론으로 구성되었다고 하자. 여기에서의 출력값은 은닉층의 매개변수 <span class="math inline">\(\boldsymbol{W}^{(m)}\)</span> 과 입력 벡터 <span class="math inline">\(\tilde{\boldsymbol{z}}^{(m-1)}\)</span> 에 대해 다음과 같다.</p>
+<p>라 할 수 있다. 이것을 이후 이어지는 은닉층에 계속 진행 할 수 있다.</p>
+<p><br></p>
+</section>
+<section id="임의의-m-번째-은닉층에서" class="level4">
+<h4 class="anchored" data-anchor-id="임의의-m-번째-은닉층에서"><strong>임의의 <span class="math inline">\(m\)</span> 번째 은닉층에서</strong></h4>
+<p>임의의 <span class="math inline">\(m\)</span> 번째 은닉층이 <span class="math inline">\(N_m\)</span> 개의 퍼셉트론으로 구성되었다고 하자. 여기에서의 출력값은 은닉층의 매개변수 <span class="math inline">\(\boldsymbol{W}^{(m)}\)</span> 과 입력 벡터 <span class="math inline">\(\tilde{\boldsymbol{z}}^{(m-1)}\)</span> 에 대해 다음과 같다.</p>
 <p><span id="eq-ML_ANN_output_of_hidden_layer"><span class="math display">\[
 \tilde{\boldsymbol{z}}^{(m)} = F^{(m)}\left(\boldsymbol{W}^{(m)} \tilde{\boldsymbol{z}}^{(m-1)}\right) = \begin{bmatrix} \sigma_m\left(\left[\boldsymbol{W}^{(m)} \tilde{\boldsymbol{z}}^{(m-1)}\right]_1\right) \\ \vdots \\ \sigma_m\left(\left[\boldsymbol{W}^{(m)} \tilde{\boldsymbol{z}}^{(m-1)}\right]_{N_m}\right) \\ 1 \end{bmatrix}
-\tag{2}\]</span></span></p>
-<p>이후 <a href="#sec-ML_ANN_backpropagation">역전파</a> 에 나올 내용이지만 여기서 미리 언급해 두자. 여기서 <span class="math inline">\(\tilde{\boldsymbol{z}}^{(m-1)}=\boldsymbol{a}\)</span> 에서의 미분은 다음과 같다. <span id="eq-ML_ANN_derivatives_of_hidden_layer"><span class="math display">\[
-\dfrac{\partial \tilde{z}_k^{(m)}}{\partial w_{ij}^{(m)}} = \left\{\begin{array}{ll}0, &amp; i\ne k\text{ or } k=N_m+1,\\[0.3em] \sigma'_{m}\left(\left[\boldsymbol{W}^{(m)} \boldsymbol{a}\right]_i \right)a_j, &amp; i=k \end{array}\right.
-\tag{3}\]</span></span></p>
-<p>즉, 다음과 같이 쓸 수 있다.</p>
-<p><span id="eq-ML_ANN_derivatives_of_hidden_layer_2"><span class="math display">\[
+\tag{5.2}\]</span></span></p>
+<p>이후 <a href="#sec-ML_ANN_backpropagation">역전파</a> 에 나올 내용이지만 여기서 미리 언급해 두자. 여기서 <span class="math inline">\(\tilde{\boldsymbol{z}}^{(m-1)}\)</span> 에서의 미분은 다음과 같다. <span id="eq-ML_ANN_derivatives_of_hidden_layer"><span class="math display">\[
 \boxed{
-\dfrac{\partial \tilde{z}_k^{(m)}}{\partial w_{ij}^{(m)}} = \delta_{ik} \sigma'_{m}\left(\left[\boldsymbol{W}^{(m)} \tilde{\boldsymbol{z}}^{(m-1)}\right]_i \right)\tilde{z}_j^{(m-1)}
-}
-\tag{4}\]</span></span></p>
-<p>이제 출력층을 보자. 보통 출력층에서의 활성화 함수는 다른 은닉층의 활성화 함수와 다르기 때문에 <span class="math inline">\(\sigma_O\)</span> 라고 하자. 은닉층이 3개이므로</p>
+\dfrac{\partial \tilde{z}_k^{(m)}}{\partial w_{ij}^{(m)}} = \left\{\begin{array}{ll}0, &amp; i\ne k\text{ or } k=N_m+1,\\[0.3em] \sigma'_{m}\left(\left[\boldsymbol{W}^{(m)} \tilde{\boldsymbol{z}}^{(m-1)}\right]_i \right)\tilde{z}_j^{(m-1)}, &amp; i=k \end{array}\right. }
+\tag{5.3}\]</span></span></p>
+<p><br></p>
+</section>
+<section id="출력층에서" class="level4">
+<h4 class="anchored" data-anchor-id="출력층에서"><strong>출력층에서</strong></h4>
+<p>이제 출력층을 보자. 보통 출력층에서의 활성화 함수는 다른 은닉층의 활성화 함수와 다르기 때문에 <span class="math inline">\(\sigma_O\)</span> 라고 하자. 은닉층이 <span class="math inline">\(N_H\)</span> 층이라면</p>
 <p><span id="eq-ML_output_of_mlnn"><span class="math display">\[
-\hat{\boldsymbol{y}} = \begin{bmatrix}  \sigma_O \left( [\boldsymbol{W}^{(O)}\tilde{\boldsymbol{z}}^{(3)}]_1\right) \\ \vdots \\\sigma_O \left(  [\boldsymbol{W}^{(O)}\tilde{\boldsymbol{z}}^{(3)}]_K \right) \end{bmatrix}
-\tag{5}\]</span></span></p>
+\hat{\boldsymbol{y}} = \begin{bmatrix}  \sigma_O \left( [\boldsymbol{W}^{(O)}\tilde{\boldsymbol{z}}^{(N_H)}]_1\right) \\ \vdots \\\sigma_O \left(  [\boldsymbol{W}^{(O)}\tilde{\boldsymbol{z}}^{(N_H)}]_K \right) \end{bmatrix}
+\tag{5.4}\]</span></span></p>
 <p>이다. 여기에 대한 미분은</p>
 <p><span id="eq-ML_ANN_derivatives_of_output_layer"><span class="math display">\[
 \boxed{
-\dfrac{\partial \hat{y}_k}{\partial w^{(O)}_{ij}} = \delta_{ik} \sigma_{O}'\left([\boldsymbol{W}^{(O)}\tilde{\boldsymbol{z}}^{(3)}]_i\right)\tilde{z}^{(3)}_j
+\dfrac{\partial \hat{y}_k}{\partial w^{(O)}_{ij}} = \delta_{ik} \sigma_{O}'\left([\boldsymbol{W}^{(O)}\tilde{\boldsymbol{z}}^{(N_H)}]_i\right)\tilde{z}^{(N_H)}_j
 }
-\tag{6}\]</span></span></p>
+\tag{5.5}\]</span></span></p>
 <p><br></p>
 </section>
-<section id="활성화-함수" class="level3" data-number="2.2">
-<h3 data-number="2.2" class="anchored" data-anchor-id="활성화-함수"><span class="header-section-number">2.2</span> 활성화 함수</h3>
+</section>
+<section id="활성화-함수" class="level3" data-number="5.2.2">
+<h3 data-number="5.2.2" class="anchored" data-anchor-id="활성화-함수"><span class="header-section-number">5.2.2</span> 활성화 함수</h3>
 <p>은닉층, 즉 출력층을 제외한 신경망의 퍼셉트론에 대표적으로 많이 사용되는 활성화 함수에는 다음과 같은 것이 있다.</p>
 <div id="fig-ML_activation_functions" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
@@ -357,7 +372,7 @@ z^{(1)}_j = \sigma \left(\boldsymbol{w}^{(1j)} \boldsymbol{\cdot x}+b^{(1)}_j\ri
 <img src="figure/activation_function.png" class="img-fluid figure-img" width="450">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ML_activation_functions-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-그림&nbsp;3: 대표적인 활성화 함수
+그림&nbsp;5.3: 대표적인 활성화 함수
 </figcaption>
 </figure>
 </div>
@@ -372,24 +387,24 @@ z^{(1)}_j = \sigma \left(\boldsymbol{w}^{(1j)} \boldsymbol{\cdot x}+b^{(1)}_j\ri
 <p>이 외에 특정한 목적으로 사용되는 <span class="math inline">\(\text{Maxout}\)</span> 함수가 있다. <span class="math inline">\(\boldsymbol{x}=\begin{bmatrix}x_1 &amp; \cdots &amp; x_n\end{bmatrix}^T\)</span> 에 대해</p>
 <p><span id="eq-ML_maxout"><span class="math display">\[
 \text{Maxout}(\boldsymbol{x}) := \max \{x_1,\ldots,\,x_n\}
-\tag{7}\]</span></span></p>
+\tag{5.6}\]</span></span></p>
 <p>으로 정의된다.</p>
 <p><br></p>
 </section>
-<section id="sec-ML_cost_function_of_nn" class="level3" data-number="2.3">
-<h3 data-number="2.3" class="anchored" data-anchor-id="sec-ML_cost_function_of_nn"><span class="header-section-number">2.3</span> 비용함수</h3>
-<p>정해진 모든 퍼셉트론의 파라미터를 <span class="math inline">\(\boldsymbol{\theta}\)</span> 라고 하고 입력 <span class="math inline">\(\boldsymbol{x}\)</span> 에 대한 출력값을 <span class="math inline">\(\hat{\boldsymbol{y}}=F(\boldsymbol{x};\boldsymbol{\theta})\)</span> 라고 쓰자. 우리가 데이터를 학습시킬 때 <span class="math inline">\(i\)</span> 번째 입력 벡터를 <span class="math inline">\(\boldsymbol{x}_{(i)}\)</span> 라고 쓰면 마찬가지로 label 은 원-핫 벡터 <span class="math inline">\(\boldsymbol{y}_{(i)}\)</span> 로 표현 할 수 있으며 출력값은 <span class="math inline">\(\hat{\boldsymbol{y}}_{(i)}=F\left(\boldsymbol{x}_{(i)};\boldsymbol{\theta}\right)\)</span> 로 표기 할 수 있다. 다층신경망에 사용된 모든 퍼셉트론의 파라미터를 <span class="math inline">\(\boldsymbol{\theta}\)</span> 라고 표기하기로 하자. 다층 신경망에서의 오차함수는 신경망에서의 출력값의 특성에 따라 최소 제곱합이나 교차 엔트로피 함수 혹은 다른 특정한 목적을 위한 함수를 사용 할 수 있다.</p>
+<section id="sec-ML_ANN_cost_function" class="level3" data-number="5.2.3">
+<h3 data-number="5.2.3" class="anchored" data-anchor-id="sec-ML_ANN_cost_function"><span class="header-section-number">5.2.3</span> 비용함수</h3>
+<p>정해진 모든 퍼셉트론의 파라미터를 <span class="math inline">\(\boldsymbol{\theta}\)</span> 라고 하고 입력 <span class="math inline">\(\boldsymbol{x}\)</span> 에 대한 출력값을 <span class="math inline">\(\hat{\boldsymbol{y}}=F(\boldsymbol{x};\boldsymbol{\theta})\)</span> 라고 쓰자. 우리가 데이터를 학습시킬 때 <span class="math inline">\(i\)</span> 번째 입력 벡터를 <span class="math inline">\(\boldsymbol{x}_{(i)}\)</span> 라고 쓰면 마찬가지로 label 은 원-핫 벡터 <span class="math inline">\(\boldsymbol{y}_{(i)}\)</span> 로 표현 할 수 있으며 출력값은 <span class="math inline">\(\hat{\boldsymbol{y}}_{(i)}=F\left(\boldsymbol{x}_{(i)};\boldsymbol{\theta}\right)\)</span> 로 표기 할 수 있다. 다층신경망에 사용된 모든 퍼셉트론의 파라미터를 <span class="math inline">\(\boldsymbol{\theta}\)</span> 라고 표기하기로 하자. 훈련 데이터 <span class="math inline">\(\boldsymbol{x}^{(1)},\, \boldsymbol{x}^{(2)},\ldots,\,\)</span> 와 정답(label) <span class="math inline">\(\boldsymbol{y}^{(1)},\, \boldsymbol{y}^{(2)},\ldots\)</span> 전체, 혹은 일부에 대해 오차함수 <span class="math inline">\(L(\boldsymbol{\theta})\)</span> 를 정할 수 있다. 다층 신경망에서의 비용함수는 신경망에서의 출력값의 특성에 따라 최소 제곱합이나 교차 엔트로피 함수 혹은 다른 특정한 목적을 위한 함수를 사용 할 수 있다.</p>
 <p><br></p>
 </section>
-<section id="sec-ML_ANN_gradient_discent" class="level3" data-number="2.4">
-<h3 data-number="2.4" class="anchored" data-anchor-id="sec-ML_ANN_gradient_discent"><span class="header-section-number">2.4</span> 경사 하강법</h3>
-<p>결국은 다층 신경망을 학습시키는 것은 입력 데이터 <span class="math inline">\(\boldsymbol{x}^{(1)}, \,\boldsymbol{x}^{(2)},\ldots\)</span> 와 정답(label) <span class="math inline">\(\boldsymbol{y}^{(1)},\,\boldsymbol{y}^{(2)},\ldots\)</span>, 모델함수 <span class="math inline">\(f(\boldsymbol{x};\boldsymbol{\theta})\)</span> 에 대해 비용함수 <span class="math inline">\(L(\boldsymbol{\theta})\)</span> 를 최소화 하는 파라미터 <span class="math inline">\(\boldsymbol{\theta}\)</span> 를 찾는 문제이다. 문제는 입력 및 정답의 갯수 뿐만 아니라 <span class="math inline">\(\boldsymbol{\theta}\)</span> 의 갯수도 아주 크다는 것이다. 어쨌든 신경망은 일단 파라미터에 제한이 없으므로 unrestricted condtion 의 최적화 문제로 볼 수 있다. 이 경우 사용하는 것이 경사하강법이다. 매개변수 <span class="math inline">\(\boldsymbol{\theta}\)</span> 는 <span class="math inline">\(k\)</span> 번째 update 에서의 학습률 <span class="math inline">\(\eta_k\)</span> 에 대해 다음과 같이 update 된다.</p>
-<p><span class="math display">\[
+<section id="sec-ML_ANN_gradient_discent" class="level3" data-number="5.2.4">
+<h3 data-number="5.2.4" class="anchored" data-anchor-id="sec-ML_ANN_gradient_discent"><span class="header-section-number">5.2.4</span> 경사 하강법과 미니 배치</h3>
+<p>결국은 다층 신경망을 학습시키는 것은 입력 데이터 <span class="math inline">\(\boldsymbol{x}^{(1)}, \,\boldsymbol{x}^{(2)},\ldots\)</span> 와 정답(label) <span class="math inline">\(\boldsymbol{y}^{(1)},\,\boldsymbol{y}^{(2)},\ldots\)</span>, 모델함수 <span class="math inline">\(f(\boldsymbol{x};\boldsymbol{\theta})\)</span> 에 대해 비용함수 <span class="math inline">\(L(\boldsymbol{\theta})\)</span> 를 최소화 하는 파라미터 <span class="math inline">\(\boldsymbol{\theta}\)</span> 를 찾는 문제이다. 문제는 입력 및 정답의 갯수 뿐만 아니라 <span class="math inline">\(\boldsymbol{\theta}\)</span> 의 갯수도 아주 크다는 것이다. 어쨌든 신경망은 일단 파라미터에 제한이 없으므로 unrestricted condtion 의 최적화 문제로 볼 수 있다. 이 경우 사용하는 것이 경사하강법이다. 주어진 값 <span class="math inline">\(\boldsymbol{\theta}_0\)</span> 에 대해 <span class="math inline">\(\nabla_\boldsymbol{\theta}L(\boldsymbol{\theta}_0)\)</span> 는 <span class="math inline">\(\boldsymbol{\theta}_0\)</span> 에서 <span class="math inline">\(L(\boldsymbol{\theta})\)</span> 를 가장 크게 상승시키는 방향을 가리킨다. 반대로 <span class="math inline">\(-\nabla_\boldsymbol{\theta}L(\boldsymbol{\theta}_0)\)</span> 는 가장 크게 감소시키는 방향을 가리킨다. 그러나 이 값은 방향을 가리킬 뿐 그 방향으로 얼마나 가야하는지에 대한 정보는 제공하지 않는다. 보통 작은 값 <span class="math inline">\(\eta\)</span> 를 곱하여 조금씩 감소시키는 방향을 찾아가도록 한다. 이 <span class="math inline">\(\eta\)</span> 를 학습률(learning rate)이라고 한다. 보통 신경망에서 초기값 <span class="math inline">\(\boldsymbol{\theta}_0\)</span> 는 임의로 주어지며 <span class="math inline">\(\boldsymbol{\theta}_0\)</span> 부터 시작하여 점점 <span class="math inline">\(L(\boldsymbol{\theta})\)</span> 를 감소시키는 방향으로 진행한다. 즉 매개변수 <span class="math inline">\(\boldsymbol{\theta}\)</span> 는 <span class="math inline">\(k\)</span> 번째 update 에서의 학습률 <span class="math inline">\(\eta_k\)</span> 에 대해 다음과 같이 update 된다.</p>
+<p><span id="eq-ML-ANN-gradient_descent"><span class="math display">\[
 \boldsymbol{\theta}_{k+1} = \boldsymbol{\theta}_k - \eta_k \nabla_\boldsymbol{\theta}L(\boldsymbol{\theta}_k)
-\]</span></p>
-<p><span class="math inline">\(\nabla_{\boldsymbol{\theta}}L(\boldsymbol{\theta}_k)\)</span> 를 구하는 방법은 뒤의 <a href="#sec-ML_ANN_backpropagation">역전파</a>에서 다루기로 하고 일단 이것을 알고 있다고 하자.</p>
+\tag{5.7}\]</span></span></p>
+<p><span class="math inline">\(\nabla_{\boldsymbol{\theta}}L(\boldsymbol{\theta}_k)\)</span> 를 구하는 방법은 뒤의 <a href="#sec-ML_ANN_backpropagation">역전파</a>에서 다루기로 하고 일단 이것을 원하는 경우 항상 알수 있다고 하자.</p>
 <p>한번의 업데이트에 사용되는 데이터셋을 <strong>배치(batch)</strong> 라고 한다. 데이터셋의 크기가 매우 클 경우 모든 데이터셋을 포함하여 비용함수를 계산한다면, 비용함수 및 그 그래디언트를 계산하는데 계산 비용이 많이 소모된다. 만약 소수의 데이터셋만 사용한다면 계산량은 줄지만 노이즈에 취약하게 된다. 이를 위해 전체 데이터셋을 몇등분하며 각각의 등분된 부분의 데이터셋으로 파라미터를 업데이트 할 수 도 있다. 이렇게 등분된 데이터셋을 <strong>미니 배치(mini batch)</strong> 라고 한다. 전체의 데이터셋으로 파라미터를 업데이트 시켰을 경우를 1 <strong>에포크(epoch)</strong> 라고 한다.</p>
-<p>즉 1000 개의 훈련용 데이터 셋이 있다면 1000 개의 데이터셋으로 이루어진 1개의 배치가 있다. 이것을 250 개의 미니배치로 나누어 250 개의 데이터셋을 이용하여 4번 파라미터를 업데이트 할 수도 있다. 어쨌든 1000 개의 준비된 데이터셋을 사용하여 파라미터를 업데이트 하였다면 1 에포크 의 훈련 혹은 학습을 수행한 것이다.</p>
+<p>즉 1000 개의 훈련용 데이터 셋이 있다고 하자. 한번에 이 1000 개의 데이터셋을 모두 사용하여 <span class="math inline">\(\boldsymbol{\theta}\)</span> 를 업데이트 한다면 이 1000 개의 데이터셋이 1개의 배치가 된다. 아니면 이것을 250 개의 미니배치로 나누어 250 개의 데이터셋을 이용하여 4번 파라미터를 업데이트 할 수 있다. 어쨌든 1000 개의 준비된 데이터셋을 사용하여 파라미터를 업데이트 하였다면 1 에포크의 훈련/학습을 수행한 것이다.</p>
 <p><br></p>
 <p>배치와 미니배치에 따라 세가지 방법을 사용 할 수 있다.</p>
 <ul>
@@ -400,28 +415,33 @@ z^{(1)}_j = \sigma \left(\boldsymbol{w}^{(1j)} \boldsymbol{\cdot x}+b^{(1)}_j\ri
 <p><br></p>
 </section>
 </section>
-<section id="sec-ML_ANN_backpropagation" class="level2" data-number="3">
-<h2 data-number="3" class="anchored" data-anchor-id="sec-ML_ANN_backpropagation"><span class="header-section-number">3</span> 역전파 (Backpropagation)</h2>
-<p>역전파는 비용함수 <span class="math inline">\(L(\boldsymbol{\theta})\)</span> 의 내부 매개변수가 <span class="math inline">\(\boldsymbol{\theta}_k\)</span> 로 주어졌을 때 <span class="math inline">\(\nabla_\boldsymbol{\theta}L(\boldsymbol{\theta}_k)\)</span> 를 계산하는 방법이다. 역전파를 위해서는 우선 주어진 매개변수 <span class="math inline">\(\boldsymbol{\theta}\)</span> 와 입력값에 대해 모든 퍼셉트론에 대해서 출력값이 정해져야 한다. 신경망의 경우 입력 벡터, 혹은 데이터셋에 대해 <span class="math inline">\(\tilde{\boldsymbol{z}}^{(1)}\)</span> 부터 마지막 은닉층의 <span class="math inline">\(\tilde{\boldsymbol{z}}^{(M)}\)</span> 와 출력값 <span class="math inline">\(\hat{\boldsymbol{y}}\)</span> 까지 모두 정해진다. 뿐만 아니라 <a href="https://julia-kaeri.github.io/JuliaNumerical/src/numerical_analysis_using_julia/06_calculus_of_one_variable_function.html#자동-미분">자동미분(Auto differentiation)</a>을 통해 각 퍼셉트론의 <a href="#eq-ML_ANN_derivatives_of_hidden_layer_2" class="quarto-xref">식&nbsp;<span>4</span></a> 가 계산된다. 이것을 <strong>순전파 (forward propagation)</strong> 라고 한다.</p>
-<p>그리고 이 비용함수 값과 모든 퍼셉트론의 출력값을 이용하여 신경망에서 <span class="math inline">\(\nabla_\boldsymbol{\theta} L(\boldsymbol{\theta}_k)\)</span> 를 계산 할 때 의 후진법(Backward method or reverse method) 를 사용하며, 신경망의 각 층을 거꾸로 거슬러 올라가며 <span class="math inline">\(\boldsymbol{\theta}\)</span> 를 update 하므로 <strong>역전파(back propagation)</strong> 이라고 불린다.</p>
+<section id="sec-ML_ANN_backpropagation" class="level2" data-number="5.3">
+<h2 data-number="5.3" class="anchored" data-anchor-id="sec-ML_ANN_backpropagation"><span class="header-section-number">5.3</span> 역전파 (Backpropagation)</h2>
+<p>역전파는 비용함수 <span class="math inline">\(L(\boldsymbol{\theta})\)</span> 의 내부 매개변수가 <span class="math inline">\(\boldsymbol{\theta}_k\)</span> 로 주어졌을 때 <span class="math inline">\(\nabla_\boldsymbol{\theta}L(\boldsymbol{\theta}_k)\)</span> 를 계산하는 방법이다. 역전파를 위해서는 우선 주어진 매개변수 <span class="math inline">\(\boldsymbol{\theta}\)</span> 와 입력값에 대해 모든 퍼셉트론에 대해서 출력값이 정해져야 한다. 신경망의 경우 입력 벡터, 혹은 데이터셋에 대해 <span class="math inline">\(\tilde{\boldsymbol{z}}^{(1)}\)</span> 부터 마지막 은닉층의 <span class="math inline">\(\tilde{\boldsymbol{z}}^{(M)}\)</span> 와 출력값 <span class="math inline">\(\hat{\boldsymbol{y}}\)</span> 까지 모두 정해진다. 뿐만 아니라 <a href="https://julia-kaeri.github.io/JuliaNumerical/src/numerical_analysis_using_julia/06_calculus_of_one_variable_function.html#자동-미분">자동미분(Auto differentiation)</a>을 통해 각 퍼셉트론의 <a href="#eq-ML_ANN_derivatives_of_hidden_layer" class="quarto-xref">식&nbsp;<span>5.3</span></a> 가 계산된다. 이것을 <strong>순전파 (forward propagation)</strong> 라고 한다. 즉 순전파를 통해서는 각 퍼셉트론에 대해 출력값과 퍼셉트론의 내부 변수에 대한 미분값이 계산된다.</p>
+<p>마지막으로 출력층에서 입력값에 대한 출력값이 계산되고, 이를 이용하여 비용함수가 계산된다. 그리고 이 비용함수 값과 모든 퍼셉트론의 출력값을 이용하여 신경망에서 <span class="math inline">\(\nabla_\boldsymbol{\theta} L(\boldsymbol{\theta}_k)\)</span> 를 계산 할 때 자동미분의 후진법(Backward method or reverse method) 를 사용하며, 신경망의 각 층을 거꾸로 거슬러 올라가며 <span class="math inline">\(\boldsymbol{\theta}\)</span> 를 update 하므로 <strong>역전파(back propagation)</strong> 이라고 불린다.</p>
 <p>다음과 같은 신경망을 생각하자.</p>
 <ul>
 <li><span class="math inline">\(\mathbb{R}^D\)</span> 차원의 입력 벡터와 <span class="math inline">\(\mathbb{R}^K\)</span> 차원의 출력 벡터, 그리고 <span class="math inline">\(M\)</span> 개의 은닉층과 출력층으로 구성되었으며 <span class="math inline">\(l\)</span> 번째 은닉층에는 <span class="math inline">\(N_l\)</span> 개의 퍼셉트론이 존재한다.</li>
 </ul>
 <p><br></p>
-<section id="sec-ML_ANN_backpropagation_at_output_layer" class="level3" data-number="3.1">
-<h3 data-number="3.1" class="anchored" data-anchor-id="sec-ML_ANN_backpropagation_at_output_layer"><span class="header-section-number">3.1</span> 출력층에서의 역전파</h3>
+<section id="sec-ML_ANN_backpropagation_at_output_layer" class="level3" data-number="5.3.1">
+<h3 data-number="5.3.1" class="anchored" data-anchor-id="sec-ML_ANN_backpropagation_at_output_layer"><span class="header-section-number">5.3.1</span> 출력층에서의 역전파</h3>
 <p>출력층의 매개변수를 <span class="math inline">\(\boldsymbol{W}^{(O)}\)</span> 이라고 하고 활성화 함수를 <span class="math inline">\(\sigma_{(O)}\)</span> 라고 하자. 그리고 비용 함수를 <span class="math inline">\(L(\boldsymbol{\theta})\)</span> 라고 하자. 그렇다면 비용함수는 <span class="math inline">\(\boldsymbol{W}^{(1)},\ldots,\, \boldsymbol{W}^{(M)},\, \boldsymbol{W}^{(O)}\)</span> 의 함수이다.</p>
 <p><span class="math display">\[
-L(\boldsymbol{W}) = L\left(\boldsymbol{W}^{(1)},\ldots,\,\boldsymbol{W}^{(M)},\, \boldsymbol{W}^{(F)}\right)
+L(\boldsymbol{W}) = L\left(\boldsymbol{W}^{(1)},\ldots,\,\boldsymbol{W}^{(M)},\, \boldsymbol{W}^{(O)}\right)
 \]</span></p>
-<p>Chain rule 을 이용하면 <a href="#eq-ML_output_of_mlnn" class="quarto-xref">식&nbsp;<span>5</span></a> 에 대해 다음을 알 수 있다. 여기서 <span class="math inline">\(\sigma'_{O,\,i}:=\sigma'_{O}\left(\left[\boldsymbol{W}^{(O)} \tilde{\boldsymbol{z}}^{(M)}\right]_i \right)\)</span> 라고 하면</p>
+<p>Chain rule 을 이용하면 <a href="#eq-ML_output_of_mlnn" class="quarto-xref">식&nbsp;<span>5.4</span></a> 에 대해 다음을 알 수 있다. 여기서 <span class="math inline">\(\sigma'_{O,\,i}:=\sigma'_{O}\left(\left[\boldsymbol{W}^{(O)} \tilde{\boldsymbol{z}}^{(M)}\right]_i \right)\)</span> 라고 하면</p>
 <p><span id="eq-ML_ANN_derivatives_at_output_layer"><span class="math display">\[
 \dfrac{\partial L(\boldsymbol{W})}{\partial w^{(O)}_{ij}} = \sum_k \dfrac{\partial L}{\partial \hat{y}_k} \dfrac{\partial \hat{y}_k}{\partial w^{(O)}_{ij}} = \sum_k \dfrac{\partial L}{\partial \hat{y}_k}\delta_{ik}\sigma'_{O, i} \tilde{z}^{(M)}_j= \dfrac{\partial L}{\partial\hat{y}_i} \dfrac{\partial \hat{y}_i}{\partial w^{(O)}_{ij}}
-\tag{8}\]</span></span></p>
-<p>이다. 기본적으로 자동 미분에 의해 <span class="math inline">\(\dfrac{\partial \hat{y}_i}{\partial w^{(O)}_{ij}}\)</span> 는 순전파 과정에서 이미 정해졌으며 여기서는 <span class="math inline">\({\partial L}/{\partial \hat{y}_i}\)</span> 만을 구해서 출력층에서의 매개변수에 대한 편미분을 구할 수 있다. 이제 마지막 은닉층에서의 출력값 <span class="math inline">\(\tilde{z}^{(M)}_j= \sigma \left(\left[\boldsymbol{W}^{(M)}\tilde{\boldsymbol{z}}^{(M-1)}\right]_j\right)\)</span> 에 대해 <span id="eq-ML_ANN_derivatives_at_final_hidden_layer_1"><span class="math display">\[
+\tag{5.8}\]</span></span></p>
+<p>이다. 기본적으로 자동 미분에 의해 <span class="math inline">\(\dfrac{\partial \hat{y}_i}{\partial w^{(O)}_{ij}}\)</span> 는 순전파 과정에서 이미 정해졌으며 여기서는 <span class="math inline">\(\dfrac{\partial L}{\partial \hat{y}_i}\)</span> 만을 구해서 출력층에서의 매개변수에 대한 편미분을 구할 수 있다. 예를 들어 비용함수가 교차 엔트로피 함수(<a href="classification.html#eq-ML_classification_cost_function_of_many_class_classification" class="quarto-xref">식&nbsp;<span>4.6</span></a>) 라면</p>
+<p><span class="math display">\[
+\dfrac{\partial L}{\partial \hat{y}_k} = - \sum_{i=1}^n \dfrac{y^{(i)}_k}{\hat{y}^{(i)}_k}
+\]</span></p>
+<p>이다.</p>
+<p>이제 마지막 은닉층에서의 출력값 <span class="math inline">\(\tilde{z}^{(M)}_j= \sigma \left(\left[\boldsymbol{W}^{(M)}\tilde{\boldsymbol{z}}^{(M-1)}\right]_j\right)\)</span> 에 대해 <span id="eq-ML_ANN_derivatives_at_final_hidden_layer_1"><span class="math display">\[
 \dfrac{\partial L(\boldsymbol{W})}{\partial w^{(M)}_{ij}} = \sum_{k} \sum_{l}\dfrac{\partial L(\boldsymbol{\theta})}{\partial \hat{y}_k} \dfrac{\partial \hat{y}_k}{\partial \tilde{z}^{(M)}_l}\dfrac{\partial \tilde{z}^{(M)}_l}{\partial w^{(M)}_{ij}}
-\tag{9}\]</span></span></p>
+\tag{5.9}\]</span></span></p>
 <p>이며,</p>
 <p><span class="math display">\[
 \sigma'_{M, k} = \left(\dfrac{d\sigma_M(t)}{dt}\right)_{t=[\boldsymbol{W}^{(M)}\tilde{\boldsymbol{z}}]_k}
@@ -429,10 +449,10 @@ L(\boldsymbol{W}) = L\left(\boldsymbol{W}^{(1)},\ldots,\,\boldsymbol{W}^{(M)},\,
 <p>라고 하면 <span class="math display">\[
 \dfrac{\partial \hat{y}_k}{\partial \tilde{z}_l^{(M)}}=\sigma'_{M, k} w^{(M)}_{kl},\qquad \dfrac{\partial \tilde{z}_l^{(M)}}{\partial w^{(M)}_{ij}}= \delta_{il}\sigma'_{M, i}\tilde{z}^{(M-1)} = \delta_{li}\dfrac{\partial \tilde{z}^{(M)}_l}{\partial w^{(M)}_{ij}}
 \]</span></p>
-<p>이므로 <a href="#eq-ML_ANN_derivatives_at_final_hidden_layer_1" class="quarto-xref">식&nbsp;<span>9</span></a> 은</p>
+<p>이므로 <a href="#eq-ML_ANN_derivatives_at_final_hidden_layer_1" class="quarto-xref">식&nbsp;<span>5.9</span></a> 은</p>
 <p><span id="eq-ML_ANN_derivatives_at_final_hidden_layer_2"><span class="math display">\[
 \dfrac{\partial L}{\partial w^{(M)}_{ij}} = \sum_{k_O} \dfrac{\partial L}{\partial \hat{y}_{k_O}} \sigma'_{M, k} w_{k_O,i}^{(M)} \dfrac{\partial \tilde{z}^{(M)}_i}{\partial w^{(M)}_{ij}}
-\tag{10}\]</span></span></p>
+\tag{5.10}\]</span></span></p>
 <p>이다. 여기서 <span class="math inline">\(\dfrac{\partial \tilde{z}^{(M)}_i}{\partial w^{(M)}_{ij}}\)</span> 는 순전파 과정에서 정해지므로 마지막 은닉층의 매개변수에 대한 비용함수의 편미분을 모두 구할 수 있다. 이제 <span class="math inline">\(m\)</span> 번 은닉층의 매개변수에 대한 편미분은</p>
 <p><span id="eq-ML_ANN_derivatives_at_arbitrary_hidden_layer"><span class="math display">\[
 \boxed{
@@ -441,12 +461,12 @@ L(\boldsymbol{W}) = L\left(\boldsymbol{W}^{(1)},\ldots,\,\boldsymbol{W}^{(M)},\,
 &amp;\qquad \times \left[ \sigma'_{M, k_O} w^{(M)}_{k_O, k_M}\right] \left[\sigma'_{M-1, k_{M-1}}w^{(M-1)}_{k_{M},k_{M-1}}\right] \cdots \left[\sigma'_{m+1,\, k_{m+1}}w^{(m+1)}_{k_{m+1}, i}\right]\dfrac{\partial \tilde{z}^{(m)}_i}{\partial w^{(m)}_{ij}}
 \end{aligned}
 }
-\tag{11}\]</span></span></p>
-<p>로 구할 수 있다.</p>
+\tag{5.11}\]</span></span></p>
+<p>로 구할 수 있다. 즉 우리는 모든 매개변수에 대해 <span class="math inline">\(\nabla_\boldsymbol{\theta}L(\boldsymbol{\theta}_k)\)</span> 를 구하고, <a href="#eq-ML-ANN-gradient_descent" class="quarto-xref">식&nbsp;<span>5.7</span></a> 를 통해 <span class="math inline">\(\boldsymbol{\theta}\)</span> 값을 업데이트 하여 결국은 <span class="math inline">\(L(\boldsymbol{\theta})\)</span> 를 최소화 하는 <span class="math inline">\(\boldsymbol{\theta}\)</span> 를 찾을 수 있다.</p>
 <p><br></p>
 </section>
-<section id="sec-ML_ANN_vanishing_gradient" class="level3" data-number="3.2">
-<h3 data-number="3.2" class="anchored" data-anchor-id="sec-ML_ANN_vanishing_gradient"><span class="header-section-number">3.2</span> 기울기 소멸</h3>
+<section id="sec-ML_ANN_vanishing_gradient" class="level3" data-number="5.3.2">
+<h3 data-number="5.3.2" class="anchored" data-anchor-id="sec-ML_ANN_vanishing_gradient"><span class="header-section-number">5.3.2</span> 기울기 소멸</h3>
 <p>신경망 초기에는 활성화 함수로 sigmoid 함수를 만이 사용했다. <span class="math inline">\(f(t)\)</span> 가 sigmoid 함수일 때 <span class="math inline">\(0&lt;f(t)&lt;1\)</span> 이며</p>
 <p><span class="math display">\[
 f'(t) = \dfrac{e^{-t}}{(1+e^{-t})^2}= f(t) (1-f(t))
@@ -458,15 +478,15 @@ f'(t) = \dfrac{e^{-t}}{(1+e^{-t})^2}= f(t) (1-f(t))
 <img src="figure/sigmoid_and_diff.png" class="img-fluid figure-img">
 </div>
 <figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ML_ANN_sigmoid_function_and_its_derivative-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
-그림&nbsp;4: Sigmoid 함수와 그 미분
+그림&nbsp;5.4: Sigmoid 함수와 그 미분
 </figcaption>
 </figure>
 </div>
-<p><a href="#eq-ML_ANN_derivatives_at_arbitrary_hidden_layer" class="quarto-xref">식&nbsp;<span>11</span></a> 를 보면 각 층에서의 활성화 함수의 도함수가 계속 곱해진다. 신경망의 층수가 매우 크다면 입력층에 가까운 퍼셉트론의 매개변수에 대한 미분값은 <span class="math inline">\(0\)</span> 에 가까울 것이며 따라서 경사 하강법에 의헤 업데이트 되는 매개변수 <span class="math inline">\(\theta\)</span> 는 그 update 가 매우 느리거나 멈출 수 밖에 없다. 즉</p>
+<p><a href="#eq-ML_ANN_derivatives_at_arbitrary_hidden_layer" class="quarto-xref">식&nbsp;<span>5.11</span></a> 를 보면 각 층에서의 활성화 함수의 도함수가 계속 곱해진다. 신경망의 층수가 매우 크다면 입력층에 가까운 퍼셉트론의 매개변수에 대한 미분값은 <span class="math inline">\(0\)</span> 에 가까울 것이며 따라서 경사 하강법에 의헤 업데이트 되는 매개변수 <span class="math inline">\(\theta\)</span> 는 그 update 가 매우 느리거나 멈출 수 밖에 없다. 즉</p>
 <p><span class="math display">\[
 \theta_{k+1} = \theta_k - \alpha_k \dfrac{\partial L}{\partial \theta}
 \]</span></p>
-<p>에서 <span class="math inline">\(\partial L/\partial \theta \approx 0\)</span> 이므로 <span class="math inline">\(\theta_{k+1}\approx \theta_k\)</span> 가 된다. 이 현상을 <strong>기울기 소멸(vanishing gradient)</strong> 라고 한다. 기울기 소멸을 극복하기 위해 다양한 기법이 제시되었으며 대표적으로 활성화 함수를 기울기 소멸이 쉬운 sigmoid 함수나 <span class="math inline">\(\tanh\)</span> 함수를 사용하지 않고 <span class="math inline">\(\text{ReLU}\)</span>, 혹은 이에서 파생한 <span class="math inline">\(\text{Leaky ReLU}\)</span>, <span class="math inline">\(\text{ELU}\)</span> 함수를 사용하는 방법이 있다(<a href="#fig-ML_activation_functions" class="quarto-xref">그림&nbsp;<span>3</span></a> 를 보라).</p>
+<p>에서 <span class="math inline">\(\partial L/\partial \theta \approx 0\)</span> 이므로 <span class="math inline">\(\theta_{k+1}\approx \theta_k\)</span> 가 된다. 이 현상을 <strong>기울기 소멸(vanishing gradient)</strong> 라고 한다. 기울기 소멸을 극복하기 위해 다양한 기법이 제시되었으며 대표적으로 활성화 함수를 기울기 소멸이 쉬운 sigmoid 함수나 <span class="math inline">\(\tanh\)</span> 함수를 사용하지 않고 <span class="math inline">\(\text{ReLU}\)</span>, 혹은 이에서 파생한 <span class="math inline">\(\text{Leaky ReLU}\)</span>, <span class="math inline">\(\text{ELU}\)</span> 함수를 사용하는 방법이 있다(<a href="#fig-ML_activation_functions" class="quarto-xref">그림&nbsp;<span>5.3</span></a> 를 보라).</p>
 
 
 </section>
@@ -897,6 +917,9 @@ window.document.addEventListener("DOMContentLoaded", function (event) {
       </a>          
   </div>
   <div class="nav-page nav-page-next">
+      <a href="../../src/theory/cnn.html" class="pagination-link" aria-label="합성곱 신경망ㅋ">
+        <span class="nav-page-text"><span class="chapter-number">6</span>&nbsp; <span class="chapter-title">합성곱 신경망ㅋ</span></span> <i class="bi bi-arrow-right-short"></i>
+      </a>
   </div>
 </nav>
 </div> <!-- /content -->

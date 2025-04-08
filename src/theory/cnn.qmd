@@ -1,0 +1,25 @@
+---
+title: "합성곱 신경망"
+
+number-sections: true
+number-depth: 3
+crossref:
+  chapters: true
+---
+
+
+{{< include ../latexmacros.qmd >}}
+
+</br>
+
+## 이미지의 상관관계
+
+
+
+인공지능과 무관하게 합성곱(convolution) 은 이미지에서 이미지의 어떤 특성을 추출하는데 널리 사용되어 왔다. $M\times N$ 크기의 이미지에 $f[x, y]$ 대해 $(2m +1) \times (2m+1)$ 의 kernel $k$ 를 작용시킨다고 하자. 수학적 표기의 편의를 위해 $k$ 의 인덱스를 $-m,\, -(m-1), \ldots,\, -1,\,0,\, 1,\, \ldots,\, m$ 으로 잡는다. 
+
+$$
+(f\otimes k)[x, y] = \sum_{i, j = -m}^m f[x+i, y+j] k[i,\,j]
+$$
+
+
