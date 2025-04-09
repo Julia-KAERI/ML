@@ -212,7 +212,11 @@ window.Quarto = {
     <h2 id="toc-title">목차</h2>
    
   <ul>
-  <li><a href="#이미지의-상관관계" id="toc-이미지의-상관관계" class="nav-link active" data-scroll-target="#이미지의-상관관계"><span class="header-section-number">6.1</span> 이미지의 상관관계</a></li>
+  <li><a href="#이미지의-합성곱" id="toc-이미지의-합성곱" class="nav-link active" data-scroll-target="#이미지의-합성곱"><span class="header-section-number">6.1</span> 이미지의 합성곱</a>
+  <ul class="collapse">
+  <li><a href="#sec-ML_CNN_structure_of_image" id="toc-sec-ML_CNN_structure_of_image" class="nav-link" data-scroll-target="#sec-ML_CNN_structure_of_image"><span class="header-section-number">6.1.1</span> 이미지의 구조</a></li>
+  <li><a href="#이미지의-합성곱과-상관관계" id="toc-이미지의-합성곱과-상관관계" class="nav-link" data-scroll-target="#이미지의-합성곱과-상관관계"><span class="header-section-number">6.1.2</span> 이미지의 합성곱과 상관관계</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
@@ -248,14 +252,50 @@ window.Quarto = {
 \]</span></p>
 </div>
 <p><br></p>
-<section id="이미지의-상관관계" class="level2" data-number="6.1">
-<h2 data-number="6.1" class="anchored" data-anchor-id="이미지의-상관관계"><span class="header-section-number">6.1</span> 이미지의 상관관계</h2>
-<p>인공지능과 무관하게 합성곱(convolution) 은 이미지에서 이미지의 어떤 특성을 추출하는데 널리 사용되어 왔다. <span class="math inline">\(M\times N\)</span> 크기의 이미지에 <span class="math inline">\(f[x, y]\)</span> 대해 <span class="math inline">\((2m +1) \times (2m+1)\)</span> 의 kernel <span class="math inline">\(k\)</span> 를 작용시킨다고 하자. 수학적 표기의 편의를 위해 <span class="math inline">\(k\)</span> 의 인덱스를 <span class="math inline">\(-m,\, -(m-1), \ldots,\, -1,\,0,\, 1,\, \ldots,\, m\)</span> 으로 잡는다.</p>
-<p><span class="math display">\[
-(f\otimes k)[x, y] = \sum_{i, j = -m}^m f[x+i, y+j] k[i,\,j]
-\]</span></p>
+<section id="이미지의-합성곱" class="level2" data-number="6.1">
+<h2 data-number="6.1" class="anchored" data-anchor-id="이미지의-합성곱"><span class="header-section-number">6.1</span> 이미지의 합성곱</h2>
+<section id="sec-ML_CNN_structure_of_image" class="level3" data-number="6.1.1">
+<h3 data-number="6.1.1" class="anchored" data-anchor-id="sec-ML_CNN_structure_of_image"><span class="header-section-number">6.1.1</span> 이미지의 구조</h3>
+<p>디지털 이미지는 소위 픽셀(pixel), 혹은 화소라고 불리는 작은 점의 집합이다. 이 작은 점이 보통 직사각형의 격자를 이루며 배치되어 있고 각 점마다 표현하고자 하는 색의 정보를 숫자로 가지고 있다. 흑백 이미지의 경우는 <span class="math inline">\(0\)</span> 부터 255 까지의 숫자를 저장하며, 칼라 이미지의 경우는 빨간색(red, R), 초록색(green, G), 파란색(blue, B) 각각에 대해 <span class="math inline">\(0\)</span> 부터 <span class="math inline">\(255\)</span> 까지의 숫자로 색의 정보를 저장한다. 혹은 여기에 알파 채널(alpha channel) 이라는 부가 정보까지 포함하여 저장할 수도 있다. 이 알파채널은 투명도를 위해 사용되는 경우가 많지만 반드시 그런 것은 아니다. 이렇게 저장하는 것을 RGB 혹은 알파채널까지 표함할 경우 ARGB 라고 하지만 다른 색채 정보 저장 방식도 존재한다. 그러나 여기서는 일단 RGB 만을 다루기로 한다.</p>
+<p>이미지가 폭 <span class="math inline">\(W\)</span>, 높이 <span class="math inline">\(H\)</span> 로 이루어 졌다고 하자. 각각의 픽셀에 대해 <span class="math inline">\(R,\, G,\,B\)</span> 값이 존재하며 각 색상에 대해 <span class="math inline">\(H\times W\)</span> 의 배열이 존재한다. 이 <span class="math inline">\(R,\,G,\,B\)</span> 를 채널이라고 하며 채널 수를 <span class="math inline">\(C\)</span> 라고 하자. 그렇다면 총 이미지는 <span class="math inline">\(H \times W \times C\)</span> 형태의 3차원 배열이 되며, deep learning 에서는 <strong>텐서(tensor)</strong> 라는 용어를 사용한다. 수학에서 사용하는 벡터에 대한 함수라는 의미와는 다른 의미인데 deep learning 에서는 두가지 의미를 모두 텐서라고 부르므로 문맥에 따라 이해해야 한다.</p>
+<p><br></p>
+</section>
+<section id="이미지의-합성곱과-상관관계" class="level3" data-number="6.1.2">
+<h3 data-number="6.1.2" class="anchored" data-anchor-id="이미지의-합성곱과-상관관계"><span class="header-section-number">6.1.2</span> 이미지의 합성곱과 상관관계</h3>
+<p>인공지능과 무관하게 합성곱(convolution)과 교차상관(cross-correlation) 은 이미지에서 이미지의 어떤 특성을 추출하는데 널리 사용되어 왔다. <span class="math inline">\(M\times N\)</span> 크기의 이미지에 <span class="math inline">\(F(x, y)\)</span> 대해 <span class="math inline">\((2m +1) \times (2m+1)\)</span> 의 작은 이미지 <span class="math inline">\(K(i, j)\)</span> 를 작용시킨다고 하자. 일반적으로 <span class="math inline">\(F\)</span> 는 실제 이미지이며 <span class="math inline">\(k\)</span> 는 수학적 처리를 위핸 2차원 배열로 주로 홀수<span class="math inline">\(\times\)</span> 홀수 형태의 정사각형이다. 수학적 표기의 편의를 위해 <span class="math inline">\(K\)</span> 의 인덱스를 <span class="math inline">\(-m,\, -(m-1), \ldots,\, -1,\,0,\, 1,\, \ldots,\, m\)</span> 으로 잡는다.</p>
+<p><span id="eq-ML_cnn_convolution_and_cross-correlation"><span class="math display">\[
+\boxed{
+\begin{aligned}
+\textbf{convolution} &amp; &amp; (F\ast K)[y, x] := \sum_{i, j = -m}^m F[y-j, x-i] K[j,\,i], \\[0.3em]
+\textbf{cross-correlation} &amp; &amp;(F\otimes K)[y, x] := \sum_{i, j = -m}^m F[y+j, x+i] K[j,\,i].
+\end{aligned}
+}
+\tag{6.1}\]</span></span></p>
+<p>합성곱과 교차상관은 수학적으로 다르지만 커널 <span class="math inline">\(K\)</span> 를 양 방향 모두 역순으로 바꾸면 합성곱이 교차상관으로, 교차상관이 합성곱으로 바뀌므로 여기서는 크게 차이가 나지 않는다. 즉 양 방향 모두 커널의 중심에 대해 대칭이라면 합성곱과 교차상관은 같다. 합성곱 신경망에서 실제로 사용하는 것은 교차상관이지만 이런 이유, 그리고 합성곱 신경망이 나타나기 이전의 이미지 처리에 교차상관보다는 합성곱을 더 많이 써서 익숙하다는 이유 등등으로 인해 교차상관 신경망이 아닌 합성곱 신경망이라고 불린다. 여기서도 일단은 <strong>합성곱 신경망(convolutinal neural network, or convolutional network)</strong> 이라고 언급하기로 하자. 이 때 <span class="math inline">\(F\)</span> 를 <strong>입력 (input)</strong> 이라고 하고 <span class="math inline">\(K\)</span> 를 <strong>커널(kernel)</strong>, <strong>필터(filter)</strong> 혹은 <strong>마스크(mask)</strong> 라고 부른다. 그리고 그 결과로서 나오는 <span class="math inline">\((F\ast K)\)</span> 를 <strong>특성 맵(feature map)</strong> 이라고 부른다.</p>
+<p>아래 그림은 왼쪽의 원본 이미지에 Laplacian filter <span class="math inline">\(K=\begin{bmatrix}0 &amp; 1 &amp; 0 \\ 1 &amp; -4 &amp; 1 \\ 0 &amp; 1 &amp; 0\end{bmatrix}\)</span> 를 적용하여 합성곱을 구한 이미지이다. 라플라시안 필터는 영상 속의 대상의 경계를 뚜렷이 보이도록 하는 필터이다. 칼라 영상이므로 각 체널마다 합성곱 연산을 수행한다. 물론 채널마다 다른 필터를 적용할 수도 있다.</p>
+<div id="fig-ML_CNN_lena_convolutioned" class="quarto-float quarto-figure quarto-figure-center anchored">
+<figure class="quarto-float quarto-float-fig figure">
+<div aria-describedby="fig-ML_CNN_lena_convolutioned-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+<img src="figure/lena_filtered_image.png" class="img-fluid figure-img" width="500">
+</div>
+<figcaption class="quarto-float-caption-bottom quarto-float-caption quarto-float-fig" id="fig-ML_CNN_lena_convolutioned-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
+그림&nbsp;6.1: Filtered image
+</figcaption>
+</figure>
+</div>
+<p><br></p>
+<section id="패딩-padding" class="level4">
+<h4 class="anchored" data-anchor-id="패딩-padding"><strong>패딩 (padding)</strong></h4>
+<p>이미지의 가장자리에서는 예를 들어 <span class="math inline">\([0, 0]\)</span> 위치에서는 합성곱을 구할 수 없다. 커널의 크기가 <span class="math inline">\((2m +1)\times (2m+1)\)</span> 일 경우 입력 이미지의 가장자리를 확장하여 <span class="math inline">\((M+2m) \times (N + 2n)\)</span> 크기의 이미지로 만들어주고 가장자리에 특정한 값을 채우게 되는에 이를 패딩(padding) 이라고 한다. <span class="math inline">\(0\)</span> 을 채우거나 아니면 가장자리 값을 채울 수도 있다.</p>
+<p><br></p>
+</section>
+<section id="스트라이드-stride" class="level4">
+<h4 class="anchored" data-anchor-id="스트라이드-stride"><strong>스트라이드 (stride)</strong></h4>
+<p>이미지 크기가 <span class="math inline">\(H \times W\)</span> 일 때 convolution 은 <span class="math inline">\(H \times M\)</span> 개의 픽셀에 대해 각각 계산된다. 하지만 계산적 필요에 의해 한칸 건너 한번씩 혹은 두칸 건너 한번씩 convolution 을 수행 할 수도 있다. 이것은 커널을 몇 칸 단위로 이동시켜 합성곱 계산을 하는지로도 표현 할 수 있는데, 다음 합성곱 계산을 위해 움직이는 칸 수를 스트라이드 라고 한다. 모든 픽셀에서 수행하면 스트라이드는 <span class="math inline">\(1\)</span> 이며, 한칸 건너서 수행하면 스트라이드는 <span class="math inline">\(2\)</span> 이다. 따라서 스트라이드가 <span class="math inline">\(s\)</span> 일 경우 합성곱의 결과로 나오는 특성맵의 크기는 대략 <span class="math inline">\((H\div s) \times (W \div 3)\)</span> 정도 된다. 스트라이들 통해 특성 맵의 크기를 줄일 수 있어서 효과적으로 사용한다면 인공신경망 계산량을 크게 줄일 수 있다.</p>
 
 
+</section>
+</section>
 </section>
 
 </main> <!-- /main -->
