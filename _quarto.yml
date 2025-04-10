@@ -18,6 +18,7 @@ book:
         - src/theory/optimization.qmd
         - src/theory/regression.qmd
         - src/theory/statistics.qmd
+        - src/theory/ML_basics.qmd
         - src/theory/classification.qmd
         - src/theory/perceptron_and_ann.qmd
         - src/theory/cnn.qmd

@@ -312,10 +312,45 @@ $${#eq-ML_ststistics_properties_of_gaussian_distribution}
 
 </br>
 
+## 정보 이론
+
+### Self-Information 과 셰넌 엔트로피 {#sec-ML_statistics_shannon_entropy}
+
+정보 이론은 어떤 신호에 얼마나 많은 정보가 표현되어 있는지, 혹은 표현 할 수 있는지를 정량화 하는 것에 관련된 응용 수학의 분야이다. 정보 이론은 원래 잡음이 있는 채널을 통해 이산적인 알파벳으로 구성된 메시지를 전송하는 방법을 연구하기 위해 고안되었으며 이러한 맥락에서 최적의 부호를 설계하고, 특정 확률 분포에서 샘플링된 메시지들의 예상 길이를 다양한 인코딩 방식으로 계산하는 방법을 제시하였다. 머신러닝의 맥락에서는 이러한 정보 이론을 연속 변수에도 적용할 수 있으며, 이 경우에는 메시지 길이에 대한 해석이 항상 성립하지는 않는다(@Goodfellow2016).
+
+
+일단 @Goodfellow2016 를 따라가면 정보의 개념을 수학적으로 정량화 하기 위한 기준은 다음과 같다.
+
+- 일어날 가능성이 높은 사건은 정보량이 적어야 하며, 극단적인 경우로 확실히 일어나는 사건은 정보량이 전혀 없어야 한다.
+
+- 일어날 가능성이 낮은 사건일수록 더 많은 정보를 가져야 한다.
+
+- 독립적인 사건들은 정보량이 더해져야 합니다. 예를 들어, 동전을 던져 앞면이 한 번 나왔다는 사실보다 두 번 연속 앞면이 나왔다는 사실이 두 배의 정보를 전달해야 한다.
+
+위의 세 성질을 만족하는 *self-information* 을 아래와 같이 정의한다. 
+
+$$
+\boxed{I(x) := - \log_b P(X=x).}
+$$ {#eq-ML-statistics_definition_of_self_information}
+
+$b=2$ 인 경우 단위는 $\text{Sh}$ (Shannon) 이며 $b=10$ 을 사용하면 단위는 $\text{Hart}$ (Hartley) 라고 한다. $b=e$ 인 경우 단위는 $\text{nat}$ 이며 *natural unit of information* 을 의미한다(From [Wikipedia](https://en.wikipedia.org/wiki/Information_content)). 앞으로는 특별한 언급이 없는 한 $\text{nat}$ 단위를 사용하도록 한다.
+
+
+Self-information 은 하나의 사건만을 다룬다. 불확실성의 척도를 전체 확률분포에서 다룬 것을 셰넌 앤트로피(Shannon entropy) 라고 하며, 셰넌 앤트로피 $H(x)$ 는 아래와 같이 정의된다.
+
+$$
+\boxed{ H(x) := \mathbb{E}[I(x)] = -\mathbb{E}(\ln P(X=x)).}
+$${#eq-ML-statistics_definition_of_shannon_entropy}
+
+![2진 확률 변수에 대한 셰넌 엔트로피](figure/shannon_entropy.png){#fig-ML_statistics_shannon_entropy width=400}
+
+즉 확률 분포 $P$ 에 대한 셰넌 앤트로피는 이 분포에서 가능한 사건에 포함된 정보의 총량이다. Self-information 에서 $\text{Sh}$ 단위를 사용할 경우 이 값은 확률 분포 $P$ 로부터 샘플링된 기호들을 인코딩할 때, 평균적으로 필요한 비트 수의 하한이다. $X$ 가 연속 확률 변수일 때 셰넌 앤트로피를 **미분 엔트로피(differential entropy)**라고 한다. 
 
 </br>
 
-## 베이지안 통계 (Bayesian Probabilities)
+
+
+## 베이지안 통계
 
 지금까지 우리는 확률을 무작위성(randomness) 과 반복적인 사건(repeated events) 이라는 **고전적(classica)** 혹은 **빈도적(frequencies)** 이라고 불리는 관점에서 봤다. 이제 우리는 확률을 이용하여 불확실성을 정량화하는 **Bayesian** 관점을 학습할 것이다.
 
@@ -325,15 +360,13 @@ $$
 P(\bf{w}\,|\, \mathcal{D})=\dfrac{P(\mathcal{D}\,|\,\bf{w}) \cdot P(\bf{w})}{P(\mathcal{D})}.
 $$
 
-여기서 $p(\mathcal{D}\,|\,\bf{w})$ 를 **가능도** 혹은 **우도 (likelihood function)** 라고 하고  $p(\bf{w})$ 를 **사전 확률 분포 (prior distribution)** 라고 한다. $p(\mathcal{D})$ 는 정규화 상수(normalization constant) 이다. $p(\mathcal{D})$ 는 실험 결과에 따라 정해지는 확률이기 때문에 실험이 종료된 상황에서는 상수일 뿐이다.
+여기서 $P(\mathcal{D}\,|\,\bf{w})$ 를 **가능도** 혹은 **우도 (likelihood function)** 라고 하고  $p(\bf{w})$ 를 **사전 확률 분포 (prior distribution)** 라고 한다. $p(\mathcal{D})$ 는 정규화 상수(normalization constant) 이다. $p(\mathcal{D})$ 는 실험 결과에 따라 정해지는 확률이기 때문에 실험이 종료된 상황에서는 상수일 뿐이다.
 
 </br>
 
 #### **고전적/빈도주의적 입장**
 
 고전적 입장에서는 $p(\bf{w})=1$ 이다. 따라서 $p(\bf{w}|\mathcal{D})$ 를 최대화 하는 것은 $p(\mathcal{D}|\bf{w})$ 를 최대화 하는 것이다. 보통 기계학습에서 에러 함수 $L(\bf{w})=-\ln p(\mathcal{D}|\bf{w})$ 이므로 에러 함수를 최소화 하는 것은 가능도를 최대로 하는 것과 동치이다.
-
-
 
 </br>
 
