@@ -4,7 +4,7 @@ title: "최적화"
 number-sections: true
 number-depth: 3
 crossref:
-  chapters: false
+  chapters: true
 ---
 
 {{< include ../latexmacros.qmd >}}
@@ -24,7 +24,7 @@ crossref:
 
 ## 최적화
 
-### 최적화문제 
+### 최적화문제 {#sec-ML_optimization_problem}
 
 일반적으로 최적화 문제는 어떤 함수 $f:U \subset \R^n \to \R$ 에 대해 아래의 $\bf{\theta}^\ast$ 를 구하는 것으로 주어진다.
 
@@ -58,7 +58,7 @@ $$ {#eq-ML_optimization_optimization_problem}
 
 </br>
 
-### 최적화의 수학 모델
+### 최적화의 수학 모델 {#sec-ML_mathematical_model_for_optimization}
 
 #### **수학적 표준 모델**
 
@@ -84,7 +84,7 @@ $$ {#eq-optimization_feasible_model}
 
 </br>
 
-### 전역적 최적화와 국소적 최적화
+### 전역적 최적화와 국소적 최적화 {#sec-ML_global_and_local_optimization}
 
 함수 $f(x)$ 가 아래 그림과 같다고 하자.
 
@@ -97,7 +97,7 @@ $$ {#eq-optimization_feasible_model}
 
 ## 볼록 최적화 (Convex optimization)
 
-### 볼록 함수와 볼록 집합
+### 볼록 함수와 볼록 집합 {#sec-ML_convex_function_and_convex_set}
 
 ::: {.callout-tip appearance="minimal"}
 ::: {#def-ML_convex_function_and_set}
@@ -125,7 +125,7 @@ $$ {#eq-optimization_convex_set}
 </br>
 
 
-### 볼록 최적화
+### 볼록 최적화 {#sec-ML_optimization_convex_optimization}
 
 @eq-ML_optimization_optimization_problem 의 최적화 문제가 주어졌다고 하자. 이 때 목적함수가 볼록 함수 이고 가능해 영역 이 볼록 집합인 경우의 최적화 문제를 **볼록 최적화 (convex optimization)** 문제 라고 한다.
 
@@ -165,7 +165,7 @@ $$
 
 </br> <div class="border" style="background-color:#FFF0F5 ;padding:5px;">
 
-::: {#thm-optimization_convex_solution_set}
+::: {#thm-ML_optimization_convex_solution_set}
 
 볼록 최적화 문제의 해 가 하나 이상일 때 해의 집합을 $X$ 라고 하자. 즉 $\displaystyle X = \argmin_{\bf{\theta}\in \mathcal{C}} f(\bf{\theta})$ 라고 하면 $X$ 는 볼록집합이다.
 
@@ -192,7 +192,7 @@ $$
 
 </br>
 
-## 선형계획법
+## 선형계획법 {#sec-ML_optimization_linear_optimization}
 
 일반적으로 선형계획법 문제는 다음과 같은 형태로 주어진다.
 
@@ -220,7 +220,7 @@ $$ {#eq-optimization_linear_general_LP}
 </br>
 
 
-## Unconstrained convex optimizaiton 문제 
+## Unconstrained convex optimizaiton 문제  {#sec-ML_optimizatino_unconstrained_convex_optimization}
 
 - $\nabla_\bf{\theta}f(\bf{\theta}^\ast)=\bf{0}$ 인 $\bf{\theta}^\ast$ 를 찾는 문제이다.
 
@@ -239,7 +239,7 @@ $${#eq-optimization_differentiation_to_vector}
 
 </br>
 
-### Gradient
+### Gradient {#sec-ML_optimization_gradient}
 
 $\bf{\theta} = \begin{bmatrix}\theta_1 & \cdots & \theta_n \end{bmatrix}^T \in \R^n$, $\bf{a} \in \R^n$, $\bf{A}=\R^{m \times n}$ 일 때 $\bf{\theta}$ 에 대한 스칼라 함수의 gradient 는 다음과 같다.
 
@@ -250,12 +250,12 @@ $$
 \nabla_\bf{\theta} (\bf{\theta}^T\bf{\theta}) &= 2\bf{\theta}\\[0.3em]
 \nabla_{\bf{\theta}} (\bf{\theta}^T\bf{A\theta}) &= (\bf{A}^T +\bf{A})\bf{\theta}
 \end{aligned}
-$$ {#eq-optimzation_gradient_of_vector}
+$$ {#eq-ML_optimzation_gradient_of_vector}
 
 
 </br>
 
-### 직접법
+### 직접법 {#sec-ML_optimization_direct_method}
 
 - $\nabla_\bf{\theta}f(\bf{\theta}^\ast)=\bf{0}$ 인 $\bf{\theta}^\ast$ 를 직접 구한다.
 
@@ -265,7 +265,7 @@ $$ {#eq-optimzation_gradient_of_vector}
 
 <div class="border" style="background-color:#F2F4F4  ;padding:5px;">
 
-::: {#exm-optimizatin_object_function_affine}
+::: {#exm-ML_optimizatin_object_function_affine}
 
 #### Affine 형태의 목적함수
 
@@ -283,7 +283,7 @@ $$
 
 </br><div class="border" style="background-color:#F2F4F4  ;padding:5px;">
 
-::: {#exm-optimizatin_object_function_quadratic}
+::: {#exm-ML_optimizatin_object_function_quadratic}
 
 #### Quadratic 형태의 목적함수
 
@@ -299,7 +299,7 @@ $$
 
 </br><div class="border" style="background-color:#F2F4F4  ;padding:5px;">
 
-::: {#exm-optimizatin_object_function_Square}
+::: {#exm-ML_optimizatin_object_function_Square}
 
 #### 제곱 형태의 목적함수
 
@@ -322,7 +322,7 @@ $$
 
 </br>
 
-### 경사 하강법(Gradient descent)
+### 경사 하강법(Gradient descent) {#sec-ML_optimization_gradient_discent}
 
 미분 가능한 $f(\bf{\theta})$ 에 대해 $\bf{\theta}_0$ 가 주어졌으며 충분히 작은 값 $\alpha_k$ 에 대해 $\bf{\theta}_{k+1}$ 이 다음과 같다고 하자.
 
@@ -335,7 +335,7 @@ $$
 
 </br>
 
-### 뉴턴법
+### 뉴턴법 {#sec-ML_optimization_newton_method}
 
 $f:U \subset \R \to R$ 인 함수에 대해 $f(\theta)=0$ 을 찾는 방법 가운데 뉴턴-랩슨 방법은 초기값 $\theta_0$ 를 주고
 
@@ -355,7 +355,7 @@ $$
 f(\bf{\theta}) = \|\bf{A\theta}-\bf{b}\|_2^2 
 $$
 
-으로 주어졌다면 @exm-optimizatin_object_function_Square 로 부터
+으로 주어졌다면 @exm-ML_optimizatin_object_function_Square 로 부터
 
 $$
 \bf{\theta}_{k+1}= \bf{\theta}_k - \left(\bf{H}_f\right)^{-1} \nabla_\bf{\theta} f(\bf{\theta}_k) = \bf{\theta}_k - (\bf{A}^T\bf{A})^{-1}\bf{A}^T(\bf{A}\bf{\theta}_k-\bf{b})
@@ -366,7 +366,7 @@ $$
 
 </br>
 
-### 준-뉴턴법(Quasi-Newton method)
+### 준-뉴턴법(Quasi-Newton method) {#sec-ML_optimization_quasi_newton_method}
 
 뉴턴법의 큰 계산량을 줄이기 위해 고안된 방법이다. $f(\bf{\theta})$ 를 2차 근사하면 헤세 행렬 $\bf{H}_f$ 에 대해 다음과 같다.
 
@@ -399,7 +399,7 @@ $$
 
 ## 등식 제약이 주어졌을 때
 
-### 라그랑주 승수법
+### 라그랑주 승수법 {#sec-ML_optimization_lagrange_multiplier_method}
 
 라그랑주 승수법은 다음과 같이 기술되는 문제에 사용된다. 즉 제한조건이 등식 형태로만 주어진 경우이다.
 
@@ -417,7 +417,7 @@ $$ {#eq-optimization_optimization_problem}
 
 </br><div class="border" style="background-color:#FFF0F5 ;padding:5px;">
 
-::: {#thm-optimization_lagrange_multipiler}
+::: {#thm-ML_optimization_lagrange_multipiler}
 
 #### 라그랑주 승수법
 
@@ -449,7 +449,7 @@ $$ {#eq-optimization_lagrange_mutiplier_for_equal_restrictions}
 
 <br>
 
-### KKH
+### KKH {#sec-ML_optimization_KKH}
 
 문제가 다음과 같이 주어졌다고 하자.
 

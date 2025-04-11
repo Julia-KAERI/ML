@@ -102,7 +102,7 @@ window.Quarto = {
 <link rel="stylesheet" href="../../styles.css">
 </head>
 
-<body class="nav-sidebar floating nav-fixed">
+<body class="nav-sidebar floating nav-fixed slimcontent">
 
 <div id="quarto-search-results"></div>
   <header id="quarto-header" class="headroom fixed-top">
@@ -219,12 +219,25 @@ window.Quarto = {
     <h2 id="toc-title">목차</h2>
    
   <ul>
-  <li><a href="#학습-알고리즘" id="toc-학습-알고리즘" class="nav-link active" data-scroll-target="#학습-알고리즘"><span class="header-section-number">4.1</span> 학습 알고리즘</a></li>
+  <li><a href="#학습-알고리즘" id="toc-학습-알고리즘" class="nav-link active" data-scroll-target="#학습-알고리즘"><span class="header-section-number">4.1</span> 학습 알고리즘</a>
+  <ul class="collapse">
+  <li><a href="#작업-t" id="toc-작업-t" class="nav-link" data-scroll-target="#작업-t"><span class="header-section-number">4.1.1</span> 작업 <span class="math inline">\(T\)</span></a></li>
+  <li><a href="#성능-척도-p" id="toc-성능-척도-p" class="nav-link" data-scroll-target="#성능-척도-p"><span class="header-section-number">4.1.2</span> 성능 척도 <span class="math inline">\(P\)</span></a></li>
+  <li><a href="#경험-e" id="toc-경험-e" class="nav-link" data-scroll-target="#경험-e"><span class="header-section-number">4.1.3</span> 경험 <span class="math inline">\(E\)</span></a></li>
+  </ul></li>
+  <li><a href="#capacitiy-overfitting-and-underfitting" id="toc-capacitiy-overfitting-and-underfitting" class="nav-link" data-scroll-target="#capacitiy-overfitting-and-underfitting"><span class="header-section-number">4.2</span> Capacitiy, Overfitting and Underfitting</a>
+  <ul class="collapse">
+  <li><a href="#reguralization" id="toc-reguralization" class="nav-link" data-scroll-target="#reguralization"><span class="header-section-number">4.2.1</span> Reguralization</a></li>
+  </ul></li>
+  <li><a href="#초매개변수와-검증-데이터" id="toc-초매개변수와-검증-데이터" class="nav-link" data-scroll-target="#초매개변수와-검증-데이터"><span class="header-section-number">4.3</span> 초매개변수와 검증 데이터</a>
+  <ul class="collapse">
+  <li><a href="#sec-ML_ML_cross_validation" id="toc-sec-ML_ML_cross_validation" class="nav-link" data-scroll-target="#sec-ML_ML_cross_validation"><span class="header-section-number">4.3.1</span> 교차 검증</a></li>
+  </ul></li>
   </ul>
 </nav>
     </div>
 <!-- main -->
-<main class="content" id="quarto-document-content">
+<main class="content page-columns page-full" id="quarto-document-content">
 
 <header id="title-block-header" class="quarto-title-block default"><nav class="quarto-page-breadcrumbs quarto-title-breadcrumbs d-none d-lg-block" aria-label="breadcrumb"><ol class="breadcrumb"><li class="breadcrumb-item"><a href="../../src/theory/ML.html">기계학습</a></li><li class="breadcrumb-item"><a href="../../src/theory/ML_basics.html"><span class="chapter-number">4</span>&nbsp; <span class="chapter-title">기계학습의 기초</span></a></li></ol></nav>
 <div class="quarto-title">
@@ -258,9 +271,131 @@ window.Quarto = {
 <p><br></p>
 <section id="학습-알고리즘" class="level2" data-number="4.1">
 <h2 data-number="4.1" class="anchored" data-anchor-id="학습-알고리즘"><span class="header-section-number">4.1</span> 학습 알고리즘</h2>
-<p>기계학습에서의 학습은 무엇을 의미하는가?</p>
+<p>기계학습에서의 학습은 무엇을 의미하는가? Mitchell 은 다음과 같이 정의했다.</p>
+<blockquote class="blockquote">
+<p>컴퓨터 프로그램이 수행하는 어떤 부류의 작업 <span class="math inline">\(T\)</span> 와 이 작업에 대한 성능 측정 척도 <span class="math inline">\(P\)</span> 를 생각하자. 어떤 경험 <span class="math inline">\(E\)</span> 로 부터 <span class="math inline">\(P\)</span> 가 향상되었을 때 이 컴퓨터 프로그램이 <span class="math inline">\(T\)</span> 에 대한 경험 <span class="math inline">\(E\)</span> 로 부터 학습했다고 할 수 있다.</p>
+</blockquote>
+<p>기계학습에서의 학습은 보통 입력 벡터 <span class="math inline">\(\boldsymbol{x}\in \mathbb{R}^n\)</span> 와 출력값의 집합 <span class="math inline">\(Y\)</span> 에 대해에 대해 우리가 원하는 출력값을 출력하는 함수의 집합 가운데 학습을 통해 가장 잘 수행하는 함수 <span class="math inline">\(f:\mathbb{R}^n \to Y\)</span> 를 구하는 것이다. 학습은 <span class="math inline">\(\mathbb{R}^n \mapsto Y\)</span> 함수 가운데 <span class="math inline">\(P\)</span> 를 향상시키는 함수를 구하는 과정이다.</p>
+<p><br></p>
+<section id="작업-t" class="level3" data-number="4.1.1">
+<h3 data-number="4.1.1" class="anchored" data-anchor-id="작업-t"><span class="header-section-number">4.1.1</span> 작업 <span class="math inline">\(T\)</span></h3>
+<p>아래의 항목들은 일반적으로 기계학습을 통해 수행하는 작업을 분류한 것이지만 이것 이외에도 다양한 분야에 활용 될 수 있다. 단지 예일 뿐이다.</p>
+<section id="분류-classificiation" class="level4">
+<h4 class="anchored" data-anchor-id="분류-classificiation"><strong>분류 (Classificiation)</strong></h4>
+<p>입력 벡터 각각을 <span class="math inline">\(k\)</span> 개의 카테고리중 하나에 지정하는 작업. 알고리즘은 <span class="math inline">\(f:\mathbb{R}^n \to \{1,\ldots,\,k\}\)</span> 을 찾는 것이다. 이의 변형으로 입력 벡터 각각에 대해 <span class="math inline">\(k\)</span> 개의 카테고리 각각에 포함될 확률을 구하는 것이 있다.</p>
+<p><br></p>
+</section>
+<section id="불완전-입력에-대한-분류-classification-with-missing-inputs" class="level4">
+<h4 class="anchored" data-anchor-id="불완전-입력에-대한-분류-classification-with-missing-inputs"><strong>불완전 입력에 대한 분류 (Classification with missing inputs)</strong></h4>
+<p>예를 들어 의학 진단의 경우 진단에 비용, 환자의 상태 등의 이유로 필요한 모든 결과가 갖춰져 있지 않은 경우가 있다. 이 경우 학습을 통해 구하는 것은 단일한 함수가 아닌 함수의 집합이며 이 함수들은 입력 벡터 <span class="math inline">\(\boldsymbol{x}\)</span> 를 미입력 값에 대한 다양한 부분집합을 출력한다. <span class="math inline">\(n\)</span> 개의 입력 변수 각각이 결손될 수 있다고 하면 <span class="math inline">\(2^n\)</span> 개의 서로 다른 분류 함수가 필요하며 이것을 조합하여 결합확률분포를 얻는다.</p>
+<p><br></p>
+</section>
+<section id="회귀-regression" class="level4">
+<h4 class="anchored" data-anchor-id="회귀-regression"><strong>회귀 (Regression)</strong></h4>
+<p>회귀는 <span class="math inline">\(f:\mathbb{R}^n \mapsto \mathbb{R}\)</span> 를 구하는 것이다.</p>
+<p><br></p>
+</section>
+<section id="전사-transcription" class="level4">
+<h4 class="anchored" data-anchor-id="전사-transcription"><strong>전사 (Transcription)</strong></h4>
+<p>구조화되지 않은 입력을 이산적이고 언어적인 표현으로 바꾸는 작업을 말한다. OCR(optical character recognition), 음석 인식이 대표적이다.</p>
+<p><br></p>
+</section>
+<section id="기계-번역-machine-traslation" class="level4">
+<h4 class="anchored" data-anchor-id="기계-번역-machine-traslation"><strong>기계 번역 (Machine traslation)</strong></h4>
+<p>글자 그대로</p>
+<p><br></p>
+</section>
+<section id="구조화된-출력-structured-output" class="level4">
+<h4 class="anchored" data-anchor-id="구조화된-출력-structured-output"><strong>구조화된 출력 (Structured output)</strong></h4>
+<p>구조화되지 않은 입력을 구조화 시키는 작업. 예를 들어 일상 언어를 입력받아 문법 구조에 따른 트리 구조를 구성하고 이 트리 구조에 명사, 동사, 형용사 등의 택(tag) 을 붙이는 작업이 있다.</p>
+<p><br></p>
+</section>
+<section id="비정상-탐지-anomaly-detection" class="level4">
+<h4 class="anchored" data-anchor-id="비정상-탐지-anomaly-detection"><strong>비정상 탐지 (Anomaly detection)</strong></h4>
+<p>예를 들면 신용카드 비정상 사용 감지. 이 경우 각각의 신용카드의 사용 습관을 분석하여 비정상 사용을 감지한다.</p>
+<p><br></p>
+</section>
+<section id="합성과-샘플링-synthesis-and-sampling" class="level4">
+<h4 class="anchored" data-anchor-id="합성과-샘플링-synthesis-and-sampling"><strong>합성과 샘플링 (Synthesis and sampling)</strong></h4>
+<p>입력과 유사한 대상을 출력하는 작업을 말한다.</p>
+<p><br></p>
+</section>
+<section id="imputation" class="level4">
+<h4 class="anchored" data-anchor-id="imputation"><strong>Imputation</strong></h4>
+<p>입력값 <span class="math inline">\(\boldsymbol{x}\in \mathbb{R}^n\)</span> 에 손상이 있을 때 이 값을 채워주는 작업.</p>
+<p><br></p>
+</section>
+<section id="노이즈-제거-denoising" class="level4">
+<h4 class="anchored" data-anchor-id="노이즈-제거-denoising"><strong>노이즈 제거 (Denoising)</strong></h4>
+<p>글자 그대로</p>
+<p><br></p>
+</section>
+<section id="확률-추정-probability-densitymass-estimation" class="level4">
+<h4 class="anchored" data-anchor-id="확률-추정-probability-densitymass-estimation"><strong>확률 추정 (Probability density/mass estimation)</strong></h4>
+<p><br></p>
+</section>
+</section>
+<section id="성능-척도-p" class="level3" data-number="4.1.2">
+<h3 data-number="4.1.2" class="anchored" data-anchor-id="성능-척도-p"><span class="header-section-number">4.1.2</span> 성능 척도 <span class="math inline">\(P\)</span></h3>
+<p>분류, 불완전 입력에 대한 분류, 전사 와 같은 작업에 대해 그 정확도를 측정 할 수 있다. 여기서 정확도는 모델이 정확한 출력을 내는 비율이다. 혹은 에러율을 척도로 삼을 수도 있다. 그러나 확률 추정과 같은 경우는 이런 방법을 사용할 수는 없다. 즉 우리가 수행하고자 하는 작업마다 성능 척도는 달라진다. 또한 문제는 학습 이후 실제 데이터에 대해 작업을 수행할 때 학습의 정확도가 얼마나 보장되느냐 하는 것이다. 보통은 학습에 사용된 데이터셋과는 별도의 데이터셋을 이용해 테스트를 수행한다.</p>
+<p>성능 척도란 것이 어휘상으로는 확정적이고 객관적으로 보일지라도 실제로는 시스템에 따라 선택하기 힘들 경우가 있다는 것이다. 예를 들어 전사의 경우 부분적으로 맞는 결과를 어떻게 평가할 것이냐는 문제가 있다. 또한 회귀의 경우는 작은 오차, 중간 크기의 오차, 큰 오차에 대해 어떤 가중치로 평가할 것이냐는 문제도 있다.</p>
+<p><br></p>
+</section>
+<section id="경험-e" class="level3" data-number="4.1.3">
+<h3 data-number="4.1.3" class="anchored" data-anchor-id="경험-e"><span class="header-section-number">4.1.3</span> 경험 <span class="math inline">\(E\)</span></h3>
+<ul>
+<li><p><strong>비지도 학습 (unsupervised learning)</strong> 의 경우 많은 특성(features) 를 포함하는 데이터셋을 경험하고 이 데이터셋의 구조의 유용한 특징을 학습한다. 딥러닝의 맥락에서 이것은 이 데이터 셋을 만들어넨 전체 확률 분포를 학습하는 것이라고 볼 수 있다. 명시적인 학습으로는 한다면 확률 추정이 있고 암시적인 학습으로는 합성과 샘플링이 있다. 다른 예로는 clustering 이 있다.</p></li>
+<li><p><strong>지도학습 (supervised learning)</strong> 에 사용되는 데이터셋은 각각의 데이터에 대해 <em>target</em> 혹은 <em>레이블(label)</em> 이라고 불리는 정답이 붙어 있다.</p></li>
+<li><p><strong>강화 학습 (reinforcedment learning)</strong> 은 데이터 셋이 아니라 환경과의 상호작용을 통해 학습힌다.</p></li>
+</ul>
+<p><br></p>
+<p>우리는 앞서 선형 회귀에서 <strong>설계행렬 (design matrix)</strong> 을 정의했다. 설계행렬은 단순히 선형 회귀 뿐만 아니라 데이터의 특징을 수로 정리한 데이터를 의미한다. 예를 들어 <a href="https://en.wikipedia.org/wiki/Iris_flower_data_set">Fisher’s Iris data</a> 는 150 개의 붓꽃 각각 대한 4가지의 특성과 3개의 종이 정리된 데이터이다. 일반적으로 설계행렬에서 한 데이터셋은 한 행으로 표현되므로 붓꽃 데이터는 <span class="math inline">\(150 \times 4\)</span> 의 설계행렬로 정리 될 수 있다. 입력 데이터는 같은 크기의 벡터로 정리되는 것이 좋지만 항상 그렇게 할 수 있는 것은 아니며 이 경우에는 각각의 경우에 맞게 처리해야 한다. 이런 경우까지 포함하여 입력 데이터를 <span class="math inline">\(\{x^{(1)}, \, \boldsymbol{x}^{(2)},\ldots,\}\)</span> 와 같은 형태로 표현한다. <span class="math inline">\(\boldsymbol{x}^{(i)}\)</span> 와 <span class="math inline">\(\boldsymbol{x}^{(j)}\)</span> 는 같은 크기의 벡터가 아닐 수도 있다.</p>
+<p><br></p>
+</section>
+</section>
+<section id="capacitiy-overfitting-and-underfitting" class="level2 page-columns page-full" data-number="4.2">
+<h2 data-number="4.2" class="anchored" data-anchor-id="capacitiy-overfitting-and-underfitting"><span class="header-section-number">4.2</span> Capacitiy, Overfitting and Underfitting</h2>
+<p>기계 학습에서 가장 중요한 목표중의 하나는 학습/훈련에 사용된 데이터에 대해서 뿐만 아니라 새로운, 이전에 사용되지 않았던 입력에 대해서도 잘 동작해야 한다는 것이다. 이런 능력을 <strong>일반화 (generalization)</strong> 라고 한다.</p>
+<p>데이터를 학습 시킬 때 훈련 데이터에 대해 발생하는 에러를 <strong>훈련 오차 (training error)</strong> 라고 한다. 선형 회귀의 경우 <a href="regression.html#eq-ML_linear_regression_master_equation_with_L2" class="quarto-xref">식&nbsp;<span>2.3</span></a> 을 학습 데이터당 에러로 변형하면</p>
+<p><span class="math display">\[
+\dfrac{1}{m^{(\text{train})}} \|\boldsymbol{y}^{(\text{train})}- \boldsymbol{\Phi^{(\text{train})} \theta}\|_2^2
+\]</span></p>
+<p>이다. 같은 논리로 시험용 데이터에 대해 <strong>시험 오차 (test error)</strong> 를 아래와 같이 정의 할 수 있다.</p>
+<p><span class="math display">\[
+\dfrac{1}{m^{(\text{test})}} \|\boldsymbol{y}^{(\text{test})}- \boldsymbol{\Phi^{(\text{test})} \theta}\|_2^2
+\]</span></p>
+<p>이 될 것이다. 여기서 <span class="math inline">\(m^{(\text{train})},\, m^{(\text{test})}\)</span> 는 각각 훈련과 시험에 사용된 데이터의 개수이다.</p>
+<p>훈련 데이터와 시험 데이터는 어떤 확률 분포를 따르는 과정에 의해 생성된다. 이 과정을 데이터 생성 과정 (data generating process) 라고 부른다. 우리는 이 데이터들에 대해 <em>i,i,d 가정 (i,i, d assumptions)</em> 이라는 가정을 상정한다. 이 가정은</p>
+<ul>
+<li>각각의 데이터셋은 서로 독립적이며, (<em>independent</em>)</li>
+<li>훈련 데이터셋과 시험 데이터셋은 같은 확률분포를 따른다. (<em>identically distributed</em>)</li>
+</ul>
+<p>이다. 이 가정은 데이터 생성 과정을 <span class="math inline">\(i.i.d\)</span> 가정의 확률 분포를 이용하여 수학적으로 다룰 수 있도록 한다. 이 확률 분포를 데이터에 대해 <strong>데이터 생성 분포 (data generating distribution)</strong> 라고 부르며 <span class="math inline">\(p_\text{data}\)</span> 로 표기한다. 훈련 데이터와 시험 데이터는 <span class="math inline">\(p_\text{data}\)</span> 에 대한 샘플링이다. 훈련은 훈련 데이터셋에 대해서만 수행한다. 즉 학습 매개변수 <span class="math inline">\(\boldsymbol{\theta}\)</span> 는 훈련용 데이터에 대해 학습되었으므로 시험 오차는 훈련 오차보다 크거나 같을 것으로 기대할 수 있다. 학습이 잘 되어있는지를 결정하는 요인은</p>
+<ol type="1">
+<li>훈련 오차를 작게,</li>
+<li>훈련 오차와 시험 오차의 차이를 작게</li>
+</ol>
+<p>하는 것이다. 앞서 언급한 underfitting 은 훈련 오차가 큰 것이며, overfitting 은 훈련 오차와 시험 오차의 차이가 큰 것이다.</p>
+<div class="page-columns page-full"><p>underfit 이나 overfit 이 발생하는 상황은 모델의 <strong>capacity</strong> 를 변화시키면서 조절 할 수 있다. 모델의 capacity 는 이 모델로 표현할 수 있는 함수의 다양성을 의미한다. <strong>가설 공간 (hypothesis space)</strong> 을 학습 알고리즘에 의해 선택될 수 있는 함수의 집합이라고 하면 모델의 capacity 는 가설공간의 크기에 상응하는 값이 될 것이다. 기계 학습 알고리즘이 가장 좋은 성능을 내는 경우는 작업(task) 의 복잡성에 과 비교했을 때 적당한 capacity 를 갖는 모델을 선택하고, 역시 적당한 수의 훈련 데이터를 사용하여 훈련시켰을 때 이다. 문제의 복잡성에 비해 너무 큰 capacity 를 가진 모델을 선택한다면 당연해 overfit 이 발생 할 수 있다.</p><div class="no-row-height column-margin column-container"><span class="margin-aside">capacity 는 complexity, expressive power, richness, or flexibility 라고 불리기도 한다.</span></div></div>
+<p>모델의 capcity 를 변경시키는 방법으로는 우선 입력 벡터의 크기(개수가 아니라)를 변화시키는 것, 즉 모델 매개변수의 크기를 변화시키는 것이다. 예를 들어 선형 회귀에서 <span class="math inline">\(\boldsymbol{x}\)</span> 가 2차원에서 3차원이 된다면 매개변수는 3개에서 4개로 증가한다. 선택된 모델에 대해 기계학습은 가장 최적화된 파라미터를 찾게 되지만 많은 경우 훈련 오차를 줄이는 파라미터를 찾게 된다. 즉 비용함수에 대해 전역적 최소점이 아닌 국소적 최소점을 찾게 된다. 실제로 모델 훈련 과정에서 모델의 capacity 를 전부다 활용하지 못하며, 모델 capacity 의 일부분에 대해서만 선택할 수 있는 경우가 대부분이다. 이렇게 모델의 capacity 가운데 실제로 선택될 수 있는 함수의 집합을 모델의 <strong>representive capacity</strong> 라고 한다.</p>
+<p>통계학적 학습 이론(Statistical learning theory) 는 이 capacity 에 대한 다양한 정량화 수단을 제공한다. 예를 들어 Vapnik-Chervonenkis 차원(VC dimension) 은 이진 분류기(binary classifier) 에 대한 척도이다. 하지만 대부분의 경우 이론적 관심에 머무는 경우가 많은데 정량화된 값을 구하기 너무 어렵거나 구했다고 하더라도 실제로 사용하기에는 실용적이지 않기 때문이다.</p>
+<p><br></p>
+<section id="reguralization" class="level3" data-number="4.2.1">
+<h3 data-number="4.2.1" class="anchored" data-anchor-id="reguralization"><span class="header-section-number">4.2.1</span> Reguralization</h3>
+<p><br></p>
+</section>
+</section>
+<section id="초매개변수와-검증-데이터" class="level2" data-number="4.3">
+<h2 data-number="4.3" class="anchored" data-anchor-id="초매개변수와-검증-데이터"><span class="header-section-number">4.3</span> 초매개변수와 검증 데이터</h2>
+<p>대부분의 기계 학습 알고리즘은 학습 알고리즘의 동작을 제어하는 설정을 가지고 있으며 이 설정을 <strong>초매개변수 (hyperparameters)</strong> 라고 한다. 매개변수는 학습 과정에서 조절되지만 초매개변수는 그렇지 않다. 예를 들어 다항함수 회귀에서 다항식의 차수가 초매개변수이다. Regularization <a href="regression.html#eq-ML_regression_regulaization" class="quarto-xref">식&nbsp;<span>2.5</span></a> 의 <span class="math inline">\(\lambda\)</span> 역시 초매개변수이다.</p>
+<p>초매개변수를 최적화하기 위해 일반적으로 <strong>검증 데이터셋 (validation dataset)</strong> 을 사용한다. 검증 데이터셋은 훈련 데이터셋의 일부를 사용하며 당연히 시험 데이터셋과는 겹치지 않아야 한다. 보통 훈련 데이터셋의 80% 는 훈련에, 20% 는 검증 데이터셋으로 사용한다. 검증 데이터셋을 사용하면 초매개변수를 학습 과정에서 직접 최적화하지 않고도 모델의 일반화 성능을 유지할 수 있다. 그러나 검증 데이터셋을 너무 자주 사용하면 검증 데이터에 대해 과적합(overfitting)이 발생할 수 있다.</p>
+<p><br></p>
+<section id="sec-ML_ML_cross_validation" class="level3" data-number="4.3.1">
+<h3 data-number="4.3.1" class="anchored" data-anchor-id="sec-ML_ML_cross_validation"><span class="header-section-number">4.3.1</span> 교차 검증</h3>
+<p><strong>교차 검증 (cross-validation)</strong> 기법은 데이터 셋이 충분하지 않을 때 사용 할 수 있다. 충분하지 않은 데이터셋을 훈련용, 검증용, 시험용으로 나누게 된다면, 특별히 시험용 데이터셋의 갯수가 적기 때문에 통계적인 불확실성이 커지게 된다. <strong><span class="math inline">\(k\)</span>-겹 교차 검증 (<span class="math inline">\(k\)</span>-fold cross-validation)</strong> 은 데이터를 <span class="math inline">\(k\)</span> 개의 폴드로 나누고, <span class="math inline">\(k\)</span> 번의 학습-검증 과정을 통해 초매개변수를 조정한다. 이 방법은 검증 데이터셋에 대한 과적합을 줄이고, 모델의 일반화 성능을 더 잘 평가할 수 있도록 돕는다.</p>
 
 
+</section>
 </section>
 
 </main> <!-- /main -->
