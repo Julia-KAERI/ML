@@ -258,7 +258,7 @@ window.Quarto = {
   <li><a href="#베이지안-통계" id="toc-베이지안-통계" class="nav-link" data-scroll-target="#베이지안-통계"><span class="header-section-number">3.4</span> 베이지안 통계</a></li>
   <li><a href="#the-gaussian-distribution-normal-distribution" id="toc-the-gaussian-distribution-normal-distribution" class="nav-link" data-scroll-target="#the-gaussian-distribution-normal-distribution"><span class="header-section-number">3.5</span> The Gaussian Distribution (Normal Distribution)</a>
   <ul class="collapse">
-  <li><a href="#변수-가우스분포에서의-mu와-sigma2-의-추정---최대-가능도" id="toc-변수-가우스분포에서의-mu와-sigma2-의-추정---최대-가능도" class="nav-link" data-scroll-target="#변수-가우스분포에서의-mu와-sigma2-의-추정---최대-가능도"><span class="header-section-number">3.5.1</span> 1-변수 가우스분포에서의 <span class="math inline">\(\mu\)</span>와 <span class="math inline">\(\sigma^2\)</span> 의 추정 - 최대 가능도</a></li>
+  <li><a href="#sec-ML_statistics_likelyhood_for_the_gaussian" id="toc-sec-ML_statistics_likelyhood_for_the_gaussian" class="nav-link" data-scroll-target="#sec-ML_statistics_likelyhood_for_the_gaussian"><span class="header-section-number">3.5.1</span> 1-변수 가우스분포에서의 <span class="math inline">\(\mu\)</span>와 <span class="math inline">\(\sigma^2\)</span> 의 추정 - 최대 가능도</a></li>
   <li><a href="#curve-fitting-revisited" id="toc-curve-fitting-revisited" class="nav-link" data-scroll-target="#curve-fitting-revisited"><span class="header-section-number">3.5.2</span> Curve Fitting Revisited</a></li>
   <li><a href="#bayesian-curve-fitting" id="toc-bayesian-curve-fitting" class="nav-link" data-scroll-target="#bayesian-curve-fitting"><span class="header-section-number">3.5.3</span> Bayesian Curve Fitting</a></li>
   </ul></li>
@@ -491,20 +491,20 @@ P(x,\,y)&amp;=P(y| x)\,P(x)
 <section id="sec-ML_statistics_bernoulli_distribution" class="level3" data-number="3.2.1">
 <h3 data-number="3.2.1" class="anchored" data-anchor-id="sec-ML_statistics_bernoulli_distribution"><span class="header-section-number">3.2.1</span> 베르누이 분포 (Bernoulli distribution)</h3>
 <p>사건공간 <span class="math inline">\(\mathcal{A}\)</span> 가 단 두개의 원소로 이루어진 이진 확률 변수에 대한 분포이다. <span class="math inline">\(\mathcal{A}=\{0,\,1\}\)</span> 이며 <span class="math inline">\(P(1)=\phi\)</span> 라고 하자. <span class="math inline">\(P(0)=1-\phi\)</span> 이며 다음이 성립한다.</p>
-<p><span class="math display">\[
+<p><span id="eq-ML_statistics_Bernoulli_distribution"><span class="math display">\[
 \begin{aligned}
-P(x) &amp;= \phi^x (1-\phi^x), \\[0.3em]
+P(x) &amp;= \phi^x (1-\phi)^{1-x}, \\[0.3em]
 \mathbb{E}[x]&amp;=\phi, \\[0.3em]
 \text{Var}[x] &amp;= \phi (1-\phi).
 \end{aligned}
-\]</span>{# eq-ML_statistics_Bernoulli_distribution}</p>
+\tag{3.25}\]</span></span></p>
 <p><br></p>
 </section>
 <section id="sec-ML_statistics_normal_distribution" class="level3" data-number="3.2.2">
 <h3 data-number="3.2.2" class="anchored" data-anchor-id="sec-ML_statistics_normal_distribution"><span class="header-section-number">3.2.2</span> 정규분포(가우스 분포)</h3>
 <p>평균 (mean) <span class="math inline">\(\mu\)</span> 와 분산 <span class="math inline">\(\sigma^2\)</span> 에 대한 1차원 가우시안 분포 <span class="math inline">\(\mathcal{N}(x\mid \mu,\,\sigma^2)\)</span> 는 다음과 같다. <span id="eq-ML_ststistics_1d_gaussian_distribution"><span class="math display">\[
 \mathcal{N} (x ;  \mu,\,\sigma^2) = \dfrac{1}{ \sqrt{2\pi \sigma^2 }} \exp \left[-\dfrac{(x-\mu)^2}{2\sigma^2}\right]
-\tag{3.25}\]</span></span></p>
+\tag{3.26}\]</span></span></p>
 <p>가우시안 분포 <span class="math inline">\(\mathcal{N}(x\mid \mu,\,\sigma^2)\)</span> 는 다음과 같은 성질을 갖는다.</p>
 <p><span id="eq-ML_ststistics_properties_of_1d_gaussian_distribution"><span class="math display">\[
 \begin{align}
@@ -514,11 +514,11 @@ P(x) &amp;= \phi^x (1-\phi^x), \\[0.3em]
 \mathbb{E}[x^2] &amp;= \int_{-\infty}^\infty x^2 \mathcal{N}(x ; \mu,\,\sigma^2)\,dx=\mu^2+\sigma^2\;,\\
 \operatorname{Var}[f] &amp;=\mathbb{E}[x^2]-\left(\mathbb{E}[x]\right)^2=\sigma^2 \;.
 \end{align}
-\tag{3.26}\]</span></span></p>
+\tag{3.27}\]</span></span></p>
 <p><span class="math inline">\(\mathbb{R}^\mathcal{K}\)</span> 에서 평균 <span class="math inline">\(\boldsymbol{\mu}\)</span> 와 공분산 행렬 <span class="math inline">\(\boldsymbol{\Sigma}\)</span> (<a href="#eq-ML_statistics_covariance_matrix" class="quarto-xref">식&nbsp;<span>3.23</span></a>) 를 갖는 가우스 분포는 다음과 같다.</p>
 <p><span id="eq-ML_ststistics_properties_of_gaussian_distribution"><span class="math display">\[
 \mathcal{N}(\boldsymbol{x} ; \boldsymbol{\mu},\,\boldsymbol{\Sigma}) = \dfrac{1}{(2\pi)^{K/2}}\dfrac{1}{(\det(\boldsymbol{\Sigma}))^{1/2}} \exp \left[-\dfrac{1}{2} (\boldsymbol{x}-\boldsymbol{\mu})^T \boldsymbol{\Sigma} (\boldsymbol{x}-\boldsymbol{\mu})\right]
-\tag{3.27}\]</span></span></p>
+\tag{3.28}\]</span></span></p>
 <p><br></p>
 </section>
 </section>
@@ -536,12 +536,12 @@ P(x) &amp;= \phi^x (1-\phi^x), \\[0.3em]
 <p>위의 세 성질을 만족하는 <em>self-information</em> 을 아래와 같이 정의한다.</p>
 <p><span id="eq-ML-statistics_definition_of_self_information"><span class="math display">\[
 \boxed{I(x) := - \log_b P(X=x).}
-\tag{3.28}\]</span></span></p>
+\tag{3.29}\]</span></span></p>
 <p><span class="math inline">\(b=2\)</span> 인 경우 단위는 <span class="math inline">\(\text{Sh}\)</span> (Shannon) 이며 <span class="math inline">\(b=10\)</span> 을 사용하면 단위는 <span class="math inline">\(\text{Hart}\)</span> (Hartley) 라고 한다. <span class="math inline">\(b=e\)</span> 인 경우 단위는 <span class="math inline">\(\text{nat}\)</span> 이며 <em>natural unit of information</em> 을 의미한다(From <a href="https://en.wikipedia.org/wiki/Information_content">Wikipedia</a>). 앞으로는 특별한 언급이 없는 한 <span class="math inline">\(\text{nat}\)</span> 단위를 사용하도록 한다.</p>
 <p>Self-information 은 하나의 사건만을 다룬다. 불확실성의 척도를 전체 확률분포에서 다룬 것을 셰넌 앤트로피(Shannon entropy) 라고 하며, 셰넌 앤트로피 <span class="math inline">\(H(x)\)</span> 는 아래와 같이 정의된다.</p>
 <p><span id="eq-ML-statistics_definition_of_shannon_entropy"><span class="math display">\[
 \boxed{ H(x) := \mathbb{E}[I(x)] = -\mathbb{E}(\ln P(X=x)).}
-\tag{3.29}\]</span></span></p>
+\tag{3.30}\]</span></span></p>
 <div id="fig-ML_statistics_shannon_entropy" class="quarto-float quarto-figure quarto-figure-center anchored">
 <figure class="quarto-float quarto-float-fig figure">
 <div aria-describedby="fig-ML_statistics_shannon_entropy-caption-0ceaefa1-69ba-4598-a22c-09a6ac19f8ca">
@@ -588,7 +588,7 @@ p(\text{3 up}\,|\,q)=q^3
 <h2 data-number="3.5" class="anchored" data-anchor-id="the-gaussian-distribution-normal-distribution"><span class="header-section-number">3.5</span> The Gaussian Distribution (Normal Distribution)</h2>
 <p>평균 (mean) <span class="math inline">\(\mu\)</span> 와 분산 <span class="math inline">\(\sigma^2\)</span> 에 대한 1차원 가우시안 분포 <span class="math inline">\(\mathcal{N}(x\mid \mu,\,\sigma^2)\)</span> 는 다음과 같다. <span id="eq-ML_ststistics_1d_gaussian_distribution"><span class="math display">\[
 \mathcal{N} (x\mid \mu,\,\sigma^2) = \dfrac{1}{\sigma \sqrt{2\pi }} \exp \left[-\dfrac{(x-\mu)^2}{2\sigma^2}\right]
-\tag{3.30}\]</span></span></p>
+\tag{3.31}\]</span></span></p>
 <p>가우시안 분포 <span class="math inline">\(\mathcal{N}(x\mid \mu,\,\sigma^2)\)</span> 는 다음과 같은 성질을 갖는다.</p>
 <p><span id="eq-ML_ststistics_properties_of_1d_gaussian_distribution"><span class="math display">\[
 \begin{align}
@@ -598,20 +598,20 @@ p(\text{3 up}\,|\,q)=q^3
 \mathbb{E}[x^2] &amp;= \int_{-\infty}^\infty x^2 \mathcal{N}(x\mid \mu,\,\sigma^2)\,dx=\mu^2+\sigma^2\;,\\
 \operatorname{var}[f] &amp;=\mathbb{E}[x^2]-\left(\mathbb{E}[x]\right)^2=\sigma^2 \;.
 \end{align}
-\tag{3.31}\]</span></span></p>
+\tag{3.32}\]</span></span></p>
 <p><span class="math inline">\(\mathbb{R}^\mathcal{D}\)</span> 에서 평균 <span class="math inline">\(\boldsymbol{\mu}\)</span> 와 공분산 <span class="math inline">\(\boldsymbol{\Sigma}\)</span> 를 갖는 가우스 분포는 다음과 같다.</p>
 <p><span id="eq-ML_ststistics_properties_of_gaussian_distribution"><span class="math display">\[
 \mathcal{N}(\boldsymbol{x}\mid \boldsymbol{\mu},\,\boldsymbol{\Sigma}) = \dfrac{1}{(2\pi)^{\mathcal{D}/2}}\dfrac{1}{\left|\boldsymbol{\Sigma}\right|^{1/2}} \exp \left[-\dfrac{1}{2} (\boldsymbol{x}-\boldsymbol{\mu})^T \boldsymbol{\Sigma} (\boldsymbol{x}-\boldsymbol{\mu})\right]
-\tag{3.32}\]</span></span></p>
+\tag{3.33}\]</span></span></p>
 <p><br></p>
-<section id="변수-가우스분포에서의-mu와-sigma2-의-추정---최대-가능도" class="level3" data-number="3.5.1">
-<h3 data-number="3.5.1" class="anchored" data-anchor-id="변수-가우스분포에서의-mu와-sigma2-의-추정---최대-가능도"><span class="header-section-number">3.5.1</span> 1-변수 가우스분포에서의 <span class="math inline">\(\mu\)</span>와 <span class="math inline">\(\sigma^2\)</span> 의 추정 - 최대 가능도</h3>
+<section id="sec-ML_statistics_likelyhood_for_the_gaussian" class="level3" data-number="3.5.1">
+<h3 data-number="3.5.1" class="anchored" data-anchor-id="sec-ML_statistics_likelyhood_for_the_gaussian"><span class="header-section-number">3.5.1</span> 1-변수 가우스분포에서의 <span class="math inline">\(\mu\)</span>와 <span class="math inline">\(\sigma^2\)</span> 의 추정 - 최대 가능도</h3>
 <p>스칼라 변수 <span class="math inline">\(x\)</span> 에 대해 <span class="math inline">\(N\)</span> 번 측정한 것을 <span class="math inline">\(\boldsymbol{x}=\begin{bmatrix}x_1 &amp;\ldots &amp;x_N\end{bmatrix}^T\)</span> 라 하자. 이 관측은 평균이 <span class="math inline">\(\mu\)</span> 이며 분산이 <span class="math inline">\(\sigma^2\)</span> 인 가우시안 분포를 따르는 변수에 대한 각각 독립적인 측정이라고 하자.</p>
 <p>우선 <span class="math inline">\(N\)</span> 측정에서 <span class="math inline">\(\boldsymbol{x}\)</span> 가 관측될 확률은 <span id="eq-ML_ststistics_gaussian_likelihood_function"><span class="math display">\[
 p(\boldsymbol{x}\mid \mu,\,\sigma^2)= \prod_{n=1}^N \mathcal{N}(x_n\mid \mu,\,\sigma^2)
-\tag{3.33}\]</span></span></p>
+\tag{3.34}\]</span></span></p>
 <p>이며 <em>likelihood function for the Gaussian</em> (가우시안 가능도 함수)이라 불리운다.</p>
-<p>어쨋든, <a href="#eq-ML_ststistics_gaussian_likelihood_function" class="quarto-xref">식&nbsp;<span>3.33</span></a> 의 우도함수를 최대화하는 <span class="math inline">\(\mu,\,\sigma^2\)</span> 를 정하자. 계산의 편의를 위해 로그함수를 사용한다. <span class="math display">\[
+<p>어쨋든, <a href="#eq-ML_ststistics_gaussian_likelihood_function" class="quarto-xref">식&nbsp;<span>3.34</span></a> 의 우도함수를 최대화하는 <span class="math inline">\(\mu,\,\sigma^2\)</span> 를 정하자. 계산의 편의를 위해 로그함수를 사용한다. <span class="math display">\[
 \ln p(\boldsymbol{x}\mid \mu,\,\sigma^2)= - \dfrac{1}{2\sigma^2}\sum_{n=1}^N (x_n-\mu)^2-\dfrac{N}{2} \ln \sigma^2 - \dfrac{N}{2} \ln 2\pi
 \]</span></p>
 <p>이 때 <span class="math inline">\(p (\boldsymbol{x}\mid \mu,\,\sigma^2)\)</span> 를 최대화 하는 <span class="math inline">\(\mu\)</span> 와 <span class="math inline">\(\sigma^2\)</span> 를 <span class="math inline">\(\mu_{ML},\,\sigma_{ML}^2\)</span> 라 할 때 다음과 같다.</p>
@@ -620,7 +620,7 @@ p(\boldsymbol{x}\mid \mu,\,\sigma^2)= \prod_{n=1}^N \mathcal{N}(x_n\mid \mu,\,\s
 \mu_{ML} &amp;= \dfrac{1}{N}\sum_{n=1}^N x_n \;,\\
 \sigma_{ML}^2 &amp;= \dfrac{1}{N} \sum_{n=1}^N (x_n-\mu_{ML})^2\;
 \end{align}
-\tag{3.34}\]</span></span></p>
+\tag{3.35}\]</span></span></p>
 <p><br></p>
 <section id="편항" class="level4">
 <h4 class="anchored" data-anchor-id="편항"><strong>편항</strong></h4>
@@ -629,10 +629,10 @@ p(\boldsymbol{x}\mid \mu,\,\sigma^2)= \prod_{n=1}^N \mathcal{N}(x_n\mid \mu,\,\s
 \mathbb{E}[\mu_{ML}]&amp; =\mu \\
 \mathbb{E}\left[\sigma_{ML}^2\right] &amp; =\left(\dfrac{N-1}{N}\right)\sigma^2.
 \end{align}
-\tag{3.35}\]</span></span></p>
-<p>식 (1.58)에서 보듯이 <span class="math inline">\(\mathbb{E}\left[\sigma^2_{ML}\right]&lt;\sigma^2\)</span> 이다. 따라서 아래와 같이 정의된 <span class="math inline">\(\widetilde{\sigma\,}^2\)</span> 는 samples 로 부터 추정한 모집단의 분산과 같다. (즉 unbiased.) 이를 표본분산이라 한다. <span id="eq-ML_statistics_population_variance"><span class="math display">\[
-\widetilde{\sigma\,}^2 = \dfrac{N}{N-1}\sigma_{ML}^2 = \dfrac{1}{N-1} \sum_{n=1}^N\left(x_n-\mu_{ML}\right)^2
 \tag{3.36}\]</span></span></p>
+<p>식 (1.58)에서 보듯이 <span class="math inline">\(\mathbb{E}\left[\sigma^2_{ML}\right]&lt;\sigma^2\)</span> 이다. 따라서 아래와 같이 정의된 <span class="math inline">\(\widetilde{\sigma\,}^2\)</span> 는 samples 로 부터 추정한 모집단의 분산과 같다. (즉 unbiased.) 이를 표본분산이라 한다. (see <a href="ML_basics.html#exm-ML_ML_gaussian_distributino_estimator_of_the_variance" class="quarto-xref">예제&nbsp;<span>4.3</span></a>) <span id="eq-ML_statistics_population_variance"><span class="math display">\[
+\widetilde{\sigma\,}^2 = \dfrac{N}{N-1}\sigma_{ML}^2 = \dfrac{1}{N-1} \sum_{n=1}^N\left(x_n-\mu_{ML}\right)^2
+\tag{3.37}\]</span></span></p>
 <p><span class="math inline">\(N\to \infty\)</span> 일 때 <span class="math inline">\(\sigma_{ML}^2 \to \sigma^2\)</span> 임은 쉽게 알 수 있다. 실제로 <span class="math inline">\(N\)</span> 이 작지만 않으면 큰 문제는 되지 않는다.</p>
 <p><br></p>
 </section>
@@ -642,27 +642,27 @@ p(\boldsymbol{x}\mid \mu,\,\sigma^2)= \prod_{n=1}^N \mathcal{N}(x_n\mid \mu,\,\s
 <p><span class="math inline">\(N\)</span> 개의 입력 변수 <span class="math inline">\(\boldsymbol{x} = \begin{bmatrix} x_1 &amp;\ldots &amp; x_N \end{bmatrix}^T\)</span> 와 표적값 <span class="math inline">\(\boldsymbol{t}=\begin{bmatrix} t_1 &amp;\ldots &amp;t_N\end{bmatrix}^T\)</span> 사이에 다항식 <span class="math inline">\(t=y(x;\boldsymbol{w})=w_0 + w_1x+ \cdots +w_nx^n\)</span> 의 관계를 가정한다. 표적값의 불확도를 확률분포로서 표현하자. 이를 위해 주어진 <span class="math inline">\(x\)</span> 에 대해 표적값의 확률은 <span class="math inline">\(y(\boldsymbol{x},\,\boldsymbol{w})\)</span> 를 중심으로 분산이 <span class="math inline">\(\beta^{-1}\)</span> 인 가우시안분포를 따른다고 가정한다. 즉,</p>
 <p><span id="eq-ML_statistics_parameter_distribution"><span class="math display">\[
 p(t\mid x,\,\boldsymbol{w},\, \beta)=\mathcal{N}(t\mid y(x,\,\boldsymbol{w}),\,\beta^{-1})
-\tag{3.37}\]</span></span></p>
+\tag{3.38}\]</span></span></p>
 <p>이다.</p>
 <p>훈련 데이터 <span class="math inline">\(\{\boldsymbol{x},\,\boldsymbol{t}\}\)</span> 를 이용하여 미지의 매개변수 <span class="math inline">\(\boldsymbol{w}\)</span> 와 <span class="math inline">\(\beta\)</span> 를 결정하자. 그렇다면 가능도 함수는 다음과 같이 주어진다. <span id="eq-ML_statistics_curve_fitting_likelihood"><span class="math display">\[
 p(\boldsymbol{t}\mid \boldsymbol{x},\,\boldsymbol{w},\,\beta)=\prod_{n=1}^N \mathcal{N}(t_n\mid y(x_n,\, \boldsymbol{w}),\, \beta^{-1}).
-\tag{3.38}\]</span></span></p>
+\tag{3.39}\]</span></span></p>
 <p>앞서와 같이 <span class="math inline">\(\ln\)</span> 을 취하면</p>
 <p><span id="eq-ML_statistics_curve_fitting_likelihood_log"><span class="math display">\[
 \ln p(\boldsymbol{t}\mid \boldsymbol{x},\, \boldsymbol{w},\,\beta)= -\dfrac{\beta}{2} \sum_{n=1}^N \left[y(x_n,\,\boldsymbol{w})-t_n\right]^2+\dfrac{N}{2} \ln \beta - \dfrac{N}{2} \ln (2\pi)
-\tag{3.39}\]</span></span></p>
+\tag{3.40}\]</span></span></p>
 <p>이 된다.</p>
 <ul>
-<li><p><a href="#eq-ML_statistics_curve_fitting_likelihood_log" class="quarto-xref">식&nbsp;<span>3.39</span></a> 로부터 고정된 <span class="math inline">\(\beta\)</span> 에 대해 <span class="math inline">\(p(\boldsymbol{t}\mid \boldsymbol{x},\, \boldsymbol{w},\,\beta)\)</span> 를 최대화 하는 것과 <span class="math inline">\(\displaystyle \dfrac{1}{2}\sum_{n=1}^N \left[ y(x_n,\,\boldsymbol{w})-t_n\right]^2\)</span> 를 최소화하는 것, 즉 제곱합 오차를 최소화 하는것은 동치라는 것을 알 수 있다. 이 <span class="math inline">\(\boldsymbol{w}\)</span> 를 <span class="math inline">\(\boldsymbol{w}_{ML}\)</span>이라 하자.</p></li>
+<li><p><a href="#eq-ML_statistics_curve_fitting_likelihood_log" class="quarto-xref">식&nbsp;<span>3.40</span></a> 로부터 고정된 <span class="math inline">\(\beta\)</span> 에 대해 <span class="math inline">\(p(\boldsymbol{t}\mid \boldsymbol{x},\, \boldsymbol{w},\,\beta)\)</span> 를 최대화 하는 것과 <span class="math inline">\(\displaystyle \dfrac{1}{2}\sum_{n=1}^N \left[ y(x_n,\,\boldsymbol{w})-t_n\right]^2\)</span> 를 최소화하는 것, 즉 제곱합 오차를 최소화 하는것은 동치라는 것을 알 수 있다. 이 <span class="math inline">\(\boldsymbol{w}\)</span> 를 <span class="math inline">\(\boldsymbol{w}_{ML}\)</span>이라 하자.</p></li>
 <li><p>또한 <span class="math inline">\(\beta\)</span> 에 대해 미분하여 <span class="math inline">\(p\)</span> 를 최대화 하는 <span class="math inline">\(\beta\)</span> 를 찾아 <span class="math inline">\(\beta_{ML}\)</span> 이라 하면, <span id="eq-ML_statistics_cuve_fitting_param_1"><span class="math display">\[
 \dfrac{1}{\beta_{ML}}=\dfrac{1}{N}\sum_{n=1}^N \left[ y(x_n,\, \boldsymbol{w}_{ML})-t_n\right]^2
-\tag{3.40}\]</span></span></p>
+\tag{3.41}\]</span></span></p>
 <p>이다. <span class="math inline">\(\beta\)</span> 역시 <span class="math inline">\(\boldsymbol{w}_{ML}\)</span> 이 결정된 상황에서 제곱합 오차를 최소화 할 때 확률을 최대화 하도록 결정된다.</p></li>
 </ul>
 <p>이제 우리는 주어진 데이터로부터 가장 잘 예측할 수 있는 확률 분포를 다음과 갇이 얻는다.</p>
 <p><span id="eq-ML_statistics_cuve_fitting_most_likely_function"><span class="math display">\[
 p(t\mid x,\,\boldsymbol{w}_{ML},\, \beta_{ML})=\mathcal{N}(t\mid  y(x,\,\boldsymbol{w}_{ML}),\,\beta_{ML}^{-1})
-\tag{3.41}\]</span></span></p>
+\tag{3.42}\]</span></span></p>
 <p><br></p>
 <section id="베이즈-통계를-위한-공식" class="level5 border" style="background-color:#F2F4F4  ;padding:5px;">
 <h5 class="anchored" data-anchor-id="베이즈-통계를-위한-공식"><strong>베이즈 통계를 위한 공식</strong></h5>
@@ -692,7 +692,7 @@ p(a|x,\,y) &amp;= \dfrac{p(x|a,\,y)\, p(a|y)} {p(y|x)}  \tag{B2}
 <p>이제 Bayesian 접근법을 좀 알아보자. 즉 <span class="math inline">\(\boldsymbol{w}\)</span> 에 대한 사전 분포 <span class="math inline">\(p(\boldsymbol{w})\)</span> 에 대한 것이다. <span class="math inline">\(\boldsymbol{w}\)</span> 가 아래와 같은 분포를 따른다고 하자.</p>
 <p><span id="eq-statistics_bayesian_fitting_1"><span class="math display">\[
 p(\boldsymbol{w}|\alpha)=\mathcal{N}(\boldsymbol{w}|\boldsymbol{0},\,\alpha^{-1}\boldsymbol{1}_{M+1})=\left(\dfrac{\alpha}{2\pi}\right)^{(M+1)/2} \exp \left(-\dfrac{\alpha}{2}\boldsymbol{w}^T \boldsymbol{w}\right)
-\tag{3.42}\]</span></span></p>
+\tag{3.43}\]</span></span></p>
 <p>여기서 <span class="math inline">\(M\)</span> 은 다항식의 차수이며 이며 따라서 <span class="math inline">\(\boldsymbol{w}\)</span> 는 <span class="math inline">\(M+1\)</span> 개의 성분을 가진다. <span class="math inline">\(\alpha\)</span> 와 같이 모델 파라메터의 분포를 제어하는 변수를 <strong>초매개변수(hyperparameters)</strong> 라 한다.</p>
 <p>베이즈 정리로 부터, <span class="math display">\[
 [\boldsymbol{w} \text{ 에 대한 사후 확률}] \propto [\text{가능도}]\times[\boldsymbol{w}\text{ 의 사전 확률 분포}]
@@ -700,11 +700,11 @@ p(\boldsymbol{w}|\alpha)=\mathcal{N}(\boldsymbol{w}|\boldsymbol{0},\,\alpha^{-1}
 <p>임을 알고 있으므로,</p>
 <p><span id="eq-ML_statistics_bayesian_fitting_2"><span class="math display">\[
 p(\boldsymbol{w}\,|\,\boldsymbol{x},\,\boldsymbol{t},\,\alpha,\,\beta) \propto p(\boldsymbol{t}\,|\,\boldsymbol{x},\,\boldsymbol{w},\,\beta)\cdot p(\boldsymbol{w}\,|\,\alpha)
-\tag{3.43}\]</span></span></p>
-<p>이다. <a href="#eq-ML_statistics_bayesian_fitting_2" class="quarto-xref">식&nbsp;<span>3.43</span></a> 에 <span class="math inline">\(-\ln\)</span> 을 취하고 <a href="#eq-ML_statistics_curve_fitting_likelihood_log" class="quarto-xref">식&nbsp;<span>3.39</span></a>, <a href="#eq-ML_statistics_cuve_fitting_most_likely_function" class="quarto-xref">식&nbsp;<span>3.41</span></a> 를 대입하면, 사후확률을 극대화 하는 <span class="math inline">\(\boldsymbol{w}\)</span> 는 다음 식을 최소화 하는 것 <span class="math inline">\(\boldsymbol{w}\)</span> 이다.</p>
+\tag{3.44}\]</span></span></p>
+<p>이다. <a href="#eq-ML_statistics_bayesian_fitting_2" class="quarto-xref">식&nbsp;<span>3.44</span></a> 에 <span class="math inline">\(-\ln\)</span> 을 취하고 <a href="#eq-ML_statistics_curve_fitting_likelihood_log" class="quarto-xref">식&nbsp;<span>3.40</span></a>, <a href="#eq-ML_statistics_cuve_fitting_most_likely_function" class="quarto-xref">식&nbsp;<span>3.42</span></a> 를 대입하면, 사후확률을 극대화 하는 <span class="math inline">\(\boldsymbol{w}\)</span> 는 다음 식을 최소화 하는 것 <span class="math inline">\(\boldsymbol{w}\)</span> 이다.</p>
 <p><span id="eq-ML_statistics_bayesian_fitting_3"><span class="math display">\[
 \dfrac{\beta}{2}\sum_{n=1}^N \{y(x_n,\,\boldsymbol{w})-t_n\}^2+\dfrac{\alpha}{2} \boldsymbol{w}^T \boldsymbol{w}.
-\tag{3.44}\]</span></span></p>
+\tag{3.45}\]</span></span></p>
 <p>즉 베이지안에서 사후확률분포를 최대화하는 것은 정규화된 제곱합 오차 함수를 최소화 하는 것과 동등하다.</p>
 <p><br></p>
 </section>
@@ -715,9 +715,9 @@ p(\boldsymbol{w}\,|\,\boldsymbol{x},\,\boldsymbol{t},\,\alpha,\,\beta) \propto p
 <li><p>일단 <span class="math inline">\(\alpha,\,\beta\)</span> 를 고정시키고 (편의를 위해 식에서는 일단 빼자.), test set <span class="math inline">\(\{\boldsymbol{x},\,\boldsymbol{t}\}\)</span> 만을 생각하자. 베이지안 방법은</p>
 <p><span id="eq-ML_statistics_bayesian_fitting_4"><span class="math display">\[
 p(t\,|\,x,\,\mathbf{x},\,\mathbf{t})=\int p(t\mid x,\,\mathbf{w})\, p(\mathbf{w}\mid\mathbf{x},\,\mathbf{t})\,d\mathbf{w}
-\tag{3.45}\]</span></span></p>
-<p>을 생각한다. 여기서 <span class="math inline">\(p(t\mid x,\,\boldsymbol{w})\)</span> 는 식 <a href="#eq-ML_statistics_parameter_distribution" class="quarto-xref">식&nbsp;<span>3.37</span></a> 에 나와 있으며 <span class="math inline">\(p(\boldsymbol{w}\mid \boldsymbol{x},\,\boldsymbol{t})\)</span> 는 사후확률분포이다. (<a href="#eq-ML_statistics_bayesian_fitting_2" class="quarto-xref">식&nbsp;<span>3.43</span></a> 을 보라.)</p></li>
-<li><p>뒤에 보겠지만, curve fitting example 과 같은 문제에서 이 사후확률분포 은 Gaussian 이며 해석적으로 계산 할 수 있다. 비슷하게 <a href="#eq-ML_statistics_bayesian_fitting_4" class="quarto-xref">식&nbsp;<span>3.45</span></a> 도 해석적으로 적분될 수 있으며 그 결과는 아래와 같은 가우시한 형태로 주어진다.</p>
+\tag{3.46}\]</span></span></p>
+<p>을 생각한다. 여기서 <span class="math inline">\(p(t\mid x,\,\boldsymbol{w})\)</span> 는 식 <a href="#eq-ML_statistics_parameter_distribution" class="quarto-xref">식&nbsp;<span>3.38</span></a> 에 나와 있으며 <span class="math inline">\(p(\boldsymbol{w}\mid \boldsymbol{x},\,\boldsymbol{t})\)</span> 는 사후확률분포이다. (<a href="#eq-ML_statistics_bayesian_fitting_2" class="quarto-xref">식&nbsp;<span>3.44</span></a> 을 보라.)</p></li>
+<li><p>뒤에 보겠지만, curve fitting example 과 같은 문제에서 이 사후확률분포 은 Gaussian 이며 해석적으로 계산 할 수 있다. 비슷하게 <a href="#eq-ML_statistics_bayesian_fitting_4" class="quarto-xref">식&nbsp;<span>3.46</span></a> 도 해석적으로 적분될 수 있으며 그 결과는 아래와 같은 가우시한 형태로 주어진다.</p>
 <p><span class="math display">\[
 p(t\mid x,\,\boldsymbol{x},\,\boldsymbol{t}) =\mathcal{N}(t\mid m(x),\, s^2(x))
 \]</span></p>
@@ -766,7 +766,7 @@ s^2(x) &amp;=\beta^{-1}+ \boldsymbol{\phi}(x)^T\boldsymbol{S}\boldsymbol{\phi}(x
 <li><p>우리가 다루고자 하는 입력 데이터가 고차원의 데이터 (<span class="math inline">\(\mathcal{D}-\dim\)</span>)라고 가정해보자. 다항식 근사에서 order <span class="math inline">\(3\)</span> 까지 전개하면 다음과 같다.</p>
 <p><span id="eq-ML_statistics_polynomial_expansion_of_mulitivariable"><span class="math display">\[
 y(\boldsymbol{x},\,\boldsymbol{w})=w_0+\sum_{i=1}^\mathcal{D} w_i x_i + \sum_{i=1}^\mathcal{D}\sum_{j=1}^\mathcal{D} w_{ij}x_ix_j + \sum_{i=1}^\mathcal{D}\sum_{j=1}^\mathcal{D} \sum_{k=1}^\mathcal{D} w_{ijk}x_i x_j x_k
-\tag{3.46}\]</span></span></p>
+\tag{3.47}\]</span></span></p>
 <p><span class="math inline">\(\mathcal{D}\)</span> 에 따라 3차항의 계수의 갯수는 <span class="math inline">\(\mathcal{D}^3\)</span> 개 만큼 증가하는 것처럼 보인다.(실제로는 interchange symmetry 로 인해 이것보다는 작지만 그래도 <span class="math inline">\(\mathcal{D}\gg M\)</span> 일 경우는 <span class="math inline">\(\mathcal{D}^M\)</span> 와 같이 증가한다. (<span class="citation" data-cites="Bishop2006">Bishop (<a href="ML.html#ref-Bishop2006" role="doc-biblioref">2006</a>)</span> exercise 1.16) 이것도 아주 급격하게 증가하는 것이다. )</p></li>
 <li><p><span class="math inline">\({D}\)</span> 차원의 구를 생각하자. <span class="math inline">\({D}\)</span> 가 커질수록 구의 대부분의 부피는 표면에 분포한다. <span class="math inline">\({D}\)</span> 차원에서 반경 <span class="math inline">\(r\)</span> 인 구의 부피 <span class="math inline">\(V_D(r)=K_D r^D\)</span> 이다 여기에 작은 <span class="math inline">\(0&lt;\epsilon\ll 1\)</span> 을 생각하면 구 표면의 두께 <span class="math inline">\(\epsilon\)</span> 만큼의 껍질의 부피와 <span class="math inline">\(D\)</span> 차원에서의 unit sphere 의 부피의 비는, <span class="math display">\[
 \dfrac{V_D(1)-V_D(1-r)}{V_D(1)}=1-(1-\epsilon)^D

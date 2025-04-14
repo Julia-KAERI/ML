@@ -253,8 +253,6 @@ $$
 [\text{Cov}(\bf{x})]_{ij} = \text{Cov}[x_i, x_j]
 $${#eq-ML_statistics_covariance_matrix}
 
-
-
 </br>
 
 마찬가지로 함수에 대한 공분산도 정의 할 수 있다. 
@@ -262,8 +260,6 @@ $${#eq-ML_statistics_covariance_matrix}
 $$
 \text{Cov}[f(x),\, g(y)] = \mathbb{E}_{x, y}\left[(f(x) - \mathbb{E}_x[f(x)])(g(y) - \mathbb{E}_y[g(y)])\right]
 $${#eq-ML_statistics_covariance_for_functions}
-
-
 
 
 </br>
@@ -276,11 +272,11 @@ $${#eq-ML_statistics_covariance_for_functions}
 
 $$
 \begin{aligned}
-P(x) &= \phi^x (1-\phi^x), \\[0.3em]
+P(x) &= \phi^x (1-\phi)^{1-x}, \\[0.3em]
 \mathbb{E}[x]&=\phi, \\[0.3em]
 \text{Var}[x] &= \phi (1-\phi).
 \end{aligned}
-$${# eq-ML_statistics_Bernoulli_distribution}
+$${#eq-ML_statistics_Bernoulli_distribution}
 
 </br>
 
@@ -418,7 +414,7 @@ $${#eq-ML_ststistics_properties_of_gaussian_distribution}
 
 </br>
 
-### 1-변수 가우스분포에서의 $\mu$와 $\sigma^2$ 의 추정 - 최대 가능도
+### 1-변수 가우스분포에서의 $\mu$와 $\sigma^2$ 의 추정 - 최대 가능도 {#sec-ML_statistics_likelyhood_for_the_gaussian}
 
 스칼라 변수  $x$ 에 대해 $N$ 번 측정한 것을 $\bf{x}=\begin{bmatrix}x_1 &\ldots &x_N\end{bmatrix}^T$ 라 하자. 이 관측은 평균이 $\mu$ 이며 분산이 $\sigma^2$ 인 가우시안 분포를 따르는 변수에 대한 각각 독립적인 측정이라고 하자.
 
@@ -455,7 +451,7 @@ $$
 \end{align}
 $$ {#eq-ML_stastistics_mean_and_variance_of_sample_and_population}
 
-식 (1.58)에서 보듯이 $\mathbb{E}\left[\sigma^2_{ML}\right]<\sigma^2$ 이다. 따라서 아래와 같이 정의된 $\widetilde{\sigma\,}^2$ 는 samples 로 부터 추정한 모집단의 분산과 같다. (즉 unbiased.) 이를 표본분산이라 한다.
+식 (1.58)에서 보듯이 $\mathbb{E}\left[\sigma^2_{ML}\right]<\sigma^2$ 이다. 따라서 아래와 같이 정의된 $\widetilde{\sigma\,}^2$ 는 samples 로 부터 추정한 모집단의 분산과 같다. (즉 unbiased.) 이를 표본분산이라 한다. (see @exm-ML_ML_gaussian_distributino_estimator_of_the_variance)
 $$
 \widetilde{\sigma\,}^2 = \dfrac{N}{N-1}\sigma_{ML}^2 = \dfrac{1}{N-1} \sum_{n=1}^N\left(x_n-\mu_{ML}\right)^2 
 $$ {#eq-ML_statistics_population_variance}
