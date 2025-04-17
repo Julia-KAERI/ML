@@ -237,8 +237,10 @@ window.Quarto = {
   <ul class="collapse">
   <li><a href="#sec-ML_ML_point_estimation" id="toc-sec-ML_ML_point_estimation" class="nav-link" data-scroll-target="#sec-ML_ML_point_estimation"><span class="header-section-number">4.4.1</span> 점추정 (Point estimation)</a></li>
   <li><a href="#sec-ML_ML_bias" id="toc-sec-ML_ML_bias" class="nav-link" data-scroll-target="#sec-ML_ML_bias"><span class="header-section-number">4.4.2</span> 편향</a></li>
-  <li><a href="#분산과-표준편차" id="toc-분산과-표준편차" class="nav-link" data-scroll-target="#분산과-표준편차"><span class="header-section-number">4.4.3</span> 분산과 표준편차</a></li>
+  <li><a href="#분산과-표준오차" id="toc-분산과-표준오차" class="nav-link" data-scroll-target="#분산과-표준오차"><span class="header-section-number">4.4.3</span> 분산과 표준오차</a></li>
+  <li><a href="#평균제곱합을-최소화-하는-편향과-분산의-이율배반" id="toc-평균제곱합을-최소화-하는-편향과-분산의-이율배반" class="nav-link" data-scroll-target="#평균제곱합을-최소화-하는-편향과-분산의-이율배반"><span class="header-section-number">4.4.4</span> 평균제곱합을 최소화 하는 편향과 분산의 이율배반</a></li>
   </ul></li>
+  <li><a href="#최대-우도" id="toc-최대-우도" class="nav-link" data-scroll-target="#최대-우도"><span class="header-section-number">4.5</span> 최대 우도</a></li>
   </ul>
 </nav>
     </div>
@@ -420,7 +422,7 @@ window.Quarto = {
 <h3 data-number="4.4.2" class="anchored" data-anchor-id="sec-ML_ML_bias"><span class="header-section-number">4.4.2</span> 편향</h3>
 <p><span class="math inline">\(\boldsymbol{\theta}\)</span> 에 대한 추정량 <span class="math inline">\(\hat{\boldsymbol{\theta}}_m\)</span> 에 대한 편향 <span class="math inline">\(\text{bias}(\hat{\boldsymbol{\theta}}_m)\)</span> 은 다음과 같이 정의된다.</p>
 <p><span id="eq-ML_ML_definition_of_bias"><span class="math display">\[
-\text{bias}(\hat{\boldsymbol{\theta}}_m) = \mathbb{E}(\hat{\boldsymbol{\theta}}_m) -\boldsymbol{\theta}.
+\boxed{\text{bias}(\hat{\boldsymbol{\theta}}_m) = \mathbb{E}(\hat{\boldsymbol{\theta}}_m) -\boldsymbol{\theta}}.
 \tag{4.2}\]</span></span></p>
 <p><span class="math inline">\(\text{bias}(\hat{\boldsymbol{\theta}}_m) = 0\)</span> 일 경우 <span class="math inline">\(\hat{\boldsymbol{\theta}}_m\)</span> 이 편향되지 않았다(unbiased) 라고 하고, 변향되지 않은 추정량을 <strong>불편추정량(不偏推定量, unbiased estimator)</strong> 이라고 한다. 이 경우 <span class="math inline">\(\text{bias}(\hat{\boldsymbol{\theta}}_m) = \mathbb{E}(\hat{\boldsymbol{\theta}}_m)\)</span> 이다. <span class="math inline">\(\lim_{m \to \infty}\text{bias}(\hat{\boldsymbol{\theta}}_m) = 0\)</span> 일 경우 이 <span class="math inline">\(\hat{\boldsymbol{\theta}}_m\)</span> 을 <strong>점근적 불편추정량(asymptotically unbiased estimator)</strong> 이라고 한다.</p>
 <p><br></p>
@@ -453,9 +455,9 @@ P(x^{(i)};\theta)= \theta^{x^{(i)}} (1-\theta)^{1-x^{(i)}}
 P(x^{(i)};\mu,\, \sigma^2)= \dfrac{1}{\sqrt{2\pi \sigma^2}} \exp \left[- \dfrac{\left(x^{(i)}-\mu\right)^2}{2\sigma^2}\right]
 \]</span></p>
 <p>이다. <span class="math inline">\(\mu\)</span> 에 대한 일반적인 추정값은 표본 평균 <span class="math inline">\(\hat{\mu}_m\)</span> 으로 다음과 같다,.</p>
-<p><span class="math display">\[
-\hat{\mu}_m = \dfrac{1}{m} \sum_{i=1}^m x^{(i)}.
-\]</span></p>
+<p><span id="eq-ML_ML_sample_mean"><span class="math display">\[
+\boxed{\hat{\mu}_m = \dfrac{1}{m} \sum_{i=1}^m x^{(i)}}.
+\tag{4.3}\]</span></span></p>
 <p>그렇다면,</p>
 <p><span class="math display">\[
 \begin{aligned}
@@ -470,10 +472,10 @@ P(x^{(i)};\mu,\, \sigma^2)= \dfrac{1}{\sqrt{2\pi \sigma^2}} \exp \left[- \dfrac{
 <p><br></p>
 <div class="border" style="background-color:#F2F4F4  ;padding:5px;">
 <div id="exm-ML_ML_gaussian_distributino_estimator_of_the_variance" class="theorem example">
-<p><span class="theorem-title"><strong>예제 4.3 (가우시안 분포에서의 분산 추정)</strong></span> 가우시안 분포의 분산 <span class="math inline">\(\sigma^2\)</span> 에 대한 일반적인 추정값은 표본 분산 <span class="math inline">\(\hat{\sigma}^2_m\)</span> 으로 다음과 같다,.</p>
-<p><span class="math display">\[
-\hat{\sigma}_m = \dfrac{1}{m} \sum_{i=1}^m  \left(x^{(i)} - \hat{\mu}_m\right)^2
-\]</span></p>
+<p><span class="theorem-title"><strong>예제 4.3 (가우시안 분포에서의 분산 추정)</strong></span> 가우시안 분포의 분산 <span class="math inline">\(\sigma^2\)</span> 에 대한 일반적인 추정값은 <strong>표본 분산(sample variance)</strong> <span class="math inline">\(\hat{\sigma}^2_m\)</span> 으로 다음과 같다,.</p>
+<p><span id="eq-ML_ML_sample_variance"><span class="math display">\[
+\boxed{\hat{\sigma}_m = \dfrac{1}{m} \sum_{i=1}^m  \left(x^{(i)} - \hat{\mu}_m\right)^2}.
+\tag{4.4}\]</span></span></p>
 <p>그렇다면,</p>
 <p><span class="math display">\[
 \text{bias}(\hat{\sigma}^2_m) = \mathbb{E}[\hat{\sigma}^2_m] -\sigma^2
@@ -483,7 +485,8 @@ P(x^{(i)};\mu,\, \sigma^2)= \dfrac{1}{\sqrt{2\pi \sigma^2}} \exp \left[- \dfrac{
 \begin{aligned}
 \mathbb{E}[\hat{\sigma}^2_m] &amp;= \dfrac{1}{m}\mathbb{E}\left[\sum_{i=1}^m \left(x^{(i)} -\hat{\mu}_m\right)^2\right] \\
 &amp;=\dfrac{1}{m}\left[\mathbb{E} \left[(x^{(i)} - \mu - (\hat{\mu}_m - \mu))^2\right]\right] \\[0.3em]
-&amp;= \mathbb{E} \left[\dfrac{1}{m}\sum_{i=1}^m \left(x^{(i)} - \mu\right)^2\right]  +\mathbb{E} \left[\dfrac{1}{m}\sum_{i=1}^m(\hat{\mu}_m- \mu)^2\right]- 2\mathbb{E}\left[\dfrac{1}{m}\sum_{i=1}^m\left(x^{(i)} - \mu\right) \left(\hat{\mu}_m - \mu\right)\right] \\[0.3em]
+&amp;= \mathbb{E} \left[\dfrac{1}{m}\sum_{i=1}^m \left(x^{(i)} - \mu\right)^2\right]  +\mathbb{E} \left[\dfrac{1}{m}\sum_{i=1}^m(\hat{\mu}_m- \mu)^2\right] \\
+&amp;\qquad \qquad - 2\mathbb{E}\left[\dfrac{1}{m}\sum_{i=1}^m\left(x^{(i)} - \mu\right) \left(\hat{\mu}_m - \mu\right)\right] \\[0.3em]
 \end{aligned}
 \]</span></p>
 <p>이다. <a href="statistics.html#eq-ML_ststistics_properties_of_1d_gaussian_distribution" class="quarto-xref">식&nbsp;<span>3.32</span></a> 로 부터</p>
@@ -500,7 +503,8 @@ P(x^{(i)};\mu,\, \sigma^2)= \dfrac{1}{\sqrt{2\pi \sigma^2}} \exp \left[- \dfrac{
 \mathbb{E}\left[(\hat{\mu}_m - \mu)^2\right] &amp;= \mathbb{E}\left[\left(\dfrac{1}{m}\sum_{j=1}^m x^{(i)}-\mu\right)^2\right] \\
 &amp;= \mathbb{E}\left[\left(\dfrac{1}{m}\sum_{j=1}^m x^{(j)}-\mu\right)\left(\dfrac{1}{m}\sum_{k=1}^m x^{(k)}-\mu\right)\right] \\[0.3em]
 &amp;=\dfrac{1}{m^2} \mathbb{E}\left[\left(\sum_{j=1}^m x^{(j)}-m\mu\right) \left(\sum_{k=1}^m x^{(k)}-m\mu\right)\right] \\[0.3em]
-&amp;= \dfrac{1}{m^2} \left\{\mathbb{E}\left[\sum_{j=1}^m \left(x^{(j)}\right)^2\right] + \mathbb{E}\left[\sum_{j,\,k=1,\, j\ne k}^m x^{(j)}x^{(k)} \right]  -2m\mu \mathbb{E}\left[\sum_{j=1}^m x^{(j)}\right] +m^2\mu^2 \right\} \\[0.3em]
+&amp;= \dfrac{1}{m^2} \left\{\mathbb{E}\left[\sum_{j=1}^m \left(x^{(j)}\right)^2\right] + \mathbb{E}\left[\sum_{j,\,k=1,\, j\ne k}^m x^{(j)}x^{(k)} \right] \right. \\
+&amp;\qquad \qquad \left.-2m\mu \mathbb{E}\left[\sum_{j=1}^m x^{(j)}\right] +m^2\mu^2 \right\} \\[0.3em]
 &amp;= \dfrac{1}{m^2} \left(m(\mu^2+\sigma^2) + m(m-1)\mu^2-2m^2\mu^2 + m^2 \mu^2\right) = \dfrac{\sigma^2}{m}
 \end{aligned}
 \]</span></p>
@@ -511,21 +515,61 @@ P(x^{(i)};\mu,\, \sigma^2)= \dfrac{1}{\sqrt{2\pi \sigma^2}} \exp \left[- \dfrac{
 <p>이므로 <span class="math inline">\(\text{bias}\left(\hat{\sigma}^2_m\right) \ne 0\)</span> 이다. 이렇게 정의된 <span class="math inline">\(\hat{\sigma}_m^2\)</span> 는 편향되어 있다. 그러나</p>
 <p><span id="eq-ML_ML_unbiased_sample_variance"><span class="math display">\[
 \tilde{\sigma}_m^2 := \dfrac{1}{m-1} \sum_{i=1}^m \left(x^{(i)}-\mu\right)^2
-\tag{4.3}\]</span></span></p>
+\tag{4.5}\]</span></span></p>
 <p>로 정의하면,</p>
 <p><span class="math display">\[
 \mathbb{E}\left[\tilde{\sigma}_m^2\right] = \sigma^2
 \]</span></p>
-<p>이며, 따라서 <a href="#eq-ML_ML_unbiased_sample_variance" class="quarto-xref">식&nbsp;<span>4.3</span></a> 애서 정의된 <span class="math inline">\(\tilde{\sigma}_m^2\)</span> 를 <strong>불편 표본분산(unbiased sample variance)</strong> 라고 한다.</p>
+<p>이며, 따라서 <a href="#eq-ML_ML_unbiased_sample_variance" class="quarto-xref">식&nbsp;<span>4.5</span></a> 으로 정의된 <span class="math inline">\(\tilde{\sigma}_m^2\)</span> 를 <strong>불편 표본분산(unbiased sample variance)</strong> 라고 한다.</p>
 </div>
 </div>
 <p><br></p>
 </section>
-<section id="분산과-표준편차" class="level3" data-number="4.4.3">
-<h3 data-number="4.4.3" class="anchored" data-anchor-id="분산과-표준편차"><span class="header-section-number">4.4.3</span> 분산과 표준편차</h3>
-
-
+<section id="분산과-표준오차" class="level3" data-number="4.4.3">
+<h3 data-number="4.4.3" class="anchored" data-anchor-id="분산과-표준오차"><span class="header-section-number">4.4.3</span> 분산과 표준오차</h3>
+<p>추정값 <span class="math inline">\(\hat{\theta}\)</span> 에 대한 분산을 <span class="math inline">\(\text{Var}(\hat\theta)\)</span> 라고 표기하고 이 분산의 제곱근을 표준오차(standard error) 라고 하며 <span class="math inline">\(\text{SE}(\hat\theta)\)</span> 라고 표기한다. 이 분산과 표준오차는 우리가 동일한 데이터 생성 과정을 통해 데이터를 리샘플링 할 경우 발생할 수 있는 변화에 대한 추정량이다.</p>
+<p>우리거 어떤 통계학적 계산을 유한개의 샘플로 수차례 수행할 경우 각 경우마다 결과값이 다를 수 있고, 많은 경우 그러하다. 평균에 대한 표준오차는 다음과 같다.</p>
+<p><span class="math display">\[
+\text{SE}(\hat{\mu}_m) = \sqrt{\text{Var}\left[\dfrac{1}{m} \sum_{i=1}^m x^{(i)} \right]} = \dfrac{\sigma}{\sqrt{m}}.
+\]</span></p>
+<p>여기서 <span class="math inline">\(\sigma^2\)</span> 는 <span class="math inline">\(x^{(i)}\)</span> 가 따르는 분포의 실제 분산이다.</p>
+<p>평균에 대한 표준 오차는 기계 학습 실험에서 매우 유용하다. 보통 시험 데이터셋에서의 샘플 평균에 대한 오차를 계산하여 일반화 오차를 가늠한다. 이 경우 시험 데이터셋의 갯수가 이 추정의 정확도를 결정한다. 중심극한정리는 이 평균값이 근사적으로 정규분포를 따른다는 것을 보장한다. 실제 기대값이 정해진 범위 안에 있을 확률을 계산 할 수 있다. 예를 들어 95% 신뢰구간은</p>
+<p><span class="math display">\[
+(\hat{\mu}_m - 1.96 \, \text{SE}(\hat{\mu}_m)) ,\, \hat{\mu}_m + 1.96 \, \text{SE}(\hat{\mu}_m))
+\]</span></p>
+<p>이다. 기계학습에서 알고리즘 <span class="math inline">\(A\)</span> 가 <span class="math inline">\(B\)</span></p>
+<div class="border" style="background-color:#F2F4F4  ;padding:5px;">
+<div id="exm-ML_ML_bernoulli_distribution_variance_and_standard_error" class="theorem example">
+<p><span class="theorem-title"><strong>예제 4.4 (베르누이 분포에서의 표준오차)</strong></span> 베르누이 분포와 i.i.d 가정을 따르는 샘플 <span class="math inline">\(\{x^{(1)},\ldots,\,x^{(m)}\}\)</span> 을 생각하자. 베르누이 분포가 <span class="math inline">\(P(x^{(i)};\theta) = \theta^{x^{(i)}} (1-\theta)^{(1-x^{i})}\)</span> 이다. 이 경우</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{Var}(\hat{\theta}_m) = \text{Var} \left(\dfrac{1}{m}\sum_{i=1}^m x^{(i)}\right) = \dfrac{\theta (1-\theta)}{m}
+\end{aligned}
+\]</span></p>
+<p>이다.</p>
+</div>
+</div>
+<p><br></p>
 </section>
+<section id="평균제곱합을-최소화-하는-편향과-분산의-이율배반" class="level3" data-number="4.4.4">
+<h3 data-number="4.4.4" class="anchored" data-anchor-id="평균제곱합을-최소화-하는-편향과-분산의-이율배반"><span class="header-section-number">4.4.4</span> 평균제곱합을 최소화 하는 편향과 분산의 이율배반</h3>
+<p>편향(bias)은 함수 혹은 매개변수의 실제값과 기대값의 차이에 대한 척도이며, 분산은 어떤 특정한 표본 추출이 발생시키는 추정값과 실제값의 차이에 대한 척도이다. 이 편향과</p>
+<p><span class="math display">\[
+\begin{aligned}
+\text{MSE} &amp;= \mathbb{E}\left[(\hat{\theta}_m - \theta)^2\right]
+\end{aligned}
+\]</span></p>
+<ul>
+<li>to be done *</li>
+</ul>
+<hr>
+<p><br></p>
+</section>
+</section>
+<section id="최대-우도" class="level2" data-number="4.5">
+<h2 data-number="4.5" class="anchored" data-anchor-id="최대-우도"><span class="header-section-number">4.5</span> 최대 우도</h2>
+
+
 </section>
 
 </main> <!-- /main -->

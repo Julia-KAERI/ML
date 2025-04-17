@@ -199,7 +199,7 @@ $$ {#eq-ML_ML_point_estimate}
 $\bf\theta$ 에 대한 추정량 $\hat{\bf{\theta}}_m$ 에 대한 편향 $\text{bias}(\hat{\bf{\theta}}_m)$ 은 다음과 같이 정의된다.
 
 $$
-\text{bias}(\hat{\bf{\theta}}_m) = \mathbb{E}(\hat{\bf{\theta}}_m) -\bf{\theta}.
+\boxed{\text{bias}(\hat{\bf{\theta}}_m) = \mathbb{E}(\hat{\bf{\theta}}_m) -\bf{\theta}}.
 $$ {#eq-ML_ML_definition_of_bias}
 
 $\text{bias}(\hat{\bf{\theta}}_m) = 0$ 일 경우 $\hat{\bf{\theta}}_m$ 이 편향되지 않았다(unbiased) 라고 하고, 변향되지 않은 추정량을 **불편추정량(不偏推定量, unbiased estimator)** 이라고 한다. 이 경우 $\text{bias}(\hat{\bf{\theta}}_m) = \mathbb{E}(\hat{\bf{\theta}}_m)$ 이다. $\lim_{m \to \infty}\text{bias}(\hat{\bf{\theta}}_m) = 0$ 일 경우 이 $\hat{\bf{\theta}}_m$ 을 **점근적 불편추정량(asymptotically unbiased estimator)** 이라고 한다.
@@ -253,8 +253,8 @@ $$
 이다. $\mu$ 에 대한 일반적인 추정값은 표본 평균 $\hat{\mu}_m$ 으로 다음과 같다,.
 
 $$
-\hat{\mu}_m = \dfrac{1}{m} \sum_{i=1}^m x^{(i)}.
-$$
+\boxed{\hat{\mu}_m = \dfrac{1}{m} \sum_{i=1}^m x^{(i)}}.
+$$ {#eq-ML_ML_sample_mean}
 
 그렇다면,
 
@@ -278,11 +278,11 @@ $$
 ::: {#exm-ML_ML_gaussian_distributino_estimator_of_the_variance}
 #### 가우시안 분포에서의 분산 추정
 
-가우시안 분포의 분산 $\sigma^2$ 에 대한 일반적인 추정값은 표본 분산 $\hat{\sigma}^2_m$ 으로 다음과 같다,.
+가우시안 분포의 분산 $\sigma^2$ 에 대한 일반적인 추정값은 **표본 분산(sample variance)** $\hat{\sigma}^2_m$ 으로 다음과 같다,.
 
 $$
-\hat{\sigma}_m = \dfrac{1}{m} \sum_{i=1}^m  \left(x^{(i)} - \hat{\mu}_m\right)^2
-$$
+\boxed{\hat{\sigma}_m = \dfrac{1}{m} \sum_{i=1}^m  \left(x^{(i)} - \hat{\mu}_m\right)^2}.
+$$ {#eq-ML_ML_sample_variance}
 
 그렇다면,
 
@@ -296,7 +296,8 @@ $$
 \begin{aligned}
 \mathbb{E}[\hat{\sigma}^2_m] &= \dfrac{1}{m}\mathbb{E}\left[\sum_{i=1}^m \left(x^{(i)} -\hat{\mu}_m\right)^2\right] \\
 &=\dfrac{1}{m}\left[\mathbb{E} \left[(x^{(i)} - \mu - (\hat{\mu}_m - \mu))^2\right]\right] \\[0.3em]
-&= \mathbb{E} \left[\dfrac{1}{m}\sum_{i=1}^m \left(x^{(i)} - \mu\right)^2\right]  +\mathbb{E} \left[\dfrac{1}{m}\sum_{i=1}^m(\hat{\mu}_m- \mu)^2\right]- 2\mathbb{E}\left[\dfrac{1}{m}\sum_{i=1}^m\left(x^{(i)} - \mu\right) \left(\hat{\mu}_m - \mu\right)\right] \\[0.3em]
+&= \mathbb{E} \left[\dfrac{1}{m}\sum_{i=1}^m \left(x^{(i)} - \mu\right)^2\right]  +\mathbb{E} \left[\dfrac{1}{m}\sum_{i=1}^m(\hat{\mu}_m- \mu)^2\right] \\
+&\qquad \qquad - 2\mathbb{E}\left[\dfrac{1}{m}\sum_{i=1}^m\left(x^{(i)} - \mu\right) \left(\hat{\mu}_m - \mu\right)\right] \\[0.3em]
 \end{aligned}
 $$
 
@@ -317,7 +318,8 @@ $$
 \mathbb{E}\left[(\hat{\mu}_m - \mu)^2\right] &= \mathbb{E}\left[\left(\dfrac{1}{m}\sum_{j=1}^m x^{(i)}-\mu\right)^2\right] \\
 &= \mathbb{E}\left[\left(\dfrac{1}{m}\sum_{j=1}^m x^{(j)}-\mu\right)\left(\dfrac{1}{m}\sum_{k=1}^m x^{(k)}-\mu\right)\right] \\[0.3em]
 &=\dfrac{1}{m^2} \mathbb{E}\left[\left(\sum_{j=1}^m x^{(j)}-m\mu\right) \left(\sum_{k=1}^m x^{(k)}-m\mu\right)\right] \\[0.3em]
-&= \dfrac{1}{m^2} \left\{\mathbb{E}\left[\sum_{j=1}^m \left(x^{(j)}\right)^2\right] + \mathbb{E}\left[\sum_{j,\,k=1,\, j\ne k}^m x^{(j)}x^{(k)} \right]  -2m\mu \mathbb{E}\left[\sum_{j=1}^m x^{(j)}\right] +m^2\mu^2 \right\} \\[0.3em]
+&= \dfrac{1}{m^2} \left\{\mathbb{E}\left[\sum_{j=1}^m \left(x^{(j)}\right)^2\right] + \mathbb{E}\left[\sum_{j,\,k=1,\, j\ne k}^m x^{(j)}x^{(k)} \right] \right. \\
+&\qquad \qquad \left.-2m\mu \mathbb{E}\left[\sum_{j=1}^m x^{(j)}\right] +m^2\mu^2 \right\} \\[0.3em]
 &= \dfrac{1}{m^2} \left(m(\mu^2+\sigma^2) + m(m-1)\mu^2-2m^2\mu^2 + m^2 \mu^2\right) = \dfrac{\sigma^2}{m}
 \end{aligned}
 $$
@@ -340,7 +342,7 @@ $$
 \mathbb{E}\left[\tilde{\sigma}_m^2\right] = \sigma^2
 $$
 
-이며, 따라서 @eq-ML_ML_unbiased_sample_variance 애서 정의된 $\tilde{\sigma}_m^2$ 를 **불편 표본분산(unbiased sample variance)** 라고 한다.
+이며, 따라서 @eq-ML_ML_unbiased_sample_variance 으로 정의된 $\tilde{\sigma}_m^2$ 를 **불편 표본분산(unbiased sample variance)** 라고 한다.
 
 :::
 
@@ -348,7 +350,66 @@ $$
 
 </br>
 
-### 분산과 표준편차
+### 분산과 표준오차
+
+추정값 $\hat{\theta}$ 에 대한 분산을 $\text{Var}(\hat\theta)$ 라고 표기하고 이 분산의 제곱근을 표준오차(standard error) 라고 하며 $\text{SE}(\hat\theta)$ 라고 표기한다. 이 분산과 표준오차는 우리가 동일한 데이터 생성 과정을 통해 데이터를 리샘플링 할 경우 발생할 수 있는 변화에 대한 추정량이다. 
+
+우리거 어떤 통계학적 계산을 유한개의 샘플로 수차례 수행할 경우 각 경우마다 결과값이 다를 수 있고, 많은 경우 그러하다. 평균에 대한 표준오차는 다음과 같다.
+
+$$
+\text{SE}(\hat{\mu}_m) = \sqrt{\text{Var}\left[\dfrac{1}{m} \sum_{i=1}^m x^{(i)} \right]} = \dfrac{\sigma}{\sqrt{m}}.
+$$
+
+여기서 $\sigma^2$ 는 $x^{(i)}$ 가 따르는 분포의 실제 분산이다. 
+
+평균에 대한 표준 오차는 기계 학습 실험에서 매우 유용하다. 보통 시험 데이터셋에서의 샘플 평균에 대한 오차를 계산하여 일반화 오차를 가늠한다. 이 경우 시험 데이터셋의 갯수가 이 추정의 정확도를 결정한다. 중심극한정리는 이 평균값이 근사적으로 정규분포를 따른다는 것을 보장한다. 실제 기대값이 정해진 범위 안에 있을 확률을 계산 할 수 있다. 예를 들어 95% 신뢰구간은
+
+$$
+(\hat{\mu}_m - 1.96 \, \text{SE}(\hat{\mu}_m)) ,\, \hat{\mu}_m + 1.96 \, \text{SE}(\hat{\mu}_m))
+$$
+
+이다. 기계학습에서 알고리즘 $A$ 가 $B$ 
+
+<div class="border" style="background-color:#F2F4F4  ;padding:5px;">
+
+::: {#exm-ML_ML_bernoulli_distribution_variance_and_standard_error}
+#### 베르누이 분포에서의 표준오차
+
+베르누이 분포와 i.i.d 가정을 따르는 샘플 $\{x^{(1)},\ldots,\,x^{(m)}\}$ 을 생각하자. 베르누이 분포가 $P(x^{(i)};\theta) = \theta^{x^{(i)}} (1-\theta)^{(1-x^{i})}$ 이다. 이 경우
+
+$$
+\begin{aligned}
+\text{Var}(\hat{\theta}_m) = \text{Var} \left(\dfrac{1}{m}\sum_{i=1}^m x^{(i)}\right) = \dfrac{\theta (1-\theta)}{m}
+\end{aligned}
+$$
+
+이다. 
+
+:::
+
+</div>
+
+</br>
+
+### 평균제곱합을 최소화 하는 편향과 분산의 이율배반
+
+편향(bias)은 함수 혹은 매개변수의 실제값과 기대값의 차이에 대한 척도이며, 분산은 어떤 특정한 표본 추출이 발생시키는 추정값과 실제값의 차이에 대한 척도이다. 이 편향과
+
+$$
+\begin{aligned}
+\text{MSE} &= \mathbb{E}\left[(\hat{\theta}_m - \theta)^2\right]
+\end{aligned}
+$$
+
+
+* to be done *
+
+----
+
+</br>
+
+## 최대 우도 
+
 
 
 
